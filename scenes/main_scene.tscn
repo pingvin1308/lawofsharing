@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=4 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=13 format=4 uid="uid://r7wcxmse6nc1"]
 
 [ext_resource type="TileSet" uid="uid://c5cbuwf1adarh" path="res://tilesets/game_tilesets.tres" id="1_kyf70"]
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
-[ext_resource type="PackedScene" uid="uid://bqu6hyreckurp" path="res://scenes/machines/water_cooler_machine.tscn" id="3_mbhy2"]
+[ext_resource type="Script" path="res://scenes/rooms/room.gd" id="2_moq3t"]
+[ext_resource type="PackedScene" uid="uid://bqu6hyreckurp" path="res://scenes/machines/water_cooler/water_cooler.tscn" id="3_mbhy2"]
 [ext_resource type="PackedScene" uid="uid://1sp8f4hod2q0" path="res://scenes/machines/resource_transporter_machine.tscn" id="4_p0anr"]
 [ext_resource type="Script" path="res://scenes/rooms/resources.gd" id="5_e1syh"]
+[ext_resource type="PackedScene" uid="uid://day0p74kiaj13" path="res://scenes/machines/charger/charger.tscn" id="6_b1fj7"]
+[ext_resource type="PackedScene" uid="uid://cjayo7rk8oxhe" path="res://scenes/machines/terminal/terminal.tscn" id="7_j73g2"]
+[ext_resource type="PackedScene" uid="uid://casmgiqdgedlc" path="res://scenes/machines/oxygen_balloons_stand/oxygen_balloons_stand.tscn" id="8_pbm0h"]
+[ext_resource type="PackedScene" uid="uid://d2obb6l06trj6" path="res://scenes/machines/components_stand/components_stand.tscn" id="9_jfp88"]
+[ext_resource type="PackedScene" uid="uid://dxusup7xpgfr4" path="res://scenes/machines/food_stand/food_stand.tscn" id="10_jiu1j"]
+[ext_resource type="PackedScene" uid="uid://wvdi0syhg3r" path="res://scenes/machines/sleep_room/sleep_room.tscn" id="12_ltr3x"]
 
 [node name="main_scene" type="Node2D"]
 y_sort_enabled = true
@@ -22,17 +29,40 @@ tile_map_data = PackedByteArray("AAAFAAMAAAACAAEAAAAGAAMAAAADAAEAAAAHAAMAAAAEAAE
 tile_set = ExtResource("1_kyf70")
 use_kinematic_bodies = true
 
-[node name="Player" parent="." instance=ExtResource("2_intmt")]
-position = Vector2(224, 110)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="ResourceTransporterMachine" parent="." instance=ExtResource("4_p0anr")]
-
-[node name="WaterCoolerMachine" parent="." instance=ExtResource("3_mbhy2")]
-position = Vector2(390, 83)
-
-[node name="Room1" type="Node2D" parent="."]
+[node name="Room1" type="Node2D" parent="." node_paths=PackedStringArray("character_body")]
+y_sort_enabled = true
+script = ExtResource("2_moq3t")
+character_body = NodePath("Player")
 
 [node name="Resources" type="Node" parent="Room1"]
 script = ExtResource("5_e1syh")
+
+[node name="Player" parent="Room1" instance=ExtResource("2_intmt")]
+position = Vector2(234, 101)
+
+[node name="Camera2D" type="Camera2D" parent="Room1/Player"]
+
+[node name="ResourceTransporterMachine" parent="Room1" instance=ExtResource("4_p0anr")]
+
+[node name="WaterCooler" parent="Room1" instance=ExtResource("3_mbhy2")]
+position = Vector2(176, 77)
+
+[node name="Charger" parent="Room1" instance=ExtResource("6_b1fj7")]
+position = Vector2(395, 73)
+
+[node name="Terminal" parent="Room1" instance=ExtResource("7_j73g2")]
+position = Vector2(342, 72)
+
+[node name="OxygenBalloonsStand" parent="Room1" instance=ExtResource("8_pbm0h")]
+position = Vector2(391, 160)
+
+[node name="ComponentsStand" parent="Room1" instance=ExtResource("9_jfp88")]
+position = Vector2(293, 71)
+
+[node name="FoodStand" parent="Room1" instance=ExtResource("10_jiu1j")]
+position = Vector2(136, 72)
+
+[node name="SleepRoom" parent="Room1" instance=ExtResource("12_ltr3x")]
+position = Vector2(88, 130)
+
+[node name="Room2" type="Node2D" parent="."]

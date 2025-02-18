@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjayo7rk8oxhe"]
+
+[ext_resource type="Script" path="res://scenes/machines/terminal/terminal.gd" id="1_d3qyj"]
+[ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_qwvat"]
+[ext_resource type="Texture2D" uid="uid://y2ek683hkfl4" path="res://assets/machines/terminal.png" id="2_ugrfe"]
+[ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="3_lir5u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xo3de"]
+shader = ExtResource("2_qwvat")
+shader_parameter/is_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00e68"]
+size = Vector2(26, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxerk"]
+size = Vector2(32, 36)
+
+[node name="Terminal" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_d3qyj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_xo3de")
+position = Vector2(0, -4)
+texture = ExtResource("2_ugrfe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_00e68")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("3_lir5u")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_xxerk")
+debug_color = Color(0.577666, 0.552219, 0.0673531, 0.42)
+
+[connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
+[connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

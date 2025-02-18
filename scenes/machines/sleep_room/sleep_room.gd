@@ -1,0 +1,31 @@
+class_name SleepRoom
+extends StaticBody2D
+
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var interactable_component: InteractableComponent = $InteractableComponent
+
+var is_in_range: bool = false
+
+
+func _on_interactable_activated() -> void:
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
+	is_in_range = true
+
+
+func _on_interactable_deactivated() -> void:
+	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", false)
+	is_in_range = false
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	pass
+	#if is_in_range && event.is_action_pressed("interact"):
+		#var current_electricity = interactable_component.interactor.resources.electricity
+		#var max_electricity = interactable_component.interactor.resources.MAX_ELECTRICITY
+		#var needed_electricity = max_electricity - current_electricity
+		#if (needed_electricity <= 0):
+			#return
+#
+		#var value = needed_electricity if source - needed_electricity > 0 else source
+		#source -= value
+		#EventBus.machine_electricity_changed.emit(value)

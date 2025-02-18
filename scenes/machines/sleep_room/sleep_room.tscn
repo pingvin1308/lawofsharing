@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://wvdi0syhg3r"]
+
+[ext_resource type="Script" path="res://scenes/machines/sleep_room/sleep_room.gd" id="1_c7hm0"]
+[ext_resource type="Texture2D" uid="uid://cf4henpibn172" path="res://assets/machines/sleep_room.png" id="2_12rnv"]
+[ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_vu41e"]
+[ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="3_3pk3l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0t350"]
+shader = ExtResource("2_vu41e")
+shader_parameter/is_enabled = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qkqwa"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5u5ko"]
+radius = 17.0294
+
+[node name="SleepRoom" type="StaticBody2D"]
+y_sort_enabled = true
+collision_mask = 3
+script = ExtResource("1_c7hm0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_0t350")
+position = Vector2(0, -10)
+texture = ExtResource("2_12rnv")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qkqwa")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("3_3pk3l")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_5u5ko")
+debug_color = Color(0.624971, 0.532156, 1.92523e-07, 0.42)
+
+[connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
+[connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

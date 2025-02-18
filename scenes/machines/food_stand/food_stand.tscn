@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://dxusup7xpgfr4"]
+
+[ext_resource type="Script" path="res://scenes/machines/food_stand/food_stand.gd" id="1_jgxel"]
+[ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_hnneh"]
+[ext_resource type="Texture2D" uid="uid://b7v4b0di32id" path="res://assets/machines/food_stand.png" id="3_3qpub"]
+[ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="4_rq8cn"]
+[ext_resource type="Script" path="res://scenes/machines/water_cooler/control_menu.gd" id="5_8i36a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h6jfp"]
+shader = ExtResource("2_hnneh")
+shader_parameter/is_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbrgf"]
+size = Vector2(18, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rov4q"]
+size = Vector2(30, 40)
+
+[node name="FoodStand" type="StaticBody2D"]
+collision_mask = 3
+script = ExtResource("1_jgxel")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_h6jfp")
+position = Vector2(0, -9)
+texture = ExtResource("3_3qpub")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_tbrgf")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("4_rq8cn")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_rov4q")
+debug_color = Color(0.679596, 0.503271, 0.0609403, 0.42)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -39.0
+offset_right = 8.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_8i36a")
+
+[node name="Button" type="Button" parent="ControlMenu"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -58.0
+offset_right = 9.0
+offset_bottom = -43.0
+theme_override_font_sizes/font_size = 4
+text = "eat"
+
+[node name="Button2" type="Button" parent="ControlMenu"]
+layout_mode = 0
+offset_left = -26.0
+offset_top = -41.0
+offset_right = -13.0
+offset_bottom = -26.0
+theme_override_font_sizes/font_size = 4
+text = "fix"
+
+[node name="Button3" type="Button" parent="ControlMenu"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -41.0
+offset_right = 33.0
+offset_bottom = -26.0
+theme_override_font_sizes/font_size = 4
+text = "break"
+
+[connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
+[connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

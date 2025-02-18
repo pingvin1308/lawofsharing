@@ -4,16 +4,28 @@ extends CharacterBody2D
 @onready var input_controller: InputController = $InputController
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var resources: CharacterResources = $CharacterResources
+@onready var oxygen_timer: Timer = $OxygenTimer
+@onready var oxygen_label: Label = $OxygenLabel
 
 @export var speed: int = 100
 @export var lerp_speed: float = 50
 @export var lerp_velocity_value_on_floor: float = 16
 
 var direction: Vector2 = Vector2.ZERO
+var current_room: Room
 
 
 func _ready() -> void:
+	process_mode = PROCESS_MODE_DISABLED
 	EventBus.machine_water_changed.connect(_on_machine_water_changed)
+	EventBus.machine_food_changed.connect(_on_machine_food_changed)
+	oxygen_timer.timeout.connect(_on_oxygen_decreased)
+	oxygen_label.text = str(resources.oxygen)
+
+
+func init(room: Room) -> void:
+	current_room = room
+	process_mode = PROCESS_MODE_INHERIT
 
 
 func _physics_process(delta: float) -> void:
@@ -50,6 +62,21 @@ func _move_character(input_direction: Vector2, delta: float) -> void:
 
 func _on_machine_water_changed(value: int) -> void:
 	resources.water += value
+
+
+func _on_machine_food_changed(value: int) -> void:
+	resources.food += value
+
+
+func _on_oxygen_decreased() -> void:
+	assert(current_room, "player cannot be outside of a room")
+	var room_oxygen = current_room.oxygen_balloons_stand.source
+	if room_oxygen > 0:
+		current_room.oxygen_balloons_stand.source -= 1
+	else:
+		resources.oxygen -= 1
+		oxygen_label.text = str(resources.oxygen)
+
 
 func _play_animation(input_direction: Vector2) -> void:
 	var animation_name = _get_walk_animation_name(input_direction)

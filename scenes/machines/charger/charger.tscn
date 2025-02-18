@@ -1,0 +1,88 @@
+[gd_scene load_steps=9 format=3 uid="uid://day0p74kiaj13"]
+
+[ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="1_bmqb7"]
+[ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="1_g1lqu"]
+[ext_resource type="Script" path="res://scenes/machines/charger/charger.gd" id="1_oyxca"]
+[ext_resource type="Texture2D" uid="uid://dickcl4u3wcmd" path="res://assets/machines/charger.png" id="1_t02n8"]
+[ext_resource type="Script" path="res://scenes/machines/water_cooler/control_menu.gd" id="5_wo1ol"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_abo0h"]
+shader = ExtResource("1_g1lqu")
+shader_parameter/is_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uu11u"]
+size = Vector2(32, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2m5rr"]
+size = Vector2(38, 37)
+
+[node name="Charger" type="StaticBody2D"]
+y_sort_enabled = true
+collision_mask = 3
+script = ExtResource("1_oyxca")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_abo0h")
+position = Vector2(0, -6)
+texture = ExtResource("1_t02n8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uu11u")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("1_bmqb7")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_2m5rr")
+debug_color = Color(0.642092, 0.522067, 0.114012, 0.42)
+
+[node name="Label" type="Label" parent="."]
+z_index = 1
+y_sort_enabled = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -28.0
+offset_right = 8.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ControlMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_wo1ol")
+
+[node name="Button2" type="Button" parent="ControlMenu"]
+layout_mode = 0
+offset_left = -26.0
+offset_top = -37.0
+offset_right = -13.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 4
+text = "fix"
+
+[node name="Button3" type="Button" parent="ControlMenu"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = -37.0
+offset_right = 33.0
+offset_bottom = -22.0
+theme_override_font_sizes/font_size = 4
+text = "break"
+
+[connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
+[connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]
