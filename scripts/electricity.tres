@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ResourceItem" load_steps=4 format=3 uid="uid://8gcpmieguc7q"]
+
+[ext_resource type="Script" path="res://scripts/resource_item.gd" id="2_nq1gr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_t4ojj"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxnav"]
+atlas = SubResource("CompressedTexture2D_t4ojj")
+region = Rect2(18, 16, 12, 15)
+
+[resource]
+script = ExtResource("2_nq1gr")
+type = 3
+icon = SubResource("AtlasTexture_jxnav")

@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7w5ebk5p5h3f"]
+
+[ext_resource type="Script" path="res://scenes/machines/conveyour_belt/receiver.gd" id="1_1y4aa"]
+[ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_qb8b3"]
+[ext_resource type="SpriteFrames" uid="uid://bjoqvohieas66" path="res://assets/machines/receiver.res" id="3_cyci1"]
+[ext_resource type="Script" path="res://scenes/machines/interactable_component.gd" id="4_aldwk"]
+[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_gt6kq"]
+[ext_resource type="Script" path="res://scenes/machines/conveyour_belt/resource_queue.gd" id="6_a2ul2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oescr"]
+shader = ExtResource("2_qb8b3")
+shader_parameter/is_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_egylr"]
+size = Vector2(58, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ocj2"]
+size = Vector2(85, 31)
+
+[node name="Receiver" type="StaticBody2D"]
+y_sort_enabled = true
+collision_mask = 2
+script = ExtResource("1_1y4aa")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_oescr")
+position = Vector2(0, -1)
+sprite_frames = ExtResource("3_cyci1")
+offset = Vector2(0, -17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_egylr")
+
+[node name="InteractableComponent" type="Area2D" parent="."]
+position = Vector2(-1, -19)
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("4_aldwk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(-4.5, 17.5)
+shape = SubResource("RectangleShape2D_6ocj2")
+debug_color = Color(0.53339, 0.56722, 0.156011, 0.42)
+
+[node name="ControlMenu" parent="." instance=ExtResource("5_gt6kq")]
+visible = false
+offset_left = -18.0
+offset_top = -69.0
+offset_right = 65.0
+offset_bottom = -29.0
+action_name = "retrieve"
+is_breakable = false
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(19, -4)
+
+[node name="ResourceQueue" type="Control" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(76, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 9.0
+offset_top = -49.0
+offset_right = 49.0
+offset_bottom = -31.0
+script = ExtResource("6_a2ul2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourceQueue"]
+z_index = 1
+custom_minimum_size = Vector2(76, 16)
+layout_mode = 1
+offset_right = 152.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+theme_override_constants/separation = 0

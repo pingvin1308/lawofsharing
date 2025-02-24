@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjayo7rk8oxhe"]
+[gd_scene load_steps=11 format=3 uid="uid://cjayo7rk8oxhe"]
 
 [ext_resource type="Script" path="res://scenes/machines/terminal/terminal.gd" id="1_d3qyj"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_qwvat"]
 [ext_resource type="Texture2D" uid="uid://y2ek683hkfl4" path="res://assets/machines/terminal.png" id="2_ugrfe"]
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="3_lir5u"]
+[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="4_kwi8c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xo3de"]
 shader = ExtResource("2_qwvat")
@@ -11,6 +12,13 @@ shader_parameter/is_enabled = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00e68"]
 size = Vector2(26, 9)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sopih"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r4wai"]
+atlas = SubResource("CompressedTexture2D_sopih")
+region = Rect2(81, 18, 14, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xxerk"]
 size = Vector2(32, 36)
@@ -27,6 +35,29 @@ texture = ExtResource("2_ugrfe")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_00e68")
+
+[node name="ControlMenu" parent="." instance=ExtResource("4_kwi8c")]
+visible = false
+offset_left = -38.0
+offset_top = -54.0
+offset_right = 45.0
+offset_bottom = -14.0
+action_name = "open"
+is_breakable = false
+
+[node name="Icon" type="TextureRect" parent="."]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+offset_left = -8.0
+offset_top = -36.0
+offset_right = 8.0
+offset_bottom = -20.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_r4wai")
+expand_mode = 4
+stretch_mode = 3
 
 [node name="InteractableComponent" parent="." instance=ExtResource("3_lir5u")]
 

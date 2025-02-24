@@ -1,44 +1,40 @@
 class_name Charger
-extends StaticBody2D
+extends MachineBase
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var label: Label = $Label
+@onready var label: Label = $ChargerIcon/Label
 @onready var interactable_component: InteractableComponent = $InteractableComponent
-@onready var control_menu: Control = $ControlMenu
+@onready var control_menu: ControlMenu = $ControlMenu
 
+var room_name: String
 var is_in_range: bool = false
-
-var source: int = 100:
+var source: int:
+	get(): return data.source_value
 	set(value):
-		source = clamp(value, 0, 100)
-		label.text = str(source)
+		data.source_value = value
+		EventBus.room_recource_changed.emit(data.room_index, Data.ResourceType.ELECTRICITY, data.source_value)
+		label.text = str(data.source_value)
 
 
 func _ready() -> void:
-	source = 100
+	control_menu.modulate.a = 0
+
+
+func set_source(value: int) -> void:
+	source = value
 
 
 func _on_interactable_activated() -> void:
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
 	control_menu.enable()
+	var tween := get_tree().create_tween()
+	tween.tween_property(control_menu, "modulate:a", 1.0, 0.2)
 
 
 func _on_interactable_deactivated() -> void:
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", false)
 	is_in_range = false
 	control_menu.disable()
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	pass
-	#if is_in_range && event.is_action_pressed("interact"):
-		#var current_electricity = interactable_component.interactor.resources.electricity
-		#var max_electricity = interactable_component.interactor.resources.MAX_ELECTRICITY
-		#var needed_electricity = max_electricity - current_electricity
-		#if (needed_electricity <= 0):
-			#return
-#
-		#var value = needed_electricity if source - needed_electricity > 0 else source
-		#source -= value
-		#EventBus.machine_electricity_changed.emit(value)
+	var tween := get_tree().create_tween()
+	tween.tween_property(control_menu, "modulate:a", 0.0, 0.2)

@@ -1,0 +1,341 @@
+[gd_scene load_steps=24 format=3 uid="uid://dxsgo8o0qdklb"]
+
+[ext_resource type="Texture2D" uid="uid://dyb6sjyfipoxq" path="res://assets/ui/ui_icons.png" id="1_85ioi"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/terminal_menu.gd" id="1_bi66y"]
+[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="1_p6mym"]
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="1_r15h2"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/player_room/player_room.gd" id="3_gqd6c"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/end_day.gd" id="4_fai5d"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/player_room/room_resources.gd" id="5_pfgen"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/other_rooms.gd" id="8_qgbn6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul63w"]
+bg_color = Color(0.218165, 0.348648, 0.329725, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rer0p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8que"]
+atlas = ExtResource("1_85ioi")
+region = Rect2(1, 0, 14, 16)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n3rrx"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_frh4k"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjp2x"]
+atlas = SubResource("CompressedTexture2D_frh4k")
+region = Rect2(18, 16, 12, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_etpj6"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1sbm"]
+atlas = SubResource("CompressedTexture2D_etpj6")
+region = Rect2(32, 1, 16, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0s8w2"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o1mb"]
+atlas = SubResource("CompressedTexture2D_0s8w2")
+region = Rect2(50, 17, 13, 13)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ixc67"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs5yp"]
+atlas = SubResource("CompressedTexture2D_ixc67")
+region = Rect2(67, 1, 10, 15)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mull5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jg21r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7ou3"]
+bg_color = Color(0.137652, 0.230934, 0.216865, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0828622, 0.151042, 0.139698, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="TerminalMenu" type="Control" node_paths=PackedStringArray("close")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_p6mym")
+script = ExtResource("1_bi66y")
+close = NodePath("Panel/VBoxContainer/Header/Close")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.517647)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -160.0
+offset_right = 138.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ul63w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="PlayerRoom" type="BoxContainer" parent="Panel/VBoxContainer/Header/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+vertical = true
+script = ExtResource("3_gqd6c")
+
+[node name="RoomName" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 8
+text = "My room: Oxygen room"
+
+[node name="RoomResources" type="GridContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 16
+columns = 5
+script = ExtResource("5_pfgen")
+
+[node name="Oxygen" type="PanelContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_rer0p")
+
+[node name="OxygenIcon" type="TextureRect" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Oxygen"]
+custom_minimum_size = Vector2(14, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_p8que")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="OxygenLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Oxygen"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Energy" type="PanelContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="EnergyLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Energy"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="EnergyIcon" type="TextureRect" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Energy"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_mjp2x")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Food" type="PanelContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="FoodIcon" type="TextureRect" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Food"]
+custom_minimum_size = Vector2(16, 14)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_x1sbm")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="FoodLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Food"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Components" type="PanelContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="ComponentsIcon" type="TextureRect" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Components"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_3o1mb")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="ComponentsLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Components"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Water" type="PanelContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="WaterIcon" type="TextureRect" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Water"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_vs5yp")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="WaterLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom/RoomResources/Water"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="EndDay" type="Button" parent="Panel/VBoxContainer/Header/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mull5")
+text = "end day"
+script = ExtResource("4_fai5d")
+
+[node name="Close" type="Button" parent="Panel/VBoxContainer/Header"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jg21r")
+text = "X"
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="BoxContainer" parent="Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="OtherRoomsLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_r15h2")
+theme_override_font_sizes/font_size = 8
+text = "Other rooms:"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_y7ou3")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/MarginContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="RoomsContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer/HBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("8_qgbn6")

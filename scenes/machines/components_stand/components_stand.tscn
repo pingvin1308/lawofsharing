@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2obb6l06trj6"]
+[gd_scene load_steps=13 format=3 uid="uid://d2obb6l06trj6"]
 
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="1_0p54o"]
 [ext_resource type="Script" path="res://scenes/machines/components_stand/components_stand.gd" id="1_5vgx3"]
 [ext_resource type="Texture2D" uid="uid://bfistge8ptym5" path="res://assets/machines/components_stand.png" id="1_56r8w"]
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="3_kgjyo"]
-[ext_resource type="Script" path="res://scenes/machines/water_cooler/control_menu.gd" id="5_oq7yk"]
+[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="4_s823s"]
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="6_cvqyy"]
+[ext_resource type="PackedScene" uid="uid://cn0ja50u1boe" path="res://scenes/machines/breackable_component.tscn" id="7_0f3in"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_srbhi"]
 shader = ExtResource("1_0p54o")
@@ -13,11 +15,19 @@ shader_parameter/is_enabled = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6q53"]
 size = Vector2(17, 7)
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4tqko"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd8iu"]
+atlas = SubResource("CompressedTexture2D_4tqko")
+region = Rect2(49, 17, 13, 13)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q85bi"]
 size = Vector2(32, 36)
 
-[node name="ComponentsStand" type="StaticBody2D"]
+[node name="ComponentsStand" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
 script = ExtResource("1_5vgx3")
+breakable_component = NodePath("BreackableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_srbhi")
@@ -28,6 +38,53 @@ texture = ExtResource("1_56r8w")
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_d6q53")
 
+[node name="ControlMenu" parent="." instance=ExtResource("4_s823s")]
+visible = false
+offset_left = -37.0
+offset_top = -60.0
+offset_right = 46.0
+offset_bottom = -20.0
+
+[node name="ComponentsIcon" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -10.0
+offset_top = -41.0
+offset_right = 4.0
+offset_bottom = -25.0
+
+[node name="Icon" type="TextureRect" parent="ComponentsIcon"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_jd8iu")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="ComponentsIcon"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 0
+offset_left = -6.0
+offset_top = 3.0
+offset_right = 22.0
+offset_bottom = 19.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("6_cvqyy")
+theme_override_font_sizes/font_size = 6
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="InteractableComponent" parent="." instance=ExtResource("3_kgjyo")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
@@ -35,51 +92,8 @@ position = Vector2(1, 6)
 shape = SubResource("RectangleShape2D_q85bi")
 debug_color = Color(0.68641, 0.498511, 0.104982, 0.42)
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.0
-offset_top = -35.0
-offset_right = 8.0
-offset_bottom = -23.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ControlMenu" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_oq7yk")
-
-[node name="Button2" type="Button" parent="ControlMenu"]
-layout_mode = 0
-offset_left = -26.0
-offset_top = -41.0
-offset_right = -13.0
-offset_bottom = -26.0
-theme_override_font_sizes/font_size = 4
-text = "fix"
-
-[node name="Button3" type="Button" parent="ControlMenu"]
-layout_mode = 0
-offset_left = 13.0
-offset_top = -41.0
-offset_right = 33.0
-offset_bottom = -26.0
-theme_override_font_sizes/font_size = 4
-text = "break"
+[node name="BreackableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_0f3in")]
+control_menu = NodePath("../ControlMenu")
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

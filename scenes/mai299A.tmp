@@ -1,0 +1,454 @@
+[gd_scene load_steps=27 format=3 uid="uid://r7wcxmse6nc1"]
+
+[ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="2_mk5lc"]
+[ext_resource type="Script" path="res://scenes/rooms/rooms_controller.gd" id="3_3iibb"]
+[ext_resource type="PackedScene" uid="uid://bbbatnpi7wo2r" path="res://scenes/background_music.tscn" id="3_7biat"]
+[ext_resource type="PackedScene" uid="uid://1k4abmb47uyv" path="res://scenes/rooms/room.tscn" id="5_7rg5f"]
+[ext_resource type="Script" path="res://scenes/voting/voting_controller.gd" id="6_twjp3"]
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="7_dutys"]
+[ext_resource type="PackedScene" uid="uid://cmxyi8gbl0g65" path="res://scenes/ui/terminal/start_day_screen_menu.tscn" id="9_6r2l0"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/start_day_screen_menu.gd" id="10_6jmls"]
+[ext_resource type="PackedScene" uid="uid://da4vqf47g8ne0" path="res://scenes/ui/tooltip/tooltip.tscn" id="10_g7gq7"]
+[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="10_midg5"]
+[ext_resource type="AudioStream" uid="uid://bnt703qliwboh" path="res://assets/sound/background_ambient.mp3" id="11_kwhbg"]
+[ext_resource type="Script" path="res://scenes/ui/tutorial.gd" id="13_cqfs2"]
+[ext_resource type="PackedScene" uid="uid://dxsgo8o0qdklb" path="res://scenes/ui/terminal/terminal_menu.tscn" id="13_s3ei3"]
+[ext_resource type="PackedScene" uid="uid://bae2httcrqqyg" path="res://scenes/machines/resource_box.tscn" id="15_u3erq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68m3g"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kgl1g"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yc70"]
+atlas = SubResource("CompressedTexture2D_kgl1g")
+region = Rect2(32, 1, 16, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6o77f"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfupx"]
+atlas = SubResource("CompressedTexture2D_6o77f")
+region = Rect2(67, 1, 10, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a5bh7"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vej60"]
+atlas = SubResource("CompressedTexture2D_a5bh7")
+region = Rect2(1, 0, 14, 16)
+
+[sub_resource type="Animation" id="Animation_5moym"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(125, 102)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(40, 40)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Player/Camera2D:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.2, 1.2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../Player:speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [90]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Tooltip:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Hi!"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Tooltip:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(238, 415)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Tooltip:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_oqu22"]
+resource_name = "test"
+length = 9.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.00833333, 1.23333, 2.03333, 3.03333, 4.03333, 5.03333, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(125, 102), Vector2(142, 17), Vector2(196, 19), Vector2(276, 22), Vector2(370, 19), Vector2(344, 124), Vector2(318, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.0333333, 0.666667, 1.23333, 2.03333, 3.03333, 4.03333, 5.03333, 6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(40, 40), Vector2(40, 40), Vector2(50, 89), Vector2(50, 89), Vector2(50, 89), Vector2(50, 89), Vector2(81, 74), Vector2(49, 74)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Player/Camera2D:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(6.26667, 7.36667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.2, 1.2), Vector2(0.4, 0.4)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 1.23333, 2.03333, 3.03333, 4.1, 5.16667, 6.03333, 7.43333, 8.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}, {
+"args": [],
+"method": &"pause"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../Player:speed")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 8.83333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 90]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Tooltip:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.13333, 1.96667, 2.9, 3.9, 4.9, 5.86667, 6.3, 8.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["Hi! Let's view through available resources in the room", "Here is food", "Here is Water", "Some components to fix broken staf", "Electricity to power room. Without electricity you cannot recieve any resources", "Some oxygen to breath in the room", "Control terminal. Allow you transfer resources, monitor other rooms and vote to exchange rooms", "All 5 room need to be working if you want to survive", "All participants will have 1 room with 1 renewable resource. Don't forget to spread your renewable resource to other rooms"]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Tooltip:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 6.16667),
+"transitions": PackedFloat32Array(4068.72, 0.933032),
+"update": 0,
+"values": [Vector2(74, 209), Vector2(238, 415)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Tooltip:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 6.13333),
+"transitions": PackedFloat32Array(1e+06, 0.840895),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jd5cs"]
+_data = {
+"RESET": SubResource("Animation_5moym"),
+"test": SubResource("Animation_oqu22")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt0bm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.988484, 0.765475, 0, 1)
+
+[node name="main_scene" type="Node2D"]
+y_sort_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_68m3g")
+offset_left = -727.0
+offset_top = -473.0
+offset_right = 2811.0
+offset_bottom = 1588.0
+color = Color(0.02838, 0.0189, 0.09, 1)
+
+[node name="Game" type="Node2D" parent="."]
+y_sort_enabled = true
+script = ExtResource("2_mk5lc")
+
+[node name="BackgroundMusic" parent="Game" instance=ExtResource("3_7biat")]
+stream = ExtResource("11_kwhbg")
+volume_db = -8.466
+autoplay = true
+parameters/looping = true
+
+[node name="Player" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
+process_mode = 1
+position = Vector2(245, 141)
+
+[node name="Camera2D" type="Camera2D" parent="Game/Player"]
+zoom = Vector2(1.2, 1.2)
+
+[node name="AIPlayer" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
+process_mode = 1
+position = Vector2(540, 459)
+
+[node name="RoomsController" type="Node2D" parent="Game"]
+process_mode = 1
+y_sort_enabled = true
+script = ExtResource("3_3iibb")
+
+[node name="EnergyRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
+room_type = 3
+
+[node name="WaterRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
+position = Vector2(512, 0)
+
+[node name="FoodRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
+position = Vector2(1029, 0)
+room_type = 1
+
+[node name="OxygenRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
+position = Vector2(1032, 367)
+room_type = 4
+
+[node name="ComponentsRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
+position = Vector2(508, 390)
+room_type = 2
+
+[node name="VotingController" type="Node" parent="Game"]
+script = ExtResource("6_twjp3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Game"]
+process_mode = 3
+follow_viewport_enabled = true
+
+[node name="EndDayScreenTransition" type="ColorRect" parent="Game/CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+color = Color(0, 0, 0, 0)
+
+[node name="HUD" type="Control" parent="Game/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("7_dutys")
+
+[node name="MarginContainer" type="MarginContainer" parent="Game/CanvasLayer/HUD"]
+layout_mode = 1
+offset_right = 228.0
+offset_bottom = 16.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Game/CanvasLayer/HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="FoodIcon" type="TextureRect" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(14, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_5yc70")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Food" type="Label" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_midg5")
+text = "80/100"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="WaterIcon" type="TextureRect" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(14, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_nfupx")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Water" type="Label" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("10_midg5")
+text = "80/100"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="OxygenIcon" type="TextureRect" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(14, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_vej60")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Oxygen" type="Label" parent="Game/CanvasLayer/HUD/MarginContainer/HBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme = ExtResource("10_midg5")
+text = "80/100"
+
+[node name="Tutorial" type="Control" parent="Game/CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_cqfs2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Game/CanvasLayer/Tutorial"]
+libraries = {
+"": SubResource("AnimationLibrary_jd5cs")
+}
+autoplay = "test"
+
+[node name="Tooltip" parent="Game/CanvasLayer/Tutorial" instance=ExtResource("10_g7gq7")]
+layout_mode = 0
+offset_left = 238.0
+offset_top = 415.0
+offset_right = 454.0
+offset_bottom = 457.0
+scale = Vector2(2, 2)
+text = "Hi!"
+
+[node name="Panel" type="Panel" parent="Game/CanvasLayer/Tutorial"]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 102.0
+offset_right = 165.0
+offset_bottom = 142.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dt0bm")
+
+[node name="StartDayScreenMenu" parent="Game/CanvasLayer" instance=ExtResource("9_6r2l0")]
+visible = false
+script = ExtResource("10_6jmls")
+
+[node name="TerminalMenu" parent="Game/CanvasLayer" instance=ExtResource("13_s3ei3")]
+visible = false
+
+[node name="ResourceBox" parent="Game" instance=ExtResource("15_u3erq")]
+position = Vector2(776, 527)
+
+[connection signal="animation_finished" from="Game/CanvasLayer/Tutorial/AnimationPlayer" to="Game/CanvasLayer/Tutorial" method="_on_animation_finished"]

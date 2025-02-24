@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqu6hyreckurp"]
+[gd_scene load_steps=14 format=3 uid="uid://bqu6hyreckurp"]
 
 [ext_resource type="Texture2D" uid="uid://bu3c1fnsmx7vo" path="res://assets/machines/water_cooler.png" id="1_07wtl"]
 [ext_resource type="Script" path="res://scenes/machines/water_cooler/water_cooler.gd" id="1_epf42"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="1_f6k86"]
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="4_q2507"]
-[ext_resource type="Script" path="res://scenes/machines/water_cooler/control_menu.gd" id="5_37hca"]
-[ext_resource type="Script" path="res://scenes/machines/water_cooler/drint_button.gd" id="6_tvban"]
+[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="4_xcm0o"]
+[ext_resource type="PackedScene" uid="uid://cn0ja50u1boe" path="res://scenes/machines/breackable_component.tscn" id="7_bf0ex"]
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="7_nwf4i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vits5"]
 shader = ExtResource("1_f6k86")
@@ -18,13 +19,21 @@ region = Rect2(4, 0, 16, 35)
 [sub_resource type="CircleShape2D" id="CircleShape2D_uqtcg"]
 radius = 6.08276
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wwh63"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66an7"]
+atlas = SubResource("CompressedTexture2D_wwh63")
+region = Rect2(67, 1, 10, 15)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1yxu"]
 size = Vector2(20, 30)
 
-[node name="WaterCooler" type="StaticBody2D"]
+[node name="WaterCooler" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
 y_sort_enabled = true
 collision_mask = 3
 script = ExtResource("1_epf42")
+breakable_component = NodePath("BreakableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_vits5")
@@ -34,6 +43,54 @@ texture = SubResource("AtlasTexture_jf7uw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uqtcg")
 
+[node name="ControlMenu" parent="." instance=ExtResource("4_xcm0o")]
+visible = false
+offset_left = -36.0
+offset_top = -70.0
+offset_right = 47.0
+offset_bottom = -30.0
+action_name = "drink"
+
+[node name="WaterIcon" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -10.0
+offset_top = -51.0
+offset_right = 4.0
+offset_bottom = -35.0
+
+[node name="Icon" type="TextureRect" parent="WaterIcon"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_66an7")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="WaterIcon"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 0
+offset_left = -6.0
+offset_top = 3.0
+offset_right = 22.0
+offset_bottom = 19.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("7_nwf4i")
+theme_override_font_sizes/font_size = 6
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [node name="InteractableComponent" parent="." instance=ExtResource("4_q2507")]
 y_sort_enabled = true
 
@@ -42,64 +99,8 @@ position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_s1yxu")
 debug_color = Color(0.728368, 0.472084, 0.124573, 0.42)
 
-[node name="Label" type="Label" parent="."]
-z_index = 1
-y_sort_enabled = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.0
-offset_top = -46.0
-offset_right = 8.0
-offset_bottom = -34.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ControlMenu" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_37hca")
-
-[node name="Drink" type="Button" parent="ControlMenu"]
-layout_mode = 0
-offset_left = -10.0
-offset_top = -62.0
-offset_right = 9.0
-offset_bottom = -47.0
-theme_override_font_sizes/font_size = 4
-text = "drink"
-script = ExtResource("6_tvban")
-
-[node name="Button2" type="Button" parent="ControlMenu"]
-layout_mode = 0
-offset_left = -26.0
-offset_top = -45.0
-offset_right = -13.0
-offset_bottom = -30.0
-theme_override_font_sizes/font_size = 4
-text = "fix"
-
-[node name="Button3" type="Button" parent="ControlMenu"]
-layout_mode = 0
-offset_left = 13.0
-offset_top = -45.0
-offset_right = 33.0
-offset_bottom = -30.0
-theme_override_font_sizes/font_size = 4
-text = "break"
+[node name="BreakableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_bf0ex")]
+control_menu = NodePath("../ControlMenu")
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]
-[connection signal="drink" from="ControlMenu/Drink" to="." method="_on_drink_drink"]

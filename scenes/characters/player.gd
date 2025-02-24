@@ -1,31 +1,41 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var input_controller: InputController = $InputController
+var input_controller: InputController
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var resources: CharacterResources = $CharacterResources
 @onready var oxygen_timer: Timer = $OxygenTimer
-@onready var oxygen_label: Label = $OxygenLabel
+@onready var audio_manager: PlayerAudioManager = $AudioManager
 
 @export var speed: int = 100
 @export var lerp_speed: float = 50
 @export var lerp_velocity_value_on_floor: float = 16
 
 var direction: Vector2 = Vector2.ZERO
-var current_room: Room
+var data: Data.PlayerData
+
+var oxygen: int:
+	get(): return data.oxygen
+	set(value):
+		data.oxygen = value
+		EventBus.player_resource_changed.emit()
 
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_DISABLED
-	EventBus.machine_water_changed.connect(_on_machine_water_changed)
-	EventBus.machine_food_changed.connect(_on_machine_food_changed)
-	oxygen_timer.timeout.connect(_on_oxygen_decreased)
-	oxygen_label.text = str(resources.oxygen)
 
 
-func init(room: Room) -> void:
-	current_room = room
-	process_mode = PROCESS_MODE_INHERIT
+func initialize(player_data: Data.PlayerData) -> void:
+	if player_data.is_ai == false:
+		($Camera2D as Camera2D).zoom = Vector2(1.2, 1.2)
+		input_controller = InputController.new()
+	else:
+		input_controller = AIController.new(player_data)
+		player_data.ai_controller = input_controller
+
+	data = player_data
+	EventBus.player_water_drunk.connect(_on_player_water_drunk)
+	EventBus.player_food_eaten.connect(_on_player_food_eaten)
+	oxygen_timer.timeout.connect(_on_timeout)
 
 
 func _physics_process(delta: float) -> void:
@@ -60,26 +70,21 @@ func _move_character(input_direction: Vector2, delta: float) -> void:
 	velocity = calculated_velocity
 	move_and_slide()
 
-func _on_machine_water_changed(value: int) -> void:
-	resources.water += value
+
+func _on_player_water_drunk(value: int) -> void:
+	audio_manager.drink.play()
+	data.water += value
+	EventBus.player_resource_changed.emit()
 
 
-func _on_machine_food_changed(value: int) -> void:
-	resources.food += value
-
-
-func _on_oxygen_decreased() -> void:
-	assert(current_room, "player cannot be outside of a room")
-	var room_oxygen = current_room.oxygen_balloons_stand.source
-	if room_oxygen > 0:
-		current_room.oxygen_balloons_stand.source -= 1
-	else:
-		resources.oxygen -= 1
-		oxygen_label.text = str(resources.oxygen)
+func _on_player_food_eaten(value: int) -> void:
+	audio_manager.eating.play()
+	data.food += value
+	EventBus.player_resource_changed.emit()
 
 
 func _play_animation(input_direction: Vector2) -> void:
-	var animation_name = _get_walk_animation_name(input_direction)
+	var animation_name := _get_walk_animation_name(input_direction)
 	if not animation_name.is_empty():
 		animated_sprite_2d.play(animation_name)
 
@@ -115,3 +120,6 @@ func _get_idle_animation_name(input_direction: Vector2) -> String:
 		return "idle_left"
 	else:
 		return "idle_front"
+
+func _on_timeout() -> void:
+	oxygen -= 1

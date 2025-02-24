@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://bae2httcrqqyg"]
+
+[ext_resource type="Script" path="res://scenes/machines/resource_box.gd" id="1_o5h7p"]
+[ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_0x2kn"]
+[ext_resource type="Texture2D" uid="uid://dgcw2nwqkyku6" path="res://assets/machines/resource_boxes.png" id="2_v5x1d"]
+[ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="4_g8y2q"]
+[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_t145t"]
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="6_dswle"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uteci"]
+resource_local_to_scene = true
+shader = ExtResource("2_0x2kn")
+shader_parameter/is_enabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mflbt"]
+size = Vector2(17.5, 4.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ochjf"]
+size = Vector2(42, 25)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_a627o"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c66em"]
+atlas = SubResource("CompressedTexture2D_a627o")
+region = Rect2(1, 0, 14, 16)
+
+[node name="ResourceBox" type="StaticBody2D"]
+y_sort_enabled = true
+position = Vector2(0, -3)
+collision_mask = 2
+script = ExtResource("1_o5h7p")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_uteci")
+position = Vector2(0, -1)
+texture = ExtResource("2_v5x1d")
+hframes = 2
+vframes = 3
+frame = 2
+region_rect = Rect2(6, 49, 18, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4.375)
+shape = SubResource("RectangleShape2D_mflbt")
+
+[node name="InteractableComponent" parent="." instance=ExtResource("4_g8y2q")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_ochjf")
+debug_color = Color(0.625304, 0.529407, 0.144208, 0.42)
+
+[node name="ControlMenu" parent="." instance=ExtResource("5_t145t")]
+offset_left = -37.0
+offset_top = -49.0
+offset_right = 46.0
+offset_bottom = -9.0
+action_name = "take"
+is_breakable = false
+
+[node name="ResourceIcon" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -10.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -14.0
+
+[node name="Icon" type="TextureRect" parent="ResourceIcon"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_c66em")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="ResourceIcon"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(28, 0)
+layout_mode = 0
+offset_left = -6.0
+offset_top = 3.0
+offset_right = 22.0
+offset_bottom = 19.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("6_dswle")
+theme_override_font_sizes/font_size = 6
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 1

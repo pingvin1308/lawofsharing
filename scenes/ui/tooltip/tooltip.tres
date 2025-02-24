@@ -1,0 +1,30 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://6kalolqswey0"]
+
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="1_vfqg2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbikn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upyvd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dt5ov"]
+content_margin_left = 6.0
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y456"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[resource]
+default_font = ExtResource("1_vfqg2")
+default_font_size = 8
+Button/styles/focus = SubResource("StyleBoxEmpty_lbikn")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_upyvd")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_dt5ov")
+PopupPanel/font_sizes/title_font_size = 8
+PopupPanel/fonts/title_font = ExtResource("1_vfqg2")
+PopupPanel/styles/panel = SubResource("StyleBoxFlat_0y456")
+TooltipText/base_type = &"RichTextLabel"
+TooltipText/constants/line_separation = 2

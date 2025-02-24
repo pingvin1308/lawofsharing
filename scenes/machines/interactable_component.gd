@@ -4,7 +4,7 @@ extends Area2D
 signal interactable_activated
 signal interactable_deactivated
 
-var interactor: CharacterBody2D
+var interactor: Player
 
 
 func _ready() -> void:
@@ -13,12 +13,12 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is Player:
 		interactor = body
 		interactable_activated.emit()
 
 
 func _on_body_exited(body: Node2D) -> void:
-	if body is CharacterBody2D:
+	if body is Player:
 		interactor = null
 		interactable_deactivated.emit()

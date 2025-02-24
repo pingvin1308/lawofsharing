@@ -1,11 +1,13 @@
-[gd_scene load_steps=73 format=3 uid="uid://5atx5caa5aqp"]
+[gd_scene load_steps=75 format=3 uid="uid://5atx5caa5aqp"]
 
 [ext_resource type="Texture2D" uid="uid://dbb3kv71pxs1g" path="res://assets/character/Unarmed_Idle/Unarmed_Idle_full.png" id="1_8hbou"]
 [ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_pg3y1"]
 [ext_resource type="Texture2D" uid="uid://b3gcaje6ridoy" path="res://assets/character/Unarmed_Idle/Unarmed_Idle1_shadow.png" id="2_usuf7"]
 [ext_resource type="Texture2D" uid="uid://dt72nt5yn52fm" path="res://assets/character/Unarmed_Walk/Unarmed_Walk_full.png" id="3_m0hoy"]
 [ext_resource type="Script" path="res://scenes/characters/input_controller.gd" id="4_w8lx8"]
-[ext_resource type="Script" path="res://scenes/characters/character_resources.gd" id="6_hk411"]
+[ext_resource type="AudioStream" uid="uid://dwueye45n6n37" path="res://assets/sound/drink.mp3" id="7_lugyo"]
+[ext_resource type="Script" path="res://scenes/characters/audio_manager.gd" id="7_t7xwm"]
+[ext_resource type="AudioStream" uid="uid://8jvhlcm0bmib" path="res://assets/sound/eating.mp3" id="9_0i2gv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27k1f"]
 atlas = ExtResource("1_8hbou")
@@ -507,6 +509,7 @@ collision_layer = 2
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_pg3y1")
+speed = 90
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_b7ix7")
@@ -526,28 +529,19 @@ vframes = 4
 [node name="InputController" type="Node" parent="."]
 script = ExtResource("4_w8lx8")
 
-[node name="CharacterResources" type="Node" parent="."]
-script = ExtResource("6_hk411")
-
 [node name="OxygenTimer" type="Timer" parent="."]
+wait_time = 0.8
 autostart = true
 
-[node name="OxygenLabel" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -7.0
-offset_top = -78.5
-offset_right = 8.0
-offset_bottom = -66.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_font_sizes/font_size = 8
-text = "100"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="AudioManager" type="Node" parent="."]
+script = ExtResource("7_t7xwm")
+
+[node name="Drink" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("7_lugyo")
+volume_db = -6.853
+pitch_scale = 1.14
+
+[node name="Eating" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("9_0i2gv")
+volume_db = -12.899
+pitch_scale = 1.19

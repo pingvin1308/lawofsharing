@@ -1,0 +1,372 @@
+[gd_scene load_steps=30 format=3 uid="uid://oqq3nef3m2xk"]
+
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/room_item.gd" id="1_luwjc"]
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="2_6pfcs"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/send_label.gd" id="3_sb2uy"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/transfer_input.gd" id="4_t1kem"]
+[ext_resource type="Texture2D" uid="uid://dyb6sjyfipoxq" path="res://assets/ui/ui_icons.png" id="5_q7uib"]
+[ext_resource type="Texture2D" uid="uid://b0k8frnxdegef" path="res://assets/ui/plus_minus.png" id="6_vs3jd"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/transfer_amount_label.gd" id="7_b5ro7"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/resources_label.gd" id="8_gb0vf"]
+[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="8_iml7r"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/change_label.gd" id="9_8ebos"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/spin_box.gd" id="9_xbke1"]
+[ext_resource type="Script" path="res://scenes/ui/terminal/other_rooms/vote_button.gd" id="10_qerkt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fs5mo"]
+atlas = ExtResource("5_q7uib")
+region = Rect2(32, 1, 16, 14)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n3rrx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8que"]
+atlas = ExtResource("5_q7uib")
+region = Rect2(1, 0, 14, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq68t"]
+atlas = ExtResource("6_vs3jd")
+region = Rect2(36, 5, 9, 22)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mv1k"]
+bg_color = Color(0.8, 0.181333, 0.16, 0.407843)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ix72i"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1rqnx"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhrbh"]
+atlas = SubResource("CompressedTexture2D_1rqnx")
+region = Rect2(1, 0, 14, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4ouw4"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjp2x"]
+atlas = SubResource("CompressedTexture2D_4ouw4")
+region = Rect2(18, 16, 12, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_impmd"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1sbm"]
+atlas = SubResource("CompressedTexture2D_impmd")
+region = Rect2(32, 1, 16, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3oi7k"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o1mb"]
+atlas = SubResource("CompressedTexture2D_3oi7k")
+region = Rect2(50, 17, 13, 13)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7jnda"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vs5yp"]
+atlas = SubResource("CompressedTexture2D_7jnda")
+region = Rect2(67, 1, 10, 15)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti5ek"]
+
+[node name="RoomItem" type="BoxContainer"]
+vertical = true
+script = ExtResource("1_luwjc")
+
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 8
+text = "Energy room"
+
+[node name="ResourcesMenu" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Send" type="Label" parent="ResourcesMenu"]
+layout_mode = 2
+tooltip_text = "Sending resources to the room is applied after the current day is over"
+mouse_filter = 0
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "send"
+vertical_alignment = 1
+script = ExtResource("3_sb2uy")
+
+[node name="Transfer" type="BoxContainer" parent="ResourcesMenu"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 8
+script = ExtResource("4_t1kem")
+changedColor = Color(0.89, 0.445, 0, 1)
+resource_icon = SubResource("AtlasTexture_fs5mo")
+
+[node name="ResourceData" type="PanelContainer" parent="ResourcesMenu/Transfer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="Icon" type="TextureRect" parent="ResourcesMenu/Transfer/ResourceData"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_p8que")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="TransferMenu" type="HBoxContainer" parent="ResourcesMenu/Transfer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+
+[node name="TransferAmount" type="Label" parent="ResourcesMenu/Transfer/TransferMenu"]
+visible = false
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+tooltip_text = "Amount that will be sent at the end of this day"
+mouse_filter = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_b5ro7")
+
+[node name="SpinBox" type="SpinBox" parent="ResourcesMenu/Transfer/TransferMenu"]
+layout_mode = 2
+tooltip_text = "Amount that will be sent at the end of this day"
+theme = ExtResource("8_iml7r")
+theme_override_icons/updown = SubResource("AtlasTexture_oq68t")
+max_value = 500.0
+update_on_text_changed = true
+script = ExtResource("9_xbke1")
+
+[node name="Warning" type="Panel" parent="ResourcesMenu/Transfer/TransferMenu/SpinBox"]
+visible = false
+custom_minimum_size = Vector2(41, 15)
+layout_mode = 2
+offset_right = 41.0
+offset_bottom = 15.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6mv1k")
+
+[node name="Label" type="Label" parent="ResourcesMenu/Transfer/TransferMenu/SpinBox/Warning"]
+layout_mode = 0
+offset_left = -26.0
+offset_top = -15.0
+offset_right = 14.0
+offset_bottom = -8.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.622008, 0.0842532, 0.0765487, 1)
+theme_override_constants/outline_size = 5
+text = "Has not more test"
+
+[node name="Reset" type="Button" parent="ResourcesMenu/Transfer/TransferMenu"]
+visible = false
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ix72i")
+text = "reset"
+
+[node name="Resources" type="Label" parent="ResourcesMenu"]
+layout_mode = 2
+tooltip_text = "Room resources at the start of the current day"
+mouse_filter = 0
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "resources"
+vertical_alignment = 1
+script = ExtResource("8_gb0vf")
+
+[node name="RoomResources" type="GridContainer" parent="ResourcesMenu"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="Oxygen" type="PanelContainer" parent="ResourcesMenu/RoomResources"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="OxygenLabel" type="Label" parent="ResourcesMenu/RoomResources/Oxygen"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="OxygenIcon" type="TextureRect" parent="ResourcesMenu/RoomResources/Oxygen"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_rhrbh")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Energy" type="PanelContainer" parent="ResourcesMenu/RoomResources"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="EnergyLabel" type="Label" parent="ResourcesMenu/RoomResources/Energy"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="EnergyIcon" type="TextureRect" parent="ResourcesMenu/RoomResources/Energy"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_mjp2x")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="Food" type="PanelContainer" parent="ResourcesMenu/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="FoodIcon" type="TextureRect" parent="ResourcesMenu/RoomResources/Food"]
+custom_minimum_size = Vector2(16, 14)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_x1sbm")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="FoodLabel" type="Label" parent="ResourcesMenu/RoomResources/Food"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Components" type="PanelContainer" parent="ResourcesMenu/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="ComponentsIcon" type="TextureRect" parent="ResourcesMenu/RoomResources/Components"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_3o1mb")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="ComponentsLabel" type="Label" parent="ResourcesMenu/RoomResources/Components"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Water" type="PanelContainer" parent="ResourcesMenu/RoomResources"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n3rrx")
+
+[node name="WaterIcon" type="TextureRect" parent="ResourcesMenu/RoomResources/Water"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_vs5yp")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="WaterLabel" type="Label" parent="ResourcesMenu/RoomResources/Water"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(19, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Change" type="Label" parent="ResourcesMenu"]
+layout_mode = 2
+size_flags_vertical = 6
+tooltip_text = "Allows you to start exchange the room. For successful exchange your room should be worse than chozen"
+mouse_filter = 0
+theme_override_fonts/font = ExtResource("2_6pfcs")
+theme_override_font_sizes/font_size = 6
+text = "vote for
+exchange"
+vertical_alignment = 2
+script = ExtResource("9_8ebos")
+
+[node name="VoteButton" type="CheckButton" parent="ResourcesMenu"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ti5ek")
+script = ExtResource("10_qerkt")
+
+[node name="HSeparator" type="HSeparator" parent="."]
+layout_mode = 2
+
+[connection signal="gui_input" from="ResourcesMenu/Transfer/TransferMenu/SpinBox" to="ResourcesMenu/Transfer" method="_on_spin_box_gui_input"]
