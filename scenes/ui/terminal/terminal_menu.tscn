@@ -130,11 +130,13 @@ vertical = true
 script = ExtResource("3_gqd6c")
 
 [node name="RoomName" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom"]
-custom_minimum_size = Vector2(0, 8)
+custom_minimum_size = Vector2(175, 8)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("1_r15h2")
 theme_override_font_sizes/font_size = 8
 text = "My room: Oxygen room"
+autowrap_mode = 3
 
 [node name="RoomResources" type="GridContainer" parent="Panel/VBoxContainer/Header/MarginContainer/PlayerRoom"]
 layout_mode = 2

@@ -11,24 +11,19 @@ signal break_pressed()
 @onready var break_machine: AudioStreamPlayer = $AudioManager/Break
 @onready var fixing: AudioStreamPlayer = $AudioManager/Fixing
 
-@export var action_name: String
-@export var is_breakable: bool = true
+var is_breakable: bool
 
-func _ready() -> void:
-	if action_name:
-		action.text = action_name
-	else:
-		action.visible = false
-		action.process_mode = Node.PROCESS_MODE_DISABLED
-
-	if not is_breakable:
-		fix.visible = false
-		fix.process_mode = Node.PROCESS_MODE_DISABLED
-		break_button.visible = false
-		break_button.process_mode = Node.PROCESS_MODE_DISABLED
+var action_name: String:
+	get(): return action.text
+	set(value):
+		if not self.is_node_ready(): await ready
+		action.text = value
 
 
 func enable() -> void:
+	fix.visible = is_breakable
+	break_button.visible = is_breakable
+	action.visible = not action_name.is_empty()
 	visible = true
 
 
@@ -37,6 +32,7 @@ func disable() -> void:
 
 
 func _on_action_pressed() -> void:
+	assert(not action_name.is_empty(), "Action without name cannot be triggered")
 	action_pressed.emit()
 
 

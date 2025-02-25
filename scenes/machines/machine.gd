@@ -1,7 +1,8 @@
 class_name MachineBase
 extends StaticBody2D
 
-@export var breakable_component: BreakableComponent
+@onready var breakable_component: BreakableComponent = $BreakableComponent
+@onready var control_menu: ControlMenu = $ControlMenu
 
 var data: Data.MachineData
 
@@ -10,11 +11,10 @@ var durability: int:
 
 
 func initialize(machine_data: Data.MachineData) -> void:
+	control_menu.modulate.a = 0
 	data = machine_data
 	if breakable_component:
 		breakable_component.initialize(machine_data)
-
-
-func damage() -> void:
-	data.durability -= 1
-	breakable_component.durability -= 1
+		control_menu.is_breakable = true
+		control_menu.break_pressed.connect(breakable_component.on_break_pressed)
+		control_menu.fix_pressed.connect(breakable_component.on_fix_pressed)

@@ -13,6 +13,7 @@ func _ready() -> void:
 
 
 func _on_interactable_activated() -> void:
+	control_menu.action_name = "open"
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
 	control_menu.enable()

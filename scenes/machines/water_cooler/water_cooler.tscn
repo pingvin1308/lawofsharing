@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/machines/water_cooler/water_cooler.gd" id="1_epf42"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="1_f6k86"]
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="4_q2507"]
-[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="4_xcm0o"]
+[ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_vh6hi"]
 [ext_resource type="PackedScene" uid="uid://cn0ja50u1boe" path="res://scenes/machines/breackable_component.tscn" id="7_bf0ex"]
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="7_nwf4i"]
 
@@ -19,21 +19,20 @@ region = Rect2(4, 0, 16, 35)
 [sub_resource type="CircleShape2D" id="CircleShape2D_uqtcg"]
 radius = 6.08276
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wwh63"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7qac6"]
 load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_66an7"]
-atlas = SubResource("CompressedTexture2D_wwh63")
+atlas = SubResource("CompressedTexture2D_7qac6")
 region = Rect2(67, 1, 10, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1yxu"]
 size = Vector2(20, 30)
 
-[node name="WaterCooler" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
+[node name="WaterCooler" type="StaticBody2D"]
 y_sort_enabled = true
 collision_mask = 3
 script = ExtResource("1_epf42")
-breakable_component = NodePath("BreakableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_vits5")
@@ -42,14 +41,6 @@ texture = SubResource("AtlasTexture_jf7uw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uqtcg")
-
-[node name="ControlMenu" parent="." instance=ExtResource("4_xcm0o")]
-visible = false
-offset_left = -36.0
-offset_top = -70.0
-offset_right = 47.0
-offset_bottom = -30.0
-action_name = "drink"
 
 [node name="WaterIcon" type="Control" parent="."]
 layout_mode = 3
@@ -91,16 +82,23 @@ text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="ControlMenu" parent="." instance=ExtResource("5_vh6hi")]
+visible = false
+offset_left = -36.0
+offset_top = -70.0
+offset_right = 47.0
+offset_bottom = -30.0
+
 [node name="InteractableComponent" parent="." instance=ExtResource("4_q2507")]
 y_sort_enabled = true
+action_name = "drink"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_s1yxu")
 debug_color = Color(0.728368, 0.472084, 0.124573, 0.42)
 
-[node name="BreakableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_bf0ex")]
-control_menu = NodePath("../ControlMenu")
+[node name="BreakableComponent" parent="." instance=ExtResource("7_bf0ex")]
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

@@ -34,7 +34,7 @@ func share_resources() -> void:
 		# Share if resource levels are healthy.
 		var machine := Data.game.get_machine(player_data.room_index, player_data.room_type)
 
-		if machine.source_value > 0 and machine.source_value % 5 == 0:
+		if machine.source_value > 0 :
 			@warning_ignore("integer_division")
 			var part_resource := machine.source_value / 5
 

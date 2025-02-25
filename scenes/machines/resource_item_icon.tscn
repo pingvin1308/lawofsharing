@@ -1,39 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1q1kej6t6mn7"]
+[gd_scene load_steps=5 format=3 uid="uid://d1q1kej6t6mn7"]
 
 [ext_resource type="Script" path="res://scenes/machines/resource_item_icon.gd" id="1_keoq0"]
-[ext_resource type="Texture2D" uid="uid://dyb6sjyfipoxq" path="res://assets/ui/ui_icons.png" id="2_j7dsp"]
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="3_5jfa4"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3d8g7"]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q31b7"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qt1ul"]
-atlas = ExtResource("2_j7dsp")
-region = Rect2(1, 0, 14, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyejg"]
+atlas = SubResource("CompressedTexture2D_q31b7")
+region = Rect2(67, 1, 10, 15)
 
-[node name="ResourceItemIcon" type="PanelContainer"]
+[node name="ResourceItemIcon" type="Control"]
+custom_minimum_size = Vector2(23, 18)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 23.0
+offset_bottom = 18.0
 size_flags_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3d8g7")
 script = ExtResource("1_keoq0")
 
 [node name="Icon" type="TextureRect" parent="."]
+z_index = 1
+y_sort_enabled = true
 custom_minimum_size = Vector2(8, 8)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = SubResource("AtlasTexture_qt1ul")
-expand_mode = 3
-stretch_mode = 4
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_vyejg")
+expand_mode = 4
+stretch_mode = 3
 
 [node name="Label" type="Label" parent="."]
 z_index = 1
 y_sort_enabled = true
-custom_minimum_size = Vector2(19, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+custom_minimum_size = Vector2(28, 0)
+offset_left = -6.0
+offset_top = 3.0
+offset_right = 22.0
+offset_bottom = 19.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("3_5jfa4")
 theme_override_font_sizes/font_size = 6
-text = "1"
+text = "100"
 horizontal_alignment = 2
-vertical_alignment = 2
+vertical_alignment = 1

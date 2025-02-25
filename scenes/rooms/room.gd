@@ -51,7 +51,6 @@ var is_control_menu_opened: bool = false
 ## Key: String name, Machine
 var breakable_machines: Dictionary = {}
 ## Key: Data.ResourceType, Value: MachineBase
-var resources_map: Dictionary
 var data: Data.RoomData
 
 var room_index: int:
@@ -88,18 +87,10 @@ func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> 
 			Data.ResourceType.OXYGEN:
 				oxygen_balloons_stand.initialize(machine)
 
-	resources_map = {
-		Data.ResourceType.WATER: water_cooler,
-		Data.ResourceType.FOOD: food_stand,
-		Data.ResourceType.COMPONENTS: components_stand,
-		Data.ResourceType.ELECTRICITY: charger,
-		Data.ResourceType.OXYGEN: oxygen_balloons_stand,
-	}
-
 	oxygen_timer.timeout.connect(_on_oxygen_decreased)
 	EventBus.terminal_menu_opened.connect(_menu_opened)
 	EventBus.terminal_menu_closed.connect(_menu_closed)
-	EventBus.transfer_resources.connect(_on_transfer_resources)
+	#EventBus.transfer_resources.connect(_on_transfer_resources)
 
 	breakable_machines = {
 		water_cooler.name: water_cooler,
@@ -138,41 +129,5 @@ func _on_oxygen_decreased() -> void:
 	assert(character_body, "player cannot be outside of a room")
 	var room_oxygen := oxygen_balloons_stand.source
 	if room_oxygen > 0:
-		oxygen_balloons_stand.source  -= 1
-		character_body.oxygen += 2
-
-
-@warning_ignore("shadowed_variable")
-func _on_transfer_resources(room_source_index: int, room_index: int, resource_type: Data.ResourceType, changed_amount: int) -> void:
-	if self.room_index == room_source_index:
-		_set_resource(resource_type, -changed_amount)
-	elif self.room_index == room_index:
-		_set_resource(resource_type, changed_amount)
-
-
-func _set_resource(resource_type: Data.ResourceType, changed_amount: int) -> void:
-	match resource_type:
-		Data.ResourceType.WATER:
-			if water_cooler.durability <= 0:
-				return
-			water_cooler.source += changed_amount
-
-		Data.ResourceType.FOOD:
-			if food_stand.durability <= 0:
-				return
-			food_stand.source += changed_amount
-
-		Data.ResourceType.COMPONENTS:
-			if components_stand.durability <= 0:
-				return
-			components_stand.source += changed_amount
-
-		Data.ResourceType.ELECTRICITY:
-			if charger.durability <= 0:
-				return
-			charger.source += changed_amount
-
-		Data.ResourceType.OXYGEN:
-			if oxygen_balloons_stand.durability <= 0:
-				return
-			oxygen_balloons_stand.source += changed_amount
+		oxygen_balloons_stand.source -= 1
+		character_body.bearth(2)

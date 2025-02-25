@@ -6,10 +6,6 @@ signal player_resource_changed()
 @warning_ignore("unused_signal")
 signal player_room_changed()
 @warning_ignore("unused_signal")
-signal player_food_eaten(value: int)
-@warning_ignore("unused_signal")
-signal player_water_drunk(value: int)
-@warning_ignore("unused_signal")
 signal player_changed_room()
 
 

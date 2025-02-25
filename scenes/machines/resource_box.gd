@@ -20,6 +20,7 @@ var data: Data.ResourceBoxData
 
 
 func _ready() -> void:
+	control_menu.action_name = "take"
 	control_menu.modulate.a = 0
 	interactable_component.interactable_activated.connect(_on_interactable_activated)
 	interactable_component.interactable_deactivated.connect(_on_interactable_deactivated)
@@ -50,9 +51,11 @@ func _on_interactable_deactivated() -> void:
 
 
 func _on_action_pressed() -> void:
-	#if Data.game.player.resource_box != null:
-#
-		#return
+	if is_in_range:
+		var player = interactable_component.interactor
+		if player.resource_box != null:
+			Notification.instance.show_warning("You already have box with resource")
+			return
 
-	#Data.game.player.resource_box = self.data
-	queue_free()
+		player.pickup_box(data)
+		queue_free()

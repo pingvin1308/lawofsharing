@@ -5,7 +5,6 @@ const NAME: String = "BreakableComponent"
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var control_menu: ControlMenu
 
 var durability: int:
 	get(): return machine_data.durability
@@ -22,21 +21,16 @@ func initialize(machine_data: Data.MachineData) -> void:
 	EventBus.machine_degradated.connect(on_machine_degradated)
 
 
-func _ready() -> void:
-	control_menu.break_pressed.connect(_on_break_pressed)
-	control_menu.fix_pressed.connect(_on_fix_pressed)
-
-
-func _on_break_pressed() -> void:
+func on_break_pressed() -> void:
 	durability -= 1
 
 
-func _on_fix_pressed() -> void:
+func on_fix_pressed() -> void:
 	durability += 1
 
 
 func _play_animation() -> void:
-	match durability:
+	match machine_data.durability:
 		MAX_DURABILITY:
 			animation_player.play("RESET")
 			return
@@ -52,7 +46,7 @@ func _play_animation() -> void:
 
 
 func on_machine_degradated() -> void:
-	durability = machine_data.durability
+	_play_animation()
 
 
 enum { BROKEN = 0, DAMAGED_2 = 1, DAMAGED_1 = 2, MAX_DURABILITY = 3 }

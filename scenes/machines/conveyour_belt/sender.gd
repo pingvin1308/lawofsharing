@@ -14,6 +14,7 @@ var resource_box_on_belt: ResourceBox
 
 
 func _ready() -> void:
+	control_menu.action_name = "send"
 	control_menu.modulate.a = 0
 	control_menu.action_pressed.connect(_on_action_pressed)
 	interactable_component.interactable_activated.connect(_on_interactable_activated)

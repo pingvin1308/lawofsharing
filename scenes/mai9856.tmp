@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=28 format=3 uid="uid://r7wcxmse6nc1"]
 
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="2_mk5lc"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://bnt703qliwboh" path="res://assets/sound/background_ambient.mp3" id="11_kwhbg"]
 [ext_resource type="Script" path="res://scenes/ui/tutorial.gd" id="13_cqfs2"]
 [ext_resource type="PackedScene" uid="uid://dxsgo8o0qdklb" path="res://scenes/ui/terminal/terminal_menu.tscn" id="13_s3ei3"]
+[ext_resource type="PackedScene" uid="uid://bae2httcrqqyg" path="res://scenes/machines/resource_box.tscn" id="15_u3erq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_68m3g"]
 
@@ -297,7 +298,7 @@ zoom = Vector2(1.2, 1.2)
 
 [node name="AIPlayer" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
 process_mode = 1
-position = Vector2(642, 516)
+position = Vector2(540, 459)
 
 [node name="RoomsController" type="Node2D" parent="Game"]
 process_mode = 1
@@ -411,16 +412,20 @@ layout_mode = 2
 theme = ExtResource("10_midg5")
 text = "80/100"
 
+[node name="Tooltip" parent="Game/CanvasLayer/HUD" instance=ExtResource("10_g7gq7")]
+visible = false
+layout_mode = 0
+
 [node name="Notification" parent="Game/CanvasLayer/HUD" instance=ExtResource("10_dc3fa")]
+visible = false
 layout_mode = 0
 offset_left = 413.0
-offset_top = 330.0
+offset_top = 306.0
 offset_right = 629.0
-offset_bottom = 372.0
+offset_bottom = 348.0
 
 [node name="Tutorial" type="Control" parent="Game/CanvasLayer"]
 visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -458,5 +463,11 @@ script = ExtResource("10_6jmls")
 
 [node name="TerminalMenu" parent="Game/CanvasLayer" instance=ExtResource("13_s3ei3")]
 visible = false
+
+[node name="ResourceBox" parent="Game" instance=ExtResource("15_u3erq")]
+position = Vector2(776, 527)
+
+[node name="ResourceBox2" parent="Game" instance=ExtResource("15_u3erq")]
+position = Vector2(1275, 507)
 
 [connection signal="animation_finished" from="Game/CanvasLayer/Tutorial/AnimationPlayer" to="Game/CanvasLayer/Tutorial" method="_on_animation_finished"]

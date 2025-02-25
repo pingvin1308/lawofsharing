@@ -25,11 +25,10 @@ region = Rect2(18, 16, 12, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2m5rr"]
 size = Vector2(38, 37)
 
-[node name="Charger" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
+[node name="Charger" type="StaticBody2D"]
 y_sort_enabled = true
 collision_mask = 3
 script = ExtResource("1_oyxca")
-breakable_component = NodePath("BreackableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_abo0h")
@@ -93,8 +92,7 @@ position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_2m5rr")
 debug_color = Color(0.642092, 0.522067, 0.114012, 0.42)
 
-[node name="BreackableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_28pqd")]
-control_menu = NodePath("../ControlMenu")
+[node name="BreakableComponent" parent="." instance=ExtResource("7_28pqd")]
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

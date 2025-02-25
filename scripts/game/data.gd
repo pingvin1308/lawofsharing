@@ -4,6 +4,7 @@ const MAX_SOURCE_VALUE: int = 500
 const MAX_DURABILITY: int = 3
 var game: GameData
 
+
 class GameData extends Resource:
 	var day_number: int = 0
 	var rooms: Array[RoomData] = []
@@ -12,6 +13,7 @@ class GameData extends Resource:
 	var machines: Array[MachineData] = []
 	var votes: Array[VoteData] = []
 	var receivers: Array[ReceiverData] = []
+	var tooltip: Tooltip
 
 	@warning_ignore("shadowed_variable")
 	func _init(rooms: Array[RoomData], player: PlayerData, machines: Array[MachineData], ai_players: Array[PlayerData]) -> void:

@@ -82,8 +82,14 @@ func initialize() -> void:
 	hud.initialize()
 
 
+func _process(delta: float) -> void:
+	if player.is_died:
+		print("Game over!")
+
+
 func _on_game_end_day() -> void:
 	# check if game finished
+	# check goals
 	# transfer_resources()
 	# damage_machines()
 	# exchange_rooms()

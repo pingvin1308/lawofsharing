@@ -25,9 +25,8 @@ region = Rect2(49, 17, 13, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q85bi"]
 size = Vector2(32, 36)
 
-[node name="ComponentsStand" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
+[node name="ComponentsStand" type="StaticBody2D"]
 script = ExtResource("1_5vgx3")
-breakable_component = NodePath("BreackableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_srbhi")
@@ -39,11 +38,10 @@ position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_d6q53")
 
 [node name="ControlMenu" parent="." instance=ExtResource("4_s823s")]
-visible = false
 offset_left = -37.0
-offset_top = -60.0
+offset_top = -61.0
 offset_right = 46.0
-offset_bottom = -20.0
+offset_bottom = -21.0
 
 [node name="ComponentsIcon" type="Control" parent="."]
 layout_mode = 3
@@ -92,8 +90,7 @@ position = Vector2(1, 6)
 shape = SubResource("RectangleShape2D_q85bi")
 debug_color = Color(0.68641, 0.498511, 0.104982, 0.42)
 
-[node name="BreackableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_0f3in")]
-control_menu = NodePath("../ControlMenu")
+[node name="BreakableComponent" parent="." instance=ExtResource("7_0f3in")]
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

@@ -11,10 +11,12 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 83.0
 offset_bottom = 40.0
+mouse_filter = 2
 theme = ExtResource("1_i24fv")
 script = ExtResource("1_yjpmj")
 
 [node name="Action" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 15)
 layout_mode = 0
 offset_left = 27.0
 offset_top = 2.0

@@ -46,8 +46,8 @@ func initialize(room_data: Data.RoomData) -> void:
 
 
 func _on_terminal_day_ended() -> void:
-	if transfer_input.changed_amount > 0:
-		EventBus.transfer_resources.emit(transfer_input.room_source_index, room_index, transfer_input.resource_type, transfer_input.changed_amount)
+	#if transfer_input.changed_amount > 0:
+		#EventBus.transfer_resources.emit(transfer_input.room_source_index, room_index, transfer_input.resource_type, transfer_input.changed_amount)
 	transfer_input.reset_changes()
 
 

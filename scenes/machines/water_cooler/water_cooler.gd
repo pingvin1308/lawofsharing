@@ -3,7 +3,6 @@ extends MachineBase
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var interactable_component: InteractableComponent = $InteractableComponent
-@onready var control_menu: ControlMenu = $ControlMenu
 @onready var label: Label = $WaterIcon/Label
 
 
@@ -17,8 +16,7 @@ var source: int:
 
 
 func _ready() -> void:
-	control_menu.modulate.a = 0
-	control_menu.action_pressed.connect(_on_drink)
+	control_menu.action_pressed.connect(_on_drink_pressed)
 
 
 func set_source(value: int) -> void:
@@ -26,6 +24,16 @@ func set_source(value: int) -> void:
 
 
 func _on_interactable_activated() -> void:
+	var interactor := interactable_component.interactor;
+	if interactor.resource_box != null and interactor.resource_box.resource_type == Data.ResourceType.WATER:
+		control_menu.action_name = "fill"
+		control_menu.action_pressed.disconnect(_on_drink_pressed)
+		control_menu.action_pressed.connect(_on_fill_pressed)
+	else:
+		control_menu.action_name = "drink"
+		control_menu.action_pressed.disconnect(_on_fill_pressed)
+		control_menu.action_pressed.connect(_on_drink_pressed)
+
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
 	control_menu.enable()
@@ -41,14 +49,32 @@ func _on_interactable_deactivated() -> void:
 	tween.tween_property(control_menu, "modulate:a", 0.0, 0.2)
 
 
-func _on_drink() -> void:
+func _on_drink_pressed() -> void:
 	if is_in_range:
-		var current_water := interactable_component.interactor.data.water
-		var max_water := Data.PlayerData.MAX_WATER
-		var needed_water := max_water - current_water
-		if (needed_water <= 0):
-			return
+		var player := interactable_component.interactor
+		on_drink(player)
 
-		var value := needed_water if source - needed_water > 0 else source
-		source -= value
-		EventBus.player_water_drunk.emit(value)
+
+func _on_fill_pressed() -> void:
+	if is_in_range:
+		var player = interactable_component.interactor
+		on_fill(player)
+
+
+func on_fill(player: Player) -> void:
+	if player.resource_box == null: return
+	var water_amount = player.resource_box.value
+	source += water_amount
+	player.empty_resource_box()
+
+
+func on_drink(player: Player) -> void:
+	var current_water: int = player.water
+	var max_water := Data.PlayerData.MAX_WATER
+	var needed_water := max_water - current_water
+	if (needed_water <= 0):
+		return
+
+	var value := needed_water if source - needed_water > 0 else source
+	source -= value
+	player.drink(value)

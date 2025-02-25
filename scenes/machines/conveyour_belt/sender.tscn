@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5iwsvnjy8g43"]
+[gd_scene load_steps=19 format=3 uid="uid://b5iwsvnjy8g43"]
 
 [ext_resource type="Script" path="res://scenes/machines/conveyour_belt/sender.gd" id="1_qbuxe"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_cjqqo"]
 [ext_resource type="SpriteFrames" uid="uid://cp3ivgbejfvfs" path="res://assets/machines/sender.res" id="3_yjmgn"]
 [ext_resource type="Script" path="res://scenes/machines/interactable_component.gd" id="4_dkdog"]
 [ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_mkon2"]
+[ext_resource type="Texture2D" uid="uid://dyb6sjyfipoxq" path="res://assets/ui/ui_icons.png" id="7_f7mug"]
+[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="10_pokyo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oescr"]
 shader = ExtResource("2_cjqqo")
@@ -15,6 +17,38 @@ size = Vector2(58, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ocj2"]
 size = Vector2(85, 31)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nu88v"]
+bg_color = Color(0.219608, 0.34902, 0.329412, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwbcp"]
+atlas = ExtResource("7_f7mug")
+region = Rect2(18, 16, 12, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nf0j4"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l72c"]
+atlas = SubResource("CompressedTexture2D_nf0j4")
+region = Rect2(1, 0, 14, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_h2pjr"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmye2"]
+atlas = SubResource("CompressedTexture2D_h2pjr")
+region = Rect2(49, 17, 13, 13)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6ktgf"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bg0g"]
+atlas = SubResource("CompressedTexture2D_6ktgf")
+region = Rect2(32, 1, 16, 14)
 
 [node name="Sender" type="StaticBody2D"]
 y_sort_enabled = true
@@ -44,13 +78,67 @@ shape = SubResource("RectangleShape2D_6ocj2")
 debug_color = Color(0.53339, 0.56722, 0.156011, 0.42)
 
 [node name="ControlMenu" parent="." instance=ExtResource("5_mkon2")]
-visible = false
 offset_left = -59.0
 offset_top = -66.0
 offset_right = 24.0
 offset_bottom = -26.0
-action_name = "send"
-is_breakable = false
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
 position = Vector2(19, -4)
+
+[node name="TargetRoomMenu" type="Control" parent="."]
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_left = -178.0
+offset_top = -65.0
+offset_right = -36.0
+offset_bottom = -15.0
+
+[node name="Panel" type="Panel" parent="TargetRoomMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nu88v")
+
+[node name="MarginContainer" type="MarginContainer" parent="TargetRoomMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="GridContainer" type="GridContainer" parent="TargetRoomMenu/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/v_separation = 8
+
+[node name="RoomName" type="Label" parent="TargetRoomMenu/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("10_pokyo")
+text = "Target room:"
+
+[node name="RoomType" type="OptionButton" parent="TargetRoomMenu/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("10_pokyo")
+selected = 0
+item_count = 4
+popup/item_0/text = "Energy"
+popup/item_0/icon = SubResource("AtlasTexture_nwbcp")
+popup/item_1/text = "Oxygen"
+popup/item_1/icon = SubResource("AtlasTexture_2l72c")
+popup/item_1/id = 1
+popup/item_2/text = "Components"
+popup/item_2/icon = SubResource("AtlasTexture_mmye2")
+popup/item_2/id = 2
+popup/item_3/text = "Food"
+popup/item_3/icon = SubResource("AtlasTexture_0bg0g")
+popup/item_3/id = 3

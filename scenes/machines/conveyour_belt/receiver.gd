@@ -2,7 +2,6 @@ class_name Receiver
 extends StaticBody2D
 
 const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
-const TOOLTIP = preload("res://scenes/ui/tooltip/tooltip.tscn")
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var control_menu: ControlMenu = $ControlMenu
@@ -16,6 +15,7 @@ var resource_box_on_belt: ResourceBox
 var data: Data.ReceiverData
 
 func _ready() -> void:
+	control_menu.action_name = "receive"
 	control_menu.modulate.a = 0
 	control_menu.action_pressed.connect(_on_action_pressed)
 	interactable_component.interactable_activated.connect(_on_interactable_activated)
@@ -50,25 +50,15 @@ func _on_transfer_resources(_room_source_index: int, to_room_index: int, _resour
 
 func _on_action_pressed() -> void:
 	if resource_box_on_belt != null:
-		var scene := TOOLTIP.instantiate() as Tooltip
-		scene.text = "Take resource from the belt"
-		scene.background_color = "ff0000"
-		scene.position = position
-		scene.z_index = 1
-		get_parent().add_child(scene)
-		await get_tree().create_timer(1.0).timeout
-		scene.queue_free()
+		Notification.instance.show_warning("Take resource from the belt")
+		#tooltip.position = position
+		#get_parent().add_child(tooltip)
+		#await get_tree().create_timer(1.0).timeout
+		#tooltip.queue_free()
 		return
 
 	if data.transfer_data_queue.is_empty():
-		var scene := TOOLTIP.instantiate() as Tooltip
-		scene.text = "No resources"
-		scene.background_color = "ff0000"
-		scene.position = position
-		scene.z_index = 1
-		get_parent().add_child(scene)
-		await get_tree().create_timer(1.0).timeout
-		scene.queue_free()
+		Notification.instance.show_warning("No resources")
 		return
 
 	var transfer_data: Data.TransferData = data.transfer_data_queue.pop_front()

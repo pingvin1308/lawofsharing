@@ -25,10 +25,9 @@ region = Rect2(32, 1, 16, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rov4q"]
 size = Vector2(30, 40)
 
-[node name="FoodStand" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
+[node name="FoodStand" type="StaticBody2D"]
 collision_mask = 3
 script = ExtResource("1_jgxel")
-breakable_component = NodePath("BreackableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_h6jfp")
@@ -45,7 +44,6 @@ offset_left = -37.0
 offset_top = -63.0
 offset_right = 46.0
 offset_bottom = -23.0
-action_name = "eat"
 
 [node name="FoodIcon" type="Control" parent="."]
 layout_mode = 3
@@ -94,8 +92,7 @@ position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_rov4q")
 debug_color = Color(0.679596, 0.503271, 0.0609403, 0.42)
 
-[node name="BreackableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_igvlv")]
-control_menu = NodePath("../ControlMenu")
+[node name="BreakableComponent" parent="." instance=ExtResource("7_igvlv")]
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

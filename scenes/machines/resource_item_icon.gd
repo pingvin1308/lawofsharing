@@ -1,5 +1,5 @@
 class_name ResourceItemIcon
-extends PanelContainer
+extends Control
 
 @onready var icon: TextureRect = $Icon
 @onready var label: Label = $Label

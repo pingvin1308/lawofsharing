@@ -42,8 +42,6 @@ offset_left = -38.0
 offset_top = -54.0
 offset_right = 45.0
 offset_bottom = -14.0
-action_name = "open"
-is_breakable = false
 
 [node name="Icon" type="TextureRect" parent="."]
 z_index = 1

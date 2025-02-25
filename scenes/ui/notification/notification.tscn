@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1e42rhpgeli4"]
+
+[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="1_aw2yr"]
+[ext_resource type="Script" path="res://scenes/ui/notification/notification.gd" id="2_1xe4f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5i7kw"]
+bg_color = Color(0.208306, 0.418886, 0.197156, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.101575, 0.227379, 0.0945727, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Notification" type="PanelContainer"]
+offset_right = 212.0
+offset_bottom = 42.0
+size_flags_horizontal = 2
+size_flags_vertical = 2
+theme = ExtResource("1_aw2yr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_5i7kw")
+script = ExtResource("2_1xe4f")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_aw2yr")
+theme_type_variation = &"TooltipText"
+text = "Vote for the room where to move from yours"
+autowrap_mode = 3

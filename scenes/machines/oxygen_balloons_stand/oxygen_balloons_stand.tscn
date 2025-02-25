@@ -25,11 +25,10 @@ load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b
 atlas = SubResource("CompressedTexture2D_8uoep")
 region = Rect2(1, 0, 14, 16)
 
-[node name="OxygenBalloonsStand" type="StaticBody2D" node_paths=PackedStringArray("breakable_component")]
+[node name="OxygenBalloonsStand" type="StaticBody2D"]
 position = Vector2(0, -5)
 collision_mask = 3
 script = ExtResource("1_by0uq")
-breakable_component = NodePath("BreackableComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -94,8 +93,7 @@ text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="BreackableComponent" parent="." node_paths=PackedStringArray("control_menu") instance=ExtResource("7_nn3vg")]
-control_menu = NodePath("../ControlMenu")
+[node name="BreakableComponent" parent="." instance=ExtResource("7_nn3vg")]
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

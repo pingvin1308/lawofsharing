@@ -96,7 +96,7 @@ position = Vector2(342, 72)
 position = Vector2(391, 160)
 
 [node name="ComponentsStand" parent="." instance=ExtResource("8_vwkdr")]
-position = Vector2(301, 73)
+position = Vector2(298, 76)
 
 [node name="FoodStand" parent="." instance=ExtResource("9_y6gte")]
 position = Vector2(168, 72)
