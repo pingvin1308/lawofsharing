@@ -24,6 +24,7 @@ func _ready() -> void:
 
 
 func initialize(room_index: int) -> void:
+	control_menu.modulate.a = 0
 	data = Data.game.get_receiver(room_index)
 
 
@@ -51,10 +52,6 @@ func _on_transfer_resources(_room_source_index: int, to_room_index: int, _resour
 func _on_action_pressed() -> void:
 	if resource_box_on_belt != null:
 		Notification.instance.show_warning("Take resource from the belt")
-		#tooltip.position = position
-		#get_parent().add_child(tooltip)
-		#await get_tree().create_timer(1.0).timeout
-		#tooltip.queue_free()
 		return
 
 	if data.transfer_data_queue.is_empty():
@@ -74,5 +71,14 @@ func _on_action_pressed() -> void:
 	box.initialize(box_data)
 	resource_box_on_belt = box
 	var tween := get_tree().create_tween()
+	#box.current_tween = tween
 	tween.tween_property(box, "global_position", box.global_position + Vector2(-33, 0), 0.6)
 	tween.tween_callback(func() -> void: animated_sprite_2d.stop())
+
+
+func enable_hud() -> void:
+	resource_queue.visible = true
+
+
+func disable_hud() -> void:
+	resource_queue.visible = false

@@ -1,11 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5iwsvnjy8g43"]
+[gd_scene load_steps=21 format=3 uid="uid://b5iwsvnjy8g43"]
 
 [ext_resource type="Script" path="res://scenes/machines/conveyour_belt/sender.gd" id="1_qbuxe"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_cjqqo"]
 [ext_resource type="SpriteFrames" uid="uid://cp3ivgbejfvfs" path="res://assets/machines/sender.res" id="3_yjmgn"]
 [ext_resource type="Script" path="res://scenes/machines/interactable_component.gd" id="4_dkdog"]
+[ext_resource type="Script" path="res://scenes/machines/conveyour_belt/target_room_menu.gd" id="5_8s001"]
 [ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_mkon2"]
 [ext_resource type="Texture2D" uid="uid://dyb6sjyfipoxq" path="res://assets/ui/ui_icons.png" id="7_f7mug"]
+[ext_resource type="Script" path="res://scenes/machines/conveyour_belt/resource_queue.gd" id="9_xlado"]
 [ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="10_pokyo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oescr"]
@@ -77,16 +79,8 @@ position = Vector2(4, 18)
 shape = SubResource("RectangleShape2D_6ocj2")
 debug_color = Color(0.53339, 0.56722, 0.156011, 0.42)
 
-[node name="ControlMenu" parent="." instance=ExtResource("5_mkon2")]
-offset_left = -59.0
-offset_top = -66.0
-offset_right = 24.0
-offset_bottom = -26.0
-
-[node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(19, -4)
-
 [node name="TargetRoomMenu" type="Control" parent="."]
+visible = false
 z_index = 4
 layout_mode = 3
 anchors_preset = 0
@@ -94,6 +88,7 @@ offset_left = -178.0
 offset_top = -65.0
 offset_right = -36.0
 offset_bottom = -15.0
+script = ExtResource("5_8s001")
 
 [node name="Panel" type="Panel" parent="TargetRoomMenu"]
 layout_mode = 1
@@ -126,8 +121,9 @@ size_flags_horizontal = 0
 theme = ExtResource("10_pokyo")
 text = "Target room:"
 
-[node name="RoomType" type="OptionButton" parent="TargetRoomMenu/Panel/MarginContainer/GridContainer"]
+[node name="RoomTypes" type="OptionButton" parent="TargetRoomMenu/Panel/MarginContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("10_pokyo")
 selected = 0
 item_count = 4
@@ -142,3 +138,38 @@ popup/item_2/id = 2
 popup/item_3/text = "Food"
 popup/item_3/icon = SubResource("AtlasTexture_0bg0g")
 popup/item_3/id = 3
+
+[node name="ControlMenu" parent="." instance=ExtResource("5_mkon2")]
+visible = false
+offset_left = -59.0
+offset_top = -66.0
+offset_right = 24.0
+offset_bottom = -26.0
+
+[node name="ResourceQueue" type="Control" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(76, 16)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -125.0
+offset_top = -13.0
+offset_right = -32.0
+offset_bottom = 5.0
+script = ExtResource("9_xlado")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourceQueue"]
+z_index = 1
+custom_minimum_size = Vector2(76, 16)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_bottom = 18.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(19, -4)

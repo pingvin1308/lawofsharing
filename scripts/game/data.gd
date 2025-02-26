@@ -13,6 +13,7 @@ class GameData extends Resource:
 	var machines: Array[MachineData] = []
 	var votes: Array[VoteData] = []
 	var receivers: Array[ReceiverData] = []
+	var senders: Array[SenderData] = []
 	var tooltip: Tooltip
 
 	@warning_ignore("shadowed_variable")
@@ -29,6 +30,13 @@ class GameData extends Resource:
 				return room
 		return null
 
+	## filter with Callable[Room, bool]
+	func get_room_by_filter(filter: Callable) -> RoomData:
+		for room in rooms:
+			if (filter.call(room) as bool):
+				return room
+		return null
+
 
 	func get_machines(room_index: int) -> Array[MachineData]:
 		var result: Array[MachineData] = []
@@ -42,16 +50,19 @@ class GameData extends Resource:
 		for machine in machines:
 			if machine.room_index == room_index and machine.resource_type == resource_type:
 				return machine
-
 		return null
 
 	func get_receiver(room_index: int) -> ReceiverData:
 		for receiver in receivers:
 			if receiver.room_index == room_index:
 				return receiver
-
 		return null
 
+	func get_sender(room_index: int) -> SenderData:
+		for sender in senders:
+			if sender.room_index == room_index:
+				return sender
+		return null
 
 class PlayerData extends Resource:
 
@@ -111,7 +122,7 @@ class MachineData extends Resource:
 
 	var durability: int:
 		set(value):
-			durability = max(value, 0)
+			durability = clamp(value, 0, MAX_DURABILITY)
 
 	var source_value: int:
 		set(value):
@@ -122,7 +133,7 @@ class MachineData extends Resource:
 	func _init(room_index: int, resource_type: ResourceType) -> void:
 		self.room_index = room_index
 		self.resource_type = resource_type
-		self.durability = 3
+		self.durability = MAX_DURABILITY
 		self.source_value = 100
 
 		if resource_type == ResourceType.OXYGEN:
@@ -144,6 +155,14 @@ class ReceiverData extends Resource:
 	func _init(room_index: int) -> void:
 		self.room_index = room_index
 
+
+class SenderData extends Resource:
+	var room_index: int
+	var transfer_data_queue: Array[TransferData] = []
+
+	@warning_ignore("shadowed_variable")
+	func _init(room_index: int) -> void:
+		self.room_index = room_index
 
 class TransferData extends Resource:
 	var from_room_index: int

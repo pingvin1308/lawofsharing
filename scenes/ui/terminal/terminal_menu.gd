@@ -25,9 +25,11 @@ func on_close_pressed() -> void:
 	EventBus.terminal_menu_closed.emit()
 
 
-func on_click(event: InputEventMouseButton) -> void:
-	var is_left_click: bool = (event.button_index == MOUSE_BUTTON_LEFT
-		and event.pressed)
+func on_click(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mouse_event := event as InputEventMouseButton
+		var is_left_click: bool = (mouse_event.button_index == MOUSE_BUTTON_LEFT
+			and mouse_event.pressed)
 
-	if is_left_click:
-		on_close_pressed()
+		if is_left_click:
+			on_close_pressed()

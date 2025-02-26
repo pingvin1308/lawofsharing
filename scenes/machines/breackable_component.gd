@@ -4,6 +4,8 @@ extends Node
 const NAME: String = "BreakableComponent"
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var break_machine: AudioStreamPlayer = $AudioManager/Break
+@onready var fixing: AudioStreamPlayer = $AudioManager/Fixing
 
 
 var durability: int:
@@ -22,10 +24,16 @@ func initialize(machine_data: Data.MachineData) -> void:
 
 
 func on_break_pressed() -> void:
+	var prev_durability := durability
+	if prev_durability > 0:
+		break_machine.play()
 	durability -= 1
 
 
 func on_fix_pressed() -> void:
+	var prev_durability := durability
+	if prev_durability < MAX_DURABILITY:
+		fixing.play()
 	durability += 1
 
 

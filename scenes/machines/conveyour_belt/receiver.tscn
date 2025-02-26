@@ -59,10 +59,10 @@ clip_contents = true
 custom_minimum_size = Vector2(76, 16)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 9.0
-offset_top = -49.0
-offset_right = 102.0
-offset_bottom = -31.0
+offset_left = 32.0
+offset_top = -12.0
+offset_right = 125.0
+offset_bottom = 6.0
 script = ExtResource("6_a2ul2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ResourceQueue"]
@@ -70,6 +70,6 @@ z_index = 1
 custom_minimum_size = Vector2(76, 16)
 layout_mode = 1
 offset_right = 152.0
-offset_bottom = 16.0
+offset_bottom = 17.0
 size_flags_horizontal = 0
 theme_override_constants/separation = 0

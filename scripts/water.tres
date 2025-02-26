@@ -11,3 +11,4 @@ region = Rect2(67, 1, 10, 15)
 script = ExtResource("1_j6ji4")
 type = 0
 icon = SubResource("AtlasTexture_pqs0o")
+room_name = "Water"

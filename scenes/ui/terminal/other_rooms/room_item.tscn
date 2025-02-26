@@ -96,6 +96,7 @@ theme_override_constants/v_separation = 8
 columns = 2
 
 [node name="Send" type="Label" parent="ResourcesMenu"]
+visible = false
 layout_mode = 2
 tooltip_text = "Sending resources to the room is applied after the current day is over"
 mouse_filter = 0
@@ -106,6 +107,7 @@ vertical_alignment = 1
 script = ExtResource("3_sb2uy")
 
 [node name="Transfer" type="BoxContainer" parent="ResourcesMenu"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4

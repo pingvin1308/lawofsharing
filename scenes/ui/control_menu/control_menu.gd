@@ -8,8 +8,6 @@ signal break_pressed()
 @onready var action: Button = $Action
 @onready var fix: Button = $Fix
 @onready var break_button: Button = $Break
-@onready var break_machine: AudioStreamPlayer = $AudioManager/Break
-@onready var fixing: AudioStreamPlayer = $AudioManager/Fixing
 
 var is_breakable: bool
 
@@ -18,6 +16,16 @@ var action_name: String:
 	set(value):
 		if not self.is_node_ready(): await ready
 		action.text = value
+
+
+func connect_signals(callable: Callable) -> void:
+	if not action_pressed.is_connected(callable):
+		action_pressed.connect(callable)
+
+
+func disconnect_signals(callable: Callable) -> void:
+	if action_pressed.is_connected(callable):
+		action_pressed.disconnect(callable)
 
 
 func enable() -> void:
@@ -37,10 +45,8 @@ func _on_action_pressed() -> void:
 
 
 func _on_fix_pressed() -> void:
-	fixing.play()
 	fix_pressed.emit()
 
 
 func _on_break_pressed() -> void:
-	break_machine.play()
 	break_pressed.emit()

@@ -13,3 +13,4 @@ region = Rect2(18, 16, 12, 15)
 script = ExtResource("2_nq1gr")
 type = 3
 icon = SubResource("AtlasTexture_jxnav")
+room_name = "Energy"

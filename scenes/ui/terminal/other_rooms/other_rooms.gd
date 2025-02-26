@@ -2,7 +2,7 @@ class_name RoomsContainer
 extends VBoxContainer
 
 const ROOM_ITEM = preload("res://scenes/ui/terminal/other_rooms/room_item.tscn")
-var transfer_inputs: Array[TransferInput] = []
+#var transfer_inputs: Array[TransferInput] = []
 
 var player_room_index: int
 var player_room_type: Data.ResourceType
@@ -21,7 +21,7 @@ func initialize() -> void:
 
 func on_rooms_updated() -> void:
 	for child in get_children():
-		transfer_inputs.clear()
+		#transfer_inputs.clear()
 		child.queue_free()
 
 	for room in Data.game.rooms:
@@ -33,19 +33,19 @@ func on_rooms_updated() -> void:
 		room_item.initialize(room)
 		# сколькое место, может неправильно считаться сумма,
 		# если кто то каким то чудом сможет ввести changed input в терминале прям в момент инициализации
-		transfer_inputs.append(room_item.transfer_input)
-		room_item.transfer_input.value_changed.connect(_on_value_changed)
+		#transfer_inputs.append(room_item.transfer_input)
+		#room_item.transfer_input.value_changed.connect(_on_value_changed)
 
 
-func _on_value_changed(sender: TransferInput) -> void:
-	var sum := 0
-	for input in transfer_inputs:
-		sum += input.changed_amount
-
-	if (sum > player_room_resource_value):
-		var diff := player_room_resource_value - sum
-		sender.spin_box.on_warning(player_room_type)
-		sender.spin_box.value += diff
+#func _on_value_changed(sender: TransferInput) -> void:
+	#var sum := 0
+	#for input in transfer_inputs:
+		#sum += input.changed_amount
+#
+	#if (sum > player_room_resource_value):
+		#var diff := player_room_resource_value - sum
+		#sender.spin_box.on_warning(player_room_type)
+		#sender.spin_box.value += diff
 
 
 func _on_room_recource_changed(room_index: int, type: Data.ResourceType, value: int) -> void:

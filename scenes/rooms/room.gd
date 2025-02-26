@@ -4,11 +4,11 @@ extends Node2D
 
 @onready var room_tilemap: Node2D = $RoomTilemap
 
-@onready var water_room: Node2D = $RoomTilemap/WaterRoom
-@onready var food_room: Node2D = $RoomTilemap/FoodRoom
-@onready var energy_room: Node2D = $RoomTilemap/EnergyRoom
-@onready var components_room: Node2D = $RoomTilemap/ComponentsRoom
-@onready var oxygen_room: Node2D = $RoomTilemap/OxygenRoom
+@onready var water_room_tilemap: Node2D = $RoomTilemap/WaterRoom
+@onready var food_room_tilemap: Node2D = $RoomTilemap/FoodRoom
+@onready var energy_room_tilemap: Node2D = $RoomTilemap/EnergyRoom
+@onready var components_room_tilemap: Node2D = $RoomTilemap/ComponentsRoom
+@onready var oxygen_room_tilemap: Node2D = $RoomTilemap/OxygenRoom
 
 @onready var terminal: Terminal = $Terminal
 @onready var sleep_room: SleepRoom = $SleepRoom
@@ -35,21 +35,20 @@ extends Node2D
 
 		match value:
 			Data.ResourceType.WATER:
-				water_room.visible = true
+				water_room_tilemap.visible = true
 			Data.ResourceType.FOOD:
-				food_room.visible = true
+				food_room_tilemap.visible = true
 			Data.ResourceType.ELECTRICITY:
-				energy_room.visible = true
+				energy_room_tilemap.visible = true
 			Data.ResourceType.COMPONENTS:
-				components_room.visible = true
+				components_room_tilemap.visible = true
 			Data.ResourceType.OXYGEN:
-				oxygen_room.visible = true
-
+				oxygen_room_tilemap.visible = true
 
 
 var is_control_menu_opened: bool = false
 ## Key: String name, Machine
-var breakable_machines: Dictionary = {}
+var machines_map: Dictionary = {}
 ## Key: Data.ResourceType, Value: MachineBase
 var data: Data.RoomData
 
@@ -59,20 +58,10 @@ var room_index: int:
 
 func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> void:
 	data = room_data
+	room_type = room_data.renewable_resource
 
 	receiver.initialize(data.room_index)
-
-	match room_data.renewable_resource:
-		Data.ResourceType.WATER:
-			water_room.visible = true
-		Data.ResourceType.FOOD:
-			food_room.visible = true
-		Data.ResourceType.ELECTRICITY:
-			energy_room.visible = true
-		Data.ResourceType.COMPONENTS:
-			components_room.visible = true
-		Data.ResourceType.OXYGEN:
-			oxygen_room.visible = true
+	sender.initialize(data.room_index)
 
 	for machine in machines:
 		match machine.resource_type:
@@ -92,13 +81,18 @@ func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> 
 	EventBus.terminal_menu_closed.connect(_menu_closed)
 	#EventBus.transfer_resources.connect(_on_transfer_resources)
 
-	breakable_machines = {
+	machines_map = {
 		water_cooler.name: water_cooler,
 		charger.name: charger,
 		oxygen_balloons_stand.name: oxygen_balloons_stand,
 		components_stand.name: components_stand,
-		food_stand.name: food_stand
+		food_stand.name: food_stand,
+		receiver.name: receiver,
+		sender.name: sender
 	}
+	for machine_name: String in machines_map:
+		@warning_ignore("unsafe_method_access")
+		machines_map[machine_name].disable_hud()
 
 
 func set_player(player: Player) -> void:
@@ -110,11 +104,19 @@ func set_player(player: Player) -> void:
 	player.data.room_type = room_type
 	EventBus.player_changed_room.emit()
 
+	for machine_name: String in machines_map:
+		@warning_ignore("unsafe_method_access")
+		machines_map[machine_name].enable_hud()
+
 
 func unset_player() -> void:
 	character_body.process_mode = PROCESS_MODE_DISABLED
 	character_body = null
 	oxygen_timer.stop()
+
+	for machine_name: String in machines_map:
+		@warning_ignore("unsafe_method_access")
+		machines_map[machine_name].disable_hud()
 
 
 func _menu_opened() -> void:

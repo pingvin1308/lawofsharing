@@ -13,3 +13,4 @@ region = Rect2(32, 1, 16, 14)
 script = ExtResource("2_qf8je")
 type = 1
 icon = SubResource("AtlasTexture_v1cka")
+room_name = "Food"

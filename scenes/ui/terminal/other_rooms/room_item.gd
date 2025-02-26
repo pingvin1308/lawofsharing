@@ -1,7 +1,7 @@
 class_name RoomItem
 extends BoxContainer
 
-@onready var transfer_input: TransferInput = $ResourcesMenu/Transfer
+#@onready var transfer_input: TransferInput = $ResourcesMenu/Transfer
 @onready var vote_button: CheckButton = $ResourcesMenu/VoteButton
 @onready var room_name_label: Label = $Name
 
@@ -15,9 +15,9 @@ var map: Dictionary
 var room_name: String
 var room_index: int = -1
 var room_type: Data.ResourceType
-var changed_amount: int:
-	get():
-		return transfer_input.changed_amount
+#var changed_amount: int:
+	#get():
+		#return transfer_input.changed_amount
 
 
 @warning_ignore("shadowed_variable")
@@ -31,7 +31,7 @@ func initialize(room_data: Data.RoomData) -> void:
 	for machine in machines:
 		set_resource(machine.resource_type, machine.source_value)
 
-	transfer_input.initialize()
+	#transfer_input.initialize()
 	map = {
 		Data.ResourceType.WATER: water_label,
 		Data.ResourceType.FOOD: food_label,
@@ -41,14 +41,14 @@ func initialize(room_data: Data.RoomData) -> void:
 	}
 
 	assert(room_index != -1, "Room index should be initialized")
-	EventBus.terminal_day_ended.connect(_on_terminal_day_ended)
+	#EventBus.terminal_day_ended.connect(_on_terminal_day_ended)
 	EventBus.room_recource_changed.connect(_on_room_resource_changed)
 
 
-func _on_terminal_day_ended() -> void:
+#func _on_terminal_day_ended() -> void:
 	#if transfer_input.changed_amount > 0:
 		#EventBus.transfer_resources.emit(transfer_input.room_source_index, room_index, transfer_input.resource_type, transfer_input.changed_amount)
-	transfer_input.reset_changes()
+	#transfer_input.reset_changes()
 
 
 @warning_ignore("shadowed_variable")

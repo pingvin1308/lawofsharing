@@ -104,11 +104,11 @@ position = Vector2(168, 72)
 [node name="SleepRoom" parent="." instance=ExtResource("10_uomrb")]
 position = Vector2(88, 130)
 
-[node name="OxygenTimer" type="Timer" parent="."]
-wait_time = 0.4
-
 [node name="Receiver" parent="." instance=ExtResource("10_1kx3p")]
 position = Vector2(208, 259)
 
 [node name="Sender" parent="." instance=ExtResource("11_bwk7i")]
 position = Vector2(112, 259)
+
+[node name="OxygenTimer" type="Timer" parent="."]
+wait_time = 0.4

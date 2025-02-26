@@ -115,13 +115,14 @@ func pickup_box(resource_box: Data.ResourceBoxData) -> void:
 	resource_item_icon.visible = true
 	resource_item_icon.icon.texture = ResourcesRepository.resources[resource_box.resource_type].icon
 	resource_item_icon.label.text = str(resource_box.value)
-	var tween := get_tree().create_tween()
-	tween.tween_property(control_menu, "modulate:a", 1.0, 0.2)
+	#var tween := get_tree().create_tween()
+	#tween.tween_property(control_menu, "modulate:a", 1.0, 0.2)
+	control_menu.modulate.a = 1.0
 
 
 func drop_box() -> void:
 	if resource_box == null: return
-	var box_scene = RESOURCE_BOX.instantiate() as ResourceBox
+	var box_scene := RESOURCE_BOX.instantiate() as ResourceBox
 	get_parent().add_child(box_scene)
 	box_scene.initialize(data.resource_box)
 	box_scene.position = position
@@ -132,12 +133,12 @@ func _on_action_pressed() -> void:
 	drop_box()
 
 func empty_resource_box() -> void:
+	data.resource_box = null
 	var tween := get_tree().create_tween()
 	tween.tween_property(control_menu, "modulate:a", 0.0, 0.2)
 	resource_item_icon.visible = false
 	control_menu.action_name = ""
 	control_menu.visible = false
-	data.resource_box = null
 
 func enable_commands_panel(action_name: String) -> void:
 	control_menu.visible = true

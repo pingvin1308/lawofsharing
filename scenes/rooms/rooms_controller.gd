@@ -25,17 +25,6 @@ func initialize(player: Player, ai_player: Player) -> void:
 	EventBus.terminal_day_ended.connect(_on_day_ended)
 
 
-#func change_rooms(from_room_index: int, to_room_index: int) -> void:
-	#var from_room = get_child(from_room_index) as Room
-	#from_room.unset_player()
-	#var to_room = get_child(to_room_index) as Room
-	#to_room.set_player(player)
-
-
-#func _get_room(room: String) -> Dictionary:
-	#return rooms_with_breakable_machines[room]
-
-
 # Функция определения количества повреждений на день
 func get_damage_per_day(day: int) -> int:
 	if day <= 3:

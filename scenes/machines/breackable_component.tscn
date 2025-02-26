@@ -1,6 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn0ja50u1boe"]
+[gd_scene load_steps=9 format=3 uid="uid://cn0ja50u1boe"]
 
 [ext_resource type="Script" path="res://scenes/machines/breackable_component.gd" id="1_uwo7n"]
+[ext_resource type="AudioStream" uid="uid://br5ngll34l2vh" path="res://assets/sound/break_2.mp3" id="2_ghohk"]
+[ext_resource type="AudioStream" uid="uid://djp0568lnqsi5" path="res://assets/sound/fixing.mp3" id="3_k3uxr"]
 
 [sub_resource type="Animation" id="Animation_bmsxr"]
 length = 0.001
@@ -35,7 +37,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_nab7a"]
 resource_name = "damaged_1"
-length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -44,7 +45,7 @@ tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 1.96667),
+"times": PackedFloat32Array(0, 0.5, 1.96667),
 "transitions": PackedFloat32Array(3.48221, 0.392292, 0.0980736),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0.835294, 0.137255, 1), Color(1, 1, 1, 1)]
@@ -52,7 +53,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_vl18n"]
 resource_name = "damaged_2"
-length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -61,7 +61,7 @@ tracks/0/path = NodePath("Sprite2D:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 1.96667),
+"times": PackedFloat32Array(0, 0.5, 1.96667),
 "transitions": PackedFloat32Array(3.86373, 0.554784, 1.57968e-05),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 0.38, 0.38, 1), Color(1, 1, 1, 1)]
@@ -84,3 +84,13 @@ libraries = {
 "": SubResource("AnimationLibrary_cqw1m")
 }
 autoplay = "RESET"
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="Break" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("2_ghohk")
+volume_db = -6.45
+pitch_scale = 0.72
+
+[node name="Fixing" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("3_k3uxr")

@@ -49,9 +49,9 @@ func initialize() -> void:
 	var rooms: Array[Data.RoomData] = []
 	var machines: Array[Data.MachineData] = []
 	var receivers: Array[Data.ReceiverData] = []
+	var senders: Array[Data.SenderData] = []
 
 	for index in Data.ResourceType.keys().size():
-		#var resource_type = Data.ResourceType.get(index)
 		var room_data := Data.RoomData.new(index, index)
 		rooms.append(room_data)
 
@@ -62,6 +62,9 @@ func initialize() -> void:
 		var receiver: Data.ReceiverData = Data.ReceiverData.new(index)
 		receivers.append(receiver)
 
+		var sender: Data.SenderData = Data.SenderData.new(index)
+		senders.append(sender)
+
 	var ai_player_data := Data.PlayerData.new(0, true)
 	var ai_players: Array[Data.PlayerData] = [ai_player_data]
 
@@ -71,6 +74,7 @@ func initialize() -> void:
 		machines,
 		ai_players)
 	Data.game.receivers = receivers
+	Data.game.senders = senders
 
 	player.initialize(player_data)
 	ai_player.initialize(ai_player_data)
@@ -82,7 +86,7 @@ func initialize() -> void:
 	hud.initialize()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if player.is_died:
 		print("Game over!")
 

@@ -13,3 +13,4 @@ region = Rect2(1, 0, 14, 16)
 script = ExtResource("2_c1837")
 type = 4
 icon = SubResource("AtlasTexture_hcoeu")
+room_name = "Oxygen"

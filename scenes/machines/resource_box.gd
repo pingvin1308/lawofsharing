@@ -17,6 +17,7 @@ var resource_type_icon_map: Dictionary = {
 
 var is_in_range: bool
 var data: Data.ResourceBoxData
+var is_captured: bool = false
 
 
 func _ready() -> void:
@@ -28,6 +29,7 @@ func _ready() -> void:
 
 
 func initialize(resource_box_data: Data.ResourceBoxData) -> void:
+	is_captured = false
 	self.data = resource_box_data
 	label.text = str(data.value)
 	icon.texture = ResourcesRepository.resources[data.resource_type].icon
@@ -38,7 +40,7 @@ func _on_interactable_activated() -> void:
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
 	control_menu.enable()
-	var tween := get_tree().create_tween()
+	var tween := create_tween()
 	tween.tween_property(control_menu, "modulate:a", 1.0, 0.2)
 
 
@@ -46,16 +48,16 @@ func _on_interactable_deactivated() -> void:
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", false)
 	is_in_range = false
 	control_menu.disable()
-	var tween := get_tree().create_tween()
+	var tween := create_tween()
 	tween.tween_property(control_menu, "modulate:a", 0.0, 0.2)
 
 
 func _on_action_pressed() -> void:
 	if is_in_range:
-		var player = interactable_component.interactor
-		if player.resource_box != null:
+		var player := interactable_component.interactor
+		if is_captured or player.resource_box != null:
 			Notification.instance.show_warning("You already have box with resource")
 			return
-
+		is_captured = true
 		player.pickup_box(data)
 		queue_free()

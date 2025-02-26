@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bae2httcrqqyg"]
+[gd_scene load_steps=12 format=3 uid="uid://bae2httcrqqyg"]
 
 [ext_resource type="Script" path="res://scenes/machines/resource_box.gd" id="1_o5h7p"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_0x2kn"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="4_g8y2q"]
 [ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_t145t"]
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="6_dswle"]
-[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="7_7mnem"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uteci"]
 resource_local_to_scene = true
@@ -99,14 +98,3 @@ theme_override_font_sizes/font_size = 6
 text = "100"
 horizontal_alignment = 2
 vertical_alignment = 1
-
-[node name="SelectTargetRoom" type="Button" parent="."]
-offset_left = 14.0
-offset_top = -62.0
-offset_right = 74.0
-offset_bottom = -46.0
-theme = ExtResource("7_7mnem")
-theme_override_font_sizes/font_size = 4
-text = "select target 
-room"
-alignment = 0

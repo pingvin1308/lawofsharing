@@ -4,6 +4,7 @@ extends MachineBase
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var label: Label = $OxygenIcon/Label
 @onready var interactable_component: InteractableComponent = $InteractableComponent
+@onready var oxygen_icon: Control = $OxygenIcon
 
 var room_name: String
 var is_in_range: bool = false
@@ -19,10 +20,10 @@ func _on_interactable_activated() -> void:
 	var interactor := interactable_component.interactor;
 	if interactor.resource_box != null and interactor.resource_box.resource_type == Data.ResourceType.OXYGEN:
 		control_menu.action_name = "fill"
-		control_menu.action_pressed.connect(_on_fill_pressed)
+		control_menu.connect_signals(_on_fill_pressed)
 	else:
 		control_menu.action_name = ""
-		control_menu.action_pressed.disconnect(_on_fill_pressed)
+		control_menu.disconnect_signals(_on_fill_pressed)
 
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
@@ -41,12 +42,20 @@ func _on_interactable_deactivated() -> void:
 
 func _on_fill_pressed() -> void:
 	if is_in_range:
-		var player = interactable_component.interactor
+		var player := interactable_component.interactor
 		on_fill(player)
 
 
 func on_fill(player: Player) -> void:
 	if player.resource_box == null: return
-	var oxygen_amount = player.resource_box.value
+	var oxygen_amount := player.resource_box.value
 	source += oxygen_amount
 	player.empty_resource_box()
+
+
+func enable_hud() -> void:
+	oxygen_icon.visible = true
+
+
+func disable_hud() -> void:
+	oxygen_icon.visible = false

@@ -1,8 +1,54 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://6kalolqswey0"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://6kalolqswey0"]
 
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="1_vfqg2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbikn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tg1gu"]
+bg_color = Color(0.4081, 0.77, 0.558892, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.309804, 0.443137, 0.356863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l55a8"]
+bg_color = Color(0.430462, 0.608945, 0.542229, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.311729, 0.443924, 0.355824, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gtdkt"]
+bg_color = Color(0.189543, 0.414749, 0.293716, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.309804, 0.443137, 0.356863, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aoj5x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_03o3r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fiwio"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w4jsr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gt1i4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_upyvd"]
 
@@ -14,19 +60,23 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0y456"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
 [resource]
 default_font = ExtResource("1_vfqg2")
 default_font_size = 8
+Button/font_sizes/font_size = 6
 Button/styles/focus = SubResource("StyleBoxEmpty_lbikn")
+Button/styles/hover = SubResource("StyleBoxFlat_tg1gu")
+Button/styles/normal = SubResource("StyleBoxFlat_l55a8")
+Button/styles/pressed = SubResource("StyleBoxFlat_gtdkt")
+CheckButton/styles/focus = SubResource("StyleBoxEmpty_aoj5x")
+CheckButton/styles/hover = SubResource("StyleBoxEmpty_03o3r")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_fiwio")
+CheckButton/styles/normal = SubResource("StyleBoxEmpty_w4jsr")
+CheckButton/styles/pressed = SubResource("StyleBoxEmpty_gt1i4")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_upyvd")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_dt5ov")
-OptionButton/constants/h_separation = 4
 OptionButton/font_sizes/font_size = 8
 PopupPanel/font_sizes/title_font_size = 8
 PopupPanel/fonts/title_font = ExtResource("1_vfqg2")
-PopupPanel/styles/panel = SubResource("StyleBoxFlat_0y456")
 TooltipText/base_type = &"RichTextLabel"
 TooltipText/constants/line_separation = 2

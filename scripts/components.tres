@@ -13,3 +13,4 @@ region = Rect2(49, 17, 13, 13)
 script = ExtResource("2_6e01f")
 type = 2
 icon = SubResource("AtlasTexture_ng6fe")
+room_name = "Components"

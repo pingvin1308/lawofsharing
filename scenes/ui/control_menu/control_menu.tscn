@@ -1,9 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://b24lajp77bfi6"]
+[gd_scene load_steps=6 format=3 uid="uid://b24lajp77bfi6"]
 
 [ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="1_i24fv"]
 [ext_resource type="Script" path="res://scenes/ui/control_menu/control_menu.gd" id="1_yjpmj"]
-[ext_resource type="AudioStream" uid="uid://br5ngll34l2vh" path="res://assets/sound/break_2.mp3" id="3_cbdg3"]
-[ext_resource type="AudioStream" uid="uid://djp0568lnqsi5" path="res://assets/sound/fixing.mp3" id="4_kf3nx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g0g3h"]
+bg_color = Color(0.8, 0.328, 0.328, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.588235, 0.211765, 0.294118, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ayvop"]
+bg_color = Color(0.44, 0.1628, 0.16742, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.588235, 0.211765, 0.294118, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7p7ax"]
+bg_color = Color(0.6, 0.33, 0.33, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.59, 0.2124, 0.294213, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="ControlMenu" type="Control"]
 z_index = 2
@@ -18,39 +52,31 @@ script = ExtResource("1_yjpmj")
 [node name="Action" type="Button" parent="."]
 custom_minimum_size = Vector2(20, 15)
 layout_mode = 0
-offset_left = 27.0
+offset_left = 24.0
 offset_top = 2.0
-offset_right = 47.0
+offset_right = 50.0
 offset_bottom = 17.0
-theme_override_font_sizes/font_size = 4
+theme = ExtResource("1_i24fv")
 
 [node name="Fix" type="Button" parent="."]
 layout_mode = 0
-offset_left = 4.0
 offset_top = 20.0
 offset_right = 24.0
 offset_bottom = 35.0
-theme_override_font_sizes/font_size = 4
+theme = ExtResource("1_i24fv")
 text = "fix"
 
 [node name="Break" type="Button" parent="."]
 layout_mode = 0
 offset_left = 51.0
 offset_top = 20.0
-offset_right = 79.0
+offset_right = 89.0
 offset_bottom = 35.0
-theme_override_font_sizes/font_size = 4
+theme = ExtResource("1_i24fv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g0g3h")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ayvop")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7p7ax")
 text = "break"
-
-[node name="AudioManager" type="Node" parent="."]
-
-[node name="Break" type="AudioStreamPlayer" parent="AudioManager"]
-stream = ExtResource("3_cbdg3")
-volume_db = -6.45
-pitch_scale = 0.72
-
-[node name="Fixing" type="AudioStreamPlayer" parent="AudioManager"]
-stream = ExtResource("4_kf3nx")
 
 [connection signal="pressed" from="Action" to="." method="_on_action_pressed"]
 [connection signal="pressed" from="Fix" to="." method="_on_fix_pressed"]
