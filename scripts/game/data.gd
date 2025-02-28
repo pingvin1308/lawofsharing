@@ -37,6 +37,12 @@ class GameData extends Resource:
 				return room
 		return null
 
+	func get_by_filter(collection: Array[Variant], filter: Callable) -> Variant:
+		for item in collection:
+			if (filter.call(item) as bool):
+				return item
+		return null
+
 
 	func get_machines(room_index: int) -> Array[MachineData]:
 		var result: Array[MachineData] = []
@@ -163,6 +169,7 @@ class SenderData extends Resource:
 	@warning_ignore("shadowed_variable")
 	func _init(room_index: int) -> void:
 		self.room_index = room_index
+
 
 class TransferData extends Resource:
 	var from_room_index: int

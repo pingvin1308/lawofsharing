@@ -7,6 +7,7 @@ const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
 @onready var audio_manager: PlayerAudioManager = $AudioManager
 @onready var control_menu: ControlMenu = $ControlMenu
 @onready var resource_item_icon: ResourceItemIcon = $ResourceItemIcon
+@onready var camera: Camera2D = $Camera2D
 
 @export var speed: int = 100
 @export var lerp_speed: float = 50

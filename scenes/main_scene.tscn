@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=28 format=3 uid="uid://r7wcxmse6nc1"]
 
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="2_mk5lc"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://da4vqf47g8ne0" path="res://scenes/ui/tooltip/tooltip.tscn" id="10_g7gq7"]
 [ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="10_midg5"]
 [ext_resource type="AudioStream" uid="uid://bnt703qliwboh" path="res://assets/sound/background_ambient.mp3" id="11_kwhbg"]
+[ext_resource type="Script" path="res://scenes/ui/map_button_back.gd" id="11_lgrwh"]
 [ext_resource type="Script" path="res://scenes/ui/tutorial.gd" id="13_cqfs2"]
 [ext_resource type="PackedScene" uid="uid://dxsgo8o0qdklb" path="res://scenes/ui/terminal/terminal_menu.tscn" id="13_s3ei3"]
 
@@ -68,58 +69,46 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../Player/Camera2D:zoom")
+tracks/2/path = NodePath("../../Player:speed")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.2, 1.2)]
+"update": 1,
+"values": [90]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../Player:speed")
+tracks/3/path = NodePath("Tooltip:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [90]
+"update": 0,
+"values": [Vector2(2, 2)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Tooltip:scale")
+tracks/4/path = NodePath("Tooltip:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2, 2)]
+"values": [Vector2(238, 415)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Tooltip:position")
+tracks/5/path = NodePath("Tooltip:text")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(238, 415)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Tooltip:text")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -153,25 +142,13 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(40, 40), Vector2(40, 40), Vector2(50, 89), Vector2(50, 89), Vector2(50, 89), Vector2(50, 89), Vector2(81, 74), Vector2(49, 74)]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../Player/Camera2D:zoom")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(6.26667, 7.36667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1.2, 1.2), Vector2(0.4, 0.4)]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0.1, 1.23333, 2.03333, 3.03333, 4.1, 5.16667, 6.03333, 7.43333, 8.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
@@ -203,49 +180,49 @@ tracks/3/keys = {
 "method": &"pause"
 }]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../Player:speed")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../Player:speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 8.83333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 90]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Tooltip:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Tooltip:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0, 6.13333),
 "transitions": PackedFloat32Array(1e+06, 0.840895),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(2, 2)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Tooltip:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Tooltip:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 6.16667),
 "transitions": PackedFloat32Array(4068.72, 0.933032),
 "update": 0,
 "values": [Vector2(74, 209), Vector2(238, 415)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Tooltip:text")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Tooltip:text")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 1.13333, 1.96667, 2.9, 3.9, 4.9, 5.86667, 6.3, 8.03333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
@@ -272,10 +249,10 @@ y_sort_enabled = true
 [node name="ColorRect" type="ColorRect" parent="."]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_68m3g")
-offset_left = -727.0
-offset_top = -473.0
-offset_right = 2811.0
-offset_bottom = 1588.0
+offset_left = -1335.0
+offset_top = -960.0
+offset_right = 2071.0
+offset_bottom = 1101.0
 color = Color(0.02838, 0.0189, 0.09, 1)
 
 [node name="Game" type="Node2D" parent="."]
@@ -292,9 +269,6 @@ parameters/looping = true
 process_mode = 1
 position = Vector2(245, 141)
 
-[node name="Camera2D" type="Camera2D" parent="Game/Player"]
-zoom = Vector2(1.2, 1.2)
-
 [node name="AIPlayer" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
 process_mode = 1
 position = Vector2(642, 516)
@@ -305,21 +279,22 @@ y_sort_enabled = true
 script = ExtResource("3_3iibb")
 
 [node name="EnergyRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
+position = Vector2(-685, -205)
 room_type = 3
 
 [node name="WaterRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(512, 0)
+position = Vector2(-222, -483)
 
 [node name="FoodRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(1029, 0)
+position = Vector2(194, -219)
 room_type = 1
 
 [node name="OxygenRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(1032, 367)
+position = Vector2(81, 143)
 room_type = 4
 
 [node name="ComponentsRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(508, 390)
+position = Vector2(-506, 157)
 room_type = 2
 
 [node name="VotingController" type="Node" parent="Game"]
@@ -417,6 +392,16 @@ offset_left = 413.0
 offset_top = 330.0
 offset_right = 629.0
 offset_bottom = 372.0
+
+[node name="Button" type="Button" parent="Game/CanvasLayer/HUD"]
+visible = false
+layout_mode = 0
+offset_left = 117.0
+offset_top = 95.0
+offset_right = 167.0
+offset_bottom = 126.0
+text = "BACK"
+script = ExtResource("11_lgrwh")
 
 [node name="Tutorial" type="Control" parent="Game/CanvasLayer"]
 visible = false

@@ -24,10 +24,10 @@ func _ready() -> void:
 	interactable_component.interactable_activated.connect(_on_interactable_activated)
 	interactable_component.interactable_deactivated.connect(_on_interactable_deactivated)
 
-
 func initialize(room_index: int) -> void:
 	control_menu.modulate.a = 0
 	data = Data.game.get_sender(room_index)
+	EventBus.resources_transfered.connect(_on_resources_transfered)
 
 
 func _on_interactable_activated() -> void:
@@ -36,7 +36,7 @@ func _on_interactable_activated() -> void:
 	control_menu.enable()
 	var room := Data.game.get_room_by_filter(
 		func(r: Data.RoomData) -> bool: return r.room_index == data.room_index)
-	target_room_menu.enable(room.renewable_resource)
+	#target_room_menu.enable(room.renewable_resource)
 	var tween := get_tree().create_tween()
 	tween.tween_property(control_menu, "modulate:a", 1.0, 0.2)
 	tween.parallel()
@@ -53,10 +53,54 @@ func _on_interactable_deactivated() -> void:
 	tween.parallel()
 	tween.tween_property(target_room_menu, "modulate:a", 0.0, 0.2)
 
+var previous_camera_global_position: Vector2
+var is_menu_opened: bool
 
 func _on_action_pressed() -> void:
-	var player := interactable_component.interactor
-	on_send_resource(player)
+	if is_menu_opened:
+		return
+
+	MapButtonBack.instance.pressed.connect(_on_map_button_back_pressed)
+	var camera = get_viewport().get_camera_2d()
+	previous_camera_global_position = camera.global_position
+	var tween = create_tween()
+	tween.tween_property(camera, "zoom", Vector2(0.3, 0.3), 1)
+	tween.parallel()
+	tween.tween_property(camera, "global_position", Vector2.ZERO, 1)
+
+	var player = get_tree().get_first_node_in_group("player")
+
+	player = interactable_component.interactor
+	player.speed = 0
+	is_menu_opened = true
+	#player.process_mode = PROCESS_MODE_DISABLED
+	#on_send_resource(player)
+
+
+func _on_map_button_back_pressed() -> void:
+	if not is_menu_opened:
+		return
+
+	MapButtonBack.instance.pressed.disconnect(_on_map_button_back_pressed)
+	var camera = get_viewport().get_camera_2d()
+	var tween = create_tween()
+	tween.tween_property(camera, "zoom", Vector2(1.2, 1.2), 1)
+	tween.parallel()
+	var player = get_tree().get_first_node_in_group("player")
+	tween.tween_property(camera, "global_position", previous_camera_global_position, 1)
+	await tween.finished
+	#player.process_mode = Node.PROCESS_MODE_INHERIT
+	player.speed = 90
+	is_menu_opened = false
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_menu_opened:
+		return
+
+	if event.is_action_pressed(&"exit"):
+		_on_map_button_back_pressed()
+
 
 
 #func on_send_resource(player: Player) -> void:
@@ -122,12 +166,12 @@ func on_send_resource(player: Player) -> void:
 			box.queue_free()
 			data.transfer_data_queue.push_back(transfer_data)
 			resource_queue.update(data.transfer_data_queue)
-		elif player.resource_box == resource_box:
-			Notification.instance.show_warning("Wow!")
-
 		animated_sprite_2d.stop())
 	await tween.finished
 
+	#TODO: подумать о том как можно выкинуть сообщение для игрока, после пойманной коробки
+	if player.resource_box == resource_box:
+		Notification.instance.show_warning("Wow!")
 
 
 func enable_hud() -> void:
@@ -136,3 +180,7 @@ func enable_hud() -> void:
 
 func disable_hud() -> void:
 	resource_queue.visible = false
+
+
+func _on_resources_transfered() -> void:
+	resource_queue.update(data.transfer_data_queue)

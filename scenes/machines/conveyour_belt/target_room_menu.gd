@@ -3,14 +3,18 @@ extends Control
 
 @onready var room_types: OptionButton = $Panel/MarginContainer/GridContainer/RoomTypes
 
+
 var selected_room: Data.ResourceType:
 	get():
-		#last_selected =
 		return room_types.get_selected_id() as Data.ResourceType
 
 var last_selected: Data.ResourceType
 
-
+#Send to:
+#O₂ Oxygen
+#🍔 Food
+#⚡  Energy
+#💦 Water
 func _ready() -> void:
 	room_types.get_popup().id_pressed.connect(_on_id_pressed)
 

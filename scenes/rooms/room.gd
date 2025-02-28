@@ -104,9 +104,10 @@ func set_player(player: Player) -> void:
 	player.data.room_type = room_type
 	EventBus.player_changed_room.emit()
 
-	for machine_name: String in machines_map:
-		@warning_ignore("unsafe_method_access")
-		machines_map[machine_name].enable_hud()
+	if not player.data.is_ai:
+		for machine_name: String in machines_map:
+			@warning_ignore("unsafe_method_access")
+			machines_map[machine_name].enable_hud()
 
 
 func unset_player() -> void:

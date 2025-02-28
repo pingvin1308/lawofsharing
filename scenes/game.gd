@@ -85,16 +85,34 @@ func initialize() -> void:
 	terminal_menu.initialize()
 	hud.initialize()
 
+	EventBus.terminal_day_ended.connect(_on_day_ended)
+
 
 func _process(_delta: float) -> void:
 	if player.is_died:
 		print("Game over!")
 
 
-func _on_game_end_day() -> void:
+func _on_day_ended() -> void:
 	# check if game finished
 	# check goals
-	# transfer_resources()
+	_transfer_resources()
 	# damage_machines()
 	# exchange_rooms()
 	pass
+
+
+func _transfer_resources() -> void:
+	for sender: Data.SenderData in Data.game.senders:
+		while not sender.transfer_data_queue.is_empty():
+			var item = sender.transfer_data_queue.pop_front()
+			var target_receiver: Data.ReceiverData = Data.game.get_by_filter(
+				Data.game.receivers,
+				func(x: Data.ReceiverData) -> bool: return x.room_index == item.to_room_index)
+
+			if target_receiver == null:
+				continue
+
+			target_receiver.transfer_data_queue.push_back(item)
+
+	EventBus.resources_transfered.emit()

@@ -29,3 +29,6 @@ signal rooms_updated()
 
 @warning_ignore("unused_signal")
 signal transfer_resources(room_source_index: int, room_index: int, resource_type: Data.ResourceType, changed_amount: int)
+
+@warning_ignore("unused_signal")
+signal resources_transfered()

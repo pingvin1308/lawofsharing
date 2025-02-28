@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b5iwsvnjy8g43"]
+[gd_scene load_steps=31 format=3 uid="uid://b5iwsvnjy8g43"]
 
 [ext_resource type="Script" path="res://scenes/machines/conveyour_belt/sender.gd" id="1_qbuxe"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_cjqqo"]
@@ -51,6 +51,41 @@ load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bg0g"]
 atlas = SubResource("CompressedTexture2D_6ktgf")
 region = Rect2(32, 1, 16, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q31b7"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3p4ko"]
+atlas = SubResource("CompressedTexture2D_q31b7")
+region = Rect2(1, 0, 14, 16)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eumuv"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asf6q"]
+atlas = SubResource("CompressedTexture2D_eumuv")
+region = Rect2(32, 1, 16, 14)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pp1qp"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a68sc"]
+atlas = SubResource("CompressedTexture2D_pp1qp")
+region = Rect2(18, 16, 12, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mh1ru"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66q34"]
+atlas = SubResource("CompressedTexture2D_mh1ru")
+region = Rect2(67, 1, 10, 15)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2ebom"]
+load_path = "res://.godot/imported/ui_icons.png-ba95d9fa9c0eef28aec73f493d978e3b.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ceum0"]
+atlas = SubResource("CompressedTexture2D_2ebom")
+region = Rect2(49, 17, 13, 13)
 
 [node name="Sender" type="StaticBody2D"]
 y_sort_enabled = true
@@ -138,6 +173,132 @@ popup/item_2/id = 2
 popup/item_3/text = "Food"
 popup/item_3/icon = SubResource("AtlasTexture_0bg0g")
 popup/item_3/id = 3
+
+[node name="TargetRoomMenu2" type="Control" parent="."]
+visible = false
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_left = -146.0
+offset_top = -144.0
+offset_right = -38.0
+offset_bottom = -21.0
+theme = ExtResource("10_pokyo")
+
+[node name="Panel" type="Panel" parent="TargetRoomMenu2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nu88v")
+
+[node name="MarginContainer" type="MarginContainer" parent="TargetRoomMenu2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="RoomName" type="Label" parent="TargetRoomMenu2/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("10_pokyo")
+text = "Send to:"
+
+[node name="GridContainer" type="GridContainer" parent="TargetRoomMenu2/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="Icon" type="TextureRect" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_3p4ko")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Button" type="Button" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+text = "Oxygen"
+
+[node name="Icon2" type="TextureRect" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_asf6q")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Button2" type="Button" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+text = "Food"
+
+[node name="Icon3" type="TextureRect" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_a68sc")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Button3" type="Button" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+text = "Energy"
+
+[node name="Icon4" type="TextureRect" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_66q34")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Button4" type="Button" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+text = "Water"
+
+[node name="Icon5" type="TextureRect" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+z_index = 1
+y_sort_enabled = true
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_ceum0")
+expand_mode = 4
+stretch_mode = 3
+
+[node name="Button5" type="Button" parent="TargetRoomMenu2/Panel/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+text = "Components"
 
 [node name="ControlMenu" parent="." instance=ExtResource("5_mkon2")]
 visible = false

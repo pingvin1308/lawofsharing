@@ -14,18 +14,19 @@ var resource_box_on_belt: ResourceBox
 
 var data: Data.ReceiverData
 
+
 func _ready() -> void:
 	control_menu.action_name = "receive"
 	control_menu.modulate.a = 0
 	control_menu.action_pressed.connect(_on_action_pressed)
 	interactable_component.interactable_activated.connect(_on_interactable_activated)
 	interactable_component.interactable_deactivated.connect(_on_interactable_deactivated)
-	EventBus.transfer_resources.connect(_on_transfer_resources)
 
 
 func initialize(room_index: int) -> void:
-	control_menu.modulate.a = 0
 	data = Data.game.get_receiver(room_index)
+	EventBus.transfer_resources.connect(_on_transfer_resources)
+	EventBus.resources_transfered.connect(_on_resources_transfered)
 
 
 func _on_interactable_activated() -> void:
@@ -82,3 +83,7 @@ func enable_hud() -> void:
 
 func disable_hud() -> void:
 	resource_queue.visible = false
+
+
+func _on_resources_transfered() -> void:
+	resource_queue.update(data.transfer_data_queue)
