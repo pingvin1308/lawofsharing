@@ -58,6 +58,7 @@ func _on_action_pressed() -> void:
 		if is_captured or player.resource_box != null:
 			Notification.instance.show_warning("You already have box with resource")
 			return
+
 		is_captured = true
 		player.pickup_box(data)
 		queue_free()

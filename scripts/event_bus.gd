@@ -10,7 +10,7 @@ signal player_changed_room()
 
 
 @warning_ignore("unused_signal")
-signal machine_degradated()
+signal machine_degraded()
 
 
 @warning_ignore("unused_signal")
@@ -20,9 +20,13 @@ signal terminal_menu_closed()
 @warning_ignore("unused_signal")
 signal terminal_day_ended()
 
+@warning_ignore("unused_signal")
+signal rooms_menu_opened()
+@warning_ignore("unused_signal")
+signal rooms_menu_closed()
 
 @warning_ignore("unused_signal")
-signal room_recource_changed(room_index: int, type: Data.ResourceType, value: int)
+signal room_recourse_changed(room_index: int, type: Data.ResourceType, value: int)
 @warning_ignore("unused_signal")
 signal rooms_updated()
 
@@ -31,4 +35,4 @@ signal rooms_updated()
 signal transfer_resources(room_source_index: int, room_index: int, resource_type: Data.ResourceType, changed_amount: int)
 
 @warning_ignore("unused_signal")
-signal resources_transfered()
+signal resources_transferred()

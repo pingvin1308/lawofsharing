@@ -1,6 +1,9 @@
 class_name RoomsController
 extends Node2D
 
+
+var player_room: Room
+
 @warning_ignore("shadowed_variable")
 func initialize(player: Player, ai_player: Player) -> void:
 	for room: Room in get_children():
@@ -9,13 +12,15 @@ func initialize(player: Player, ai_player: Player) -> void:
 		var room_machines := Data.game.get_machines(room_data.room_index)
 		room.initialize(room_data, room_machines)
 
+		room.room_option.pressed.connect(_on_send_room_selected)
+
 	var room_indexes: Array[int] = []
 	for i in get_child_count():
 		room_indexes.push_back(i)
 	room_indexes.shuffle()
 
 	var player_room_index: int = room_indexes.pop_front()
-	var player_room := get_child(player_room_index) as Room
+	player_room = get_child(player_room_index) as Room
 	player_room.set_player(player)
 
 	var ai_player_room_index: int = room_indexes.pop_front()
@@ -77,7 +82,7 @@ func _damage_machines(damage_distribution: Dictionary) -> void:
 				machine.durability -= 1
 				print("Повреждена", machine, "в", room_name, "Осталось прочности:", machine.durability)
 
-			EventBus.machine_degradated.emit()
+			EventBus.machine_degraded.emit()
 
 func damage_machines() -> void:
 	var damage_count := get_damage_per_day(Data.game.day_number)
@@ -93,3 +98,9 @@ func _on_day_ended() -> void:
 	damage_machines()
 
 	EventBus.rooms_updated.emit()
+
+
+func _on_send_room_selected() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	await player_room.sender.close_rooms_map()
+	await player_room.sender.on_send_resource(player, player_room.room_index)

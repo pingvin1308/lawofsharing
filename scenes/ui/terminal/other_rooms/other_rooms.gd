@@ -16,7 +16,7 @@ func initialize() -> void:
 
 	on_rooms_updated()
 	EventBus.rooms_updated.connect(on_rooms_updated)
-	EventBus.room_recource_changed.connect(_on_room_recource_changed)
+	EventBus.room_recourse_changed.connect(_on_room_recource_changed)
 
 
 func on_rooms_updated() -> void:

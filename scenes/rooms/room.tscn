@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://1k4abmb47uyv"]
+[gd_scene load_steps=13 format=4 uid="uid://1k4abmb47uyv"]
 
 [ext_resource type="Script" path="res://scenes/rooms/room.gd" id="1_341sg"]
+[ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="2_feybb"]
 [ext_resource type="TileSet" uid="uid://c5cbuwf1adarh" path="res://tilesets/game_tilesets.tres" id="2_j5qt1"]
 [ext_resource type="PackedScene" uid="uid://bqu6hyreckurp" path="res://scenes/machines/water_cooler/water_cooler.tscn" id="4_30tjm"]
 [ext_resource type="PackedScene" uid="uid://day0p74kiaj13" path="res://scenes/machines/charger/charger.tscn" id="5_5vktk"]
@@ -15,6 +16,17 @@
 [node name="Room" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_341sg")
+
+[node name="RoomOption" type="Button" parent="."]
+visible = false
+z_index = 4
+offset_left = 68.0
+offset_top = 32.0
+offset_right = 428.0
+offset_bottom = 304.0
+theme_override_fonts/font = ExtResource("2_feybb")
+keep_pressed_outside = true
+text = "SEND"
 
 [node name="RoomTilemap" type="Node2D" parent="."]
 y_sort_enabled = true

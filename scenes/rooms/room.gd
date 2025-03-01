@@ -2,27 +2,31 @@
 class_name Room
 extends Node2D
 
+# TILEMAP CONFIGURATION
 @onready var room_tilemap: Node2D = $RoomTilemap
-
 @onready var water_room_tilemap: Node2D = $RoomTilemap/WaterRoom
 @onready var food_room_tilemap: Node2D = $RoomTilemap/FoodRoom
 @onready var energy_room_tilemap: Node2D = $RoomTilemap/EnergyRoom
 @onready var components_room_tilemap: Node2D = $RoomTilemap/ComponentsRoom
 @onready var oxygen_room_tilemap: Node2D = $RoomTilemap/OxygenRoom
 
+# GUI
+@onready var room_option: Button = $RoomOption
+
+# MACHINES
 @onready var terminal: Terminal = $Terminal
 @onready var sleep_room: SleepRoom = $SleepRoom
-@onready var oxygen_timer: Timer = $OxygenTimer
-
 @onready var water_cooler: WaterCooler = $WaterCooler
 @onready var charger: Charger = $Charger
 @onready var oxygen_balloons_stand: OxygenBalloons = $OxygenBalloonsStand
 @onready var components_stand: ComponentsStand = $ComponentsStand
 @onready var food_stand: FoodStand = $FoodStand
 
+# TRANSFER DEVICES
 @onready var receiver: Receiver = $Receiver
 @onready var sender: Sender = $Sender
 
+@onready var oxygen_timer: Timer = $OxygenTimer
 @export var character_body: Player
 @export var room_type: Data.ResourceType:
 	set(value):
@@ -46,7 +50,7 @@ extends Node2D
 				oxygen_room_tilemap.visible = true
 
 
-var is_control_menu_opened: bool = false
+# ROOM DATA
 ## Key: String name, Machine
 var machines_map: Dictionary = {}
 ## Key: Data.ResourceType, Value: MachineBase
@@ -79,6 +83,9 @@ func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> 
 	oxygen_timer.timeout.connect(_on_oxygen_decreased)
 	EventBus.terminal_menu_opened.connect(_menu_opened)
 	EventBus.terminal_menu_closed.connect(_menu_closed)
+	EventBus.rooms_menu_opened.connect(_on_rooms_menu_opened)
+	EventBus.rooms_menu_closed.connect(_on_rooms_menu_closed)
+	# room_option.pressed.connect(_on_send_room_selected)
 	#EventBus.transfer_resources.connect(_on_transfer_resources)
 
 	machines_map = {
@@ -118,6 +125,16 @@ func unset_player() -> void:
 	for machine_name: String in machines_map:
 		@warning_ignore("unsafe_method_access")
 		machines_map[machine_name].disable_hud()
+
+
+func _on_rooms_menu_opened() -> void:
+	if Data.game.player.room_index == room_index:
+		return
+	room_option.visible = true
+
+
+func _on_rooms_menu_closed() -> void:
+	room_option.visible = false
 
 
 func _menu_opened() -> void:

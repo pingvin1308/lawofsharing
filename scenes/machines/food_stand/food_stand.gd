@@ -13,7 +13,7 @@ var source: int:
 	get(): return data.source_value
 	set(value):
 		data.source_value = value
-		EventBus.room_recource_changed.emit(data.room_index, Data.ResourceType.FOOD, data.source_value)
+		EventBus.room_recourse_changed.emit(data.room_index, Data.ResourceType.FOOD, data.source_value)
 		label.text = str(data.source_value)
 
 

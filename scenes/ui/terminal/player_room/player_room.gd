@@ -19,7 +19,7 @@ func initialize() -> void:
 	room_resources.initialize(machines)
 
 	EventBus.player_room_changed.connect(_on_player_room_changed)
-	EventBus.room_recource_changed.connect(_on_room_recource_changed)
+	EventBus.room_recourse_changed.connect(_on_room_recource_changed)
 
 
 func _on_player_room_changed() -> void:

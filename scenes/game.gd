@@ -11,6 +11,8 @@ extends Node2D
 @onready var voting_controller: VotingController = $VotingController
 var days_passed: int = 0
 
+var rooms: Array[Room] = []
+
 #var scenary
 # tutorial vs real surv
 
@@ -45,15 +47,14 @@ func _on_finished() -> void:
 func initialize() -> void:
 	canvas_layer.follow_viewport_enabled = false
 	var player_data := Data.PlayerData.new(0)
-
-	var rooms: Array[Data.RoomData] = []
+	var rooms_data: Array[Data.RoomData] = []
 	var machines: Array[Data.MachineData] = []
 	var receivers: Array[Data.ReceiverData] = []
 	var senders: Array[Data.SenderData] = []
 
 	for index in Data.ResourceType.keys().size():
 		var room_data := Data.RoomData.new(index, index)
-		rooms.append(room_data)
+		rooms_data.append(room_data)
 
 		for resource_type: Data.ResourceType in Data.ResourceType.values():
 			var machine := Data.MachineData.new(index, resource_type)
@@ -69,12 +70,16 @@ func initialize() -> void:
 	var ai_players: Array[Data.PlayerData] = [ai_player_data]
 
 	Data.game = Data.GameData.new(
-		rooms,
+		rooms_data,
 		player_data,
 		machines,
 		ai_players)
 	Data.game.receivers = receivers
 	Data.game.senders = senders
+
+	for room in rooms_controller.get_children():
+		if room is Room:
+			rooms.append(room)
 
 	player.initialize(player_data)
 	ai_player.initialize(ai_player_data)
@@ -105,7 +110,7 @@ func _on_day_ended() -> void:
 func _transfer_resources() -> void:
 	for sender: Data.SenderData in Data.game.senders:
 		while not sender.transfer_data_queue.is_empty():
-			var item = sender.transfer_data_queue.pop_front()
+			var item: Data.TransferData = sender.transfer_data_queue.pop_front()
 			var target_receiver: Data.ReceiverData = Data.game.get_by_filter(
 				Data.game.receivers,
 				func(x: Data.ReceiverData) -> bool: return x.room_index == item.to_room_index)
@@ -115,4 +120,4 @@ func _transfer_resources() -> void:
 
 			target_receiver.transfer_data_queue.push_back(item)
 
-	EventBus.resources_transfered.emit()
+	EventBus.resources_transferred.emit()

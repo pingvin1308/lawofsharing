@@ -26,7 +26,7 @@ func _ready() -> void:
 func initialize(room_index: int) -> void:
 	data = Data.game.get_receiver(room_index)
 	EventBus.transfer_resources.connect(_on_transfer_resources)
-	EventBus.resources_transfered.connect(_on_resources_transfered)
+	EventBus.resources_transferred.connect(_on_resources_transfered)
 
 
 func _on_interactable_activated() -> void:

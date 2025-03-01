@@ -13,7 +13,7 @@ var source: int:
 	set(value):
 		data.source_value = value
 		label.text = str(data.source_value)
-		EventBus.room_recource_changed.emit(data.room_index, Data.ResourceType.OXYGEN, data.source_value)
+		EventBus.room_recourse_changed.emit(data.room_index, Data.ResourceType.OXYGEN, data.source_value)
 
 
 func _on_interactable_activated() -> void:

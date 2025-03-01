@@ -7,6 +7,8 @@ var game: GameData
 
 class GameData extends Resource:
 	var day_number: int = 0
+
+	# DATA
 	var rooms: Array[RoomData] = []
 	var player: PlayerData
 	var ai_players: Array[PlayerData]
@@ -15,6 +17,7 @@ class GameData extends Resource:
 	var receivers: Array[ReceiverData] = []
 	var senders: Array[SenderData] = []
 	var tooltip: Tooltip
+	var rooms_menu_opened: bool = false
 
 	@warning_ignore("shadowed_variable")
 	func _init(rooms: Array[RoomData], player: PlayerData, machines: Array[MachineData], ai_players: Array[PlayerData]) -> void:
@@ -38,7 +41,7 @@ class GameData extends Resource:
 		return null
 
 	func get_by_filter(collection: Array[Variant], filter: Callable) -> Variant:
-		for item in collection:
+		for item: Variant in collection:
 			if (filter.call(item) as bool):
 				return item
 		return null
@@ -78,7 +81,7 @@ class PlayerData extends Resource:
 
 	var is_ai: bool
 	var ai_controller: AIController
-	## Should be recieved on game initialization
+	## Should be received on game initialization
 	var player_index: int
 	var room_type: ResourceType
 	var room_index: int
@@ -108,7 +111,7 @@ class PlayerData extends Resource:
 
 class RoomData extends Resource:
 
-	## Should be recieved on game initialization
+	## Should be received on game initialization
 	var room_index: int
 	var renewable_resource: ResourceType
 	var room_name: String:
@@ -122,7 +125,7 @@ class RoomData extends Resource:
 
 class MachineData extends Resource:
 
-	## Should be recieved on game initialization
+	## Should be received on game initialization
 	var room_index: int
 	var resource_type: ResourceType
 

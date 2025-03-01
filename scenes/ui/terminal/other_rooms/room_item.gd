@@ -42,7 +42,7 @@ func initialize(room_data: Data.RoomData) -> void:
 
 	assert(room_index != -1, "Room index should be initialized")
 	#EventBus.terminal_day_ended.connect(_on_terminal_day_ended)
-	EventBus.room_recource_changed.connect(_on_room_resource_changed)
+	EventBus.room_recourse_changed.connect(_on_room_resource_changed)
 
 
 #func _on_terminal_day_ended() -> void:

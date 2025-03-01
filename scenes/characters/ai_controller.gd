@@ -2,7 +2,7 @@ class_name AIController
 extends InputController
 
 # Define behavioral modes.
-enum MODE { COOPERATIVE, DEDUCTIVE, GREEDY, AGRESSIVE, CHAOTIC }
+enum MODE { COOPERATIVE, DEDUCTIVE, GREEDY, AGGRESSIVE, CHAOTIC }
 
 # Bot state variables.
 var mode: int                # Current behavioral mode.
@@ -38,24 +38,23 @@ func share_resources() -> void:
 			@warning_ignore("integer_division")
 			var part_resource := machine.source_value / 5
 
-			#for to_room_index in range(5):
-				#if to_room_index == player_data.room_index: continue
-#
-				#if to_room_index != Data.game.player.room_index: continue
-#
-				#for key: String in Data.ResourceType:
-					#var transfer := Data.TransferData.new(
-						#player_data.room_index,
-						#to_room_index,
-						#Data.ResourceType[key],
-						#part_resource)
-					#var receiver := Data.game.get_receiver(to_room_index)
-					#receiver.transfer_data_queue.push_back(transfer)
-					#EventBus.transfer_resources.emit(
-						#transfer.from_room_index,
-						#transfer.to_room_index,
-						#Data.ResourceType[key],
-						#transfer.value)
+			for to_room_index in range(5):
+				if to_room_index == player_data.room_index: continue
+				if to_room_index != Data.game.player.room_index: continue
+
+				for key: String in Data.ResourceType:
+					var transfer := Data.TransferData.new(
+						player_data.room_index,
+						to_room_index,
+						Data.ResourceType[key],
+						part_resource)
+					var receiver := Data.game.get_receiver(to_room_index)
+					receiver.transfer_data_queue.push_back(transfer)
+					EventBus.transfer_resources.emit(
+						transfer.from_room_index,
+						transfer.to_room_index,
+						Data.ResourceType[key],
+						transfer.value)
 
 			print("Sharing resources with teammates.")
 		else:
@@ -68,7 +67,7 @@ func share_resources() -> void:
 			print("Sharing after logical analysis.")
 		else:
 			print("Resources too low to share.")
-	elif mode == MODE.AGRESSIVE:
+	elif mode == MODE.AGGRESSIVE:
 		print("Prefer attacking over sharing resources.")
 	elif mode == MODE.CHAOTIC:
 		# Random decision.
@@ -88,7 +87,7 @@ func restore_resources() -> void:
 				print("Waiting to restore resources to stockpile more.")
 			MODE.COOPERATIVE:
 				print("Restoring resources to be ready for team support.")
-			MODE.AGRESSIVE:
+			MODE.AGGRESSIVE:
 				print("Skipping restoration in favor of offense.")
 			MODE.DEDUCTIVE:
 				print("Analyzing: might wait until tomorrow to restore.")
@@ -101,7 +100,7 @@ func restore_resources() -> void:
 func damage_machine() -> void:
 	# Decide whether to damage a machine (i.e. break a container).
 	match mode:
-		MODE.AGRESSIVE:
+		MODE.AGGRESSIVE:
 			print("Damaging machine to disrupt opponents.")
 			# Insert damage logic here.
 		MODE.GREEDY:
@@ -125,7 +124,7 @@ func fix_machine() -> void:
 			# Insert fixing logic here.
 		MODE.GREEDY:
 			print("Not fixing machine unless there's a personal benefit.")
-		MODE.AGRESSIVE:
+		MODE.AGGRESSIVE:
 			print("Ignoring repairs; focus is on offense.")
 		MODE.CHAOTIC:
 			if randi() % 2 == 0:
@@ -133,7 +132,7 @@ func fix_machine() -> void:
 			else:
 				print("Random decision: not fixing machine.")
 
-func exchage_room() -> void:
+func exchange_room() -> void:
 	# Decide whether to exchange room based on a heuristic comparison.
 	# The bot doesn't know room rank, so we simulate this using a placeholder score.
 	var current_room_score := get_current_room_score()
@@ -144,7 +143,7 @@ func exchage_room() -> void:
 		match mode:
 			MODE.DEDUCTIVE:
 				print("Exchanging room after careful analysis.")
-			MODE.AGRESSIVE:
+			MODE.AGGRESSIVE:
 				print("Forcing room exchange to gain advantage.")
 			MODE.CHAOTIC:
 				if randi() % 2 == 0:
