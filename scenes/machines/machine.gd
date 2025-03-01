@@ -24,6 +24,7 @@ func initialize(machine_data: Data.MachineData) -> void:
 
 
 func enable_hud() -> void:
+	control_menu.disable()
 	pass
 
 

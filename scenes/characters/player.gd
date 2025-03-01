@@ -30,7 +30,7 @@ var resource_box: Data.ResourceBoxData:
 	get(): return data.resource_box
 
 var is_died: bool:
-	get(): return oxygen == 0 or water == 0 or food == 0
+	get(): return data.oxygen == 0 or data.water == 0 or data.food == 0
 
 
 func _ready() -> void:
@@ -40,7 +40,7 @@ func _ready() -> void:
 
 func initialize(player_data: Data.PlayerData) -> void:
 	if player_data.is_ai == false:
-		($Camera2D as Camera2D).zoom = Vector2(1.2, 1.2)
+		camera.zoom = Vector2(1.2, 1.2)
 		input_controller = InputController.new()
 	else:
 		input_controller = AIController.new(player_data)
@@ -102,7 +102,7 @@ func eat(food_amount: int) -> void:
 	EventBus.player_resource_changed.emit()
 
 
-func bearth(oxygen_amount: int) -> void:
+func breath(oxygen_amount: int) -> void:
 	if oxygen_amount <= 0: return
 	data.oxygen += oxygen_amount
 	EventBus.player_resource_changed.emit()
@@ -116,9 +116,11 @@ func pickup_box(resource_box: Data.ResourceBoxData) -> void:
 	resource_item_icon.visible = true
 	resource_item_icon.icon.texture = ResourcesRepository.resources[resource_box.resource_type].icon
 	resource_item_icon.label.text = str(resource_box.value)
-	#var tween := get_tree().create_tween()
-	#tween.tween_property(control_menu, "modulate:a", 1.0, 0.2)
 	control_menu.modulate.a = 1.0
+
+
+func _on_action_pressed() -> void:
+	drop_box()
 
 
 func drop_box() -> void:
@@ -129,9 +131,6 @@ func drop_box() -> void:
 	box_scene.position = position
 	empty_resource_box()
 
-
-func _on_action_pressed() -> void:
-	drop_box()
 
 func empty_resource_box() -> void:
 	data.resource_box = null

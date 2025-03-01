@@ -150,4 +150,4 @@ func _on_oxygen_decreased() -> void:
 	var room_oxygen := oxygen_balloons_stand.source
 	if room_oxygen > 0:
 		oxygen_balloons_stand.source -= 1
-		character_body.bearth(2)
+		character_body.breath(2)

@@ -18,6 +18,10 @@ var action_name: String:
 		action.text = value
 
 
+func _ready() -> void:
+	disable()
+
+
 func connect_signals(callable: Callable) -> void:
 	if not action_pressed.is_connected(callable):
 		action_pressed.connect(callable)
@@ -36,6 +40,9 @@ func enable() -> void:
 
 
 func disable() -> void:
+	fix.visible = false
+	break_button.visible = false
+	action.visible = false
 	visible = false
 
 

@@ -31,11 +31,10 @@ func _on_interactable_activated() -> void:
 		control_menu.action_name = "fill"
 		control_menu.connect_signals(_on_fill_pressed)
 		control_menu.disconnect_signals(_on_eat_pressed)
-
 	else:
 		control_menu.action_name = "eat"
-		control_menu.connect_signals(_on_fill_pressed)
-		control_menu.disconnect_signals(_on_eat_pressed)
+		control_menu.connect_signals(_on_eat_pressed)
+		control_menu.disconnect_signals(_on_fill_pressed)
 
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
