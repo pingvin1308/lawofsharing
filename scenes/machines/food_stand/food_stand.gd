@@ -59,7 +59,7 @@ func _on_eat_pressed() -> void:
 
 func on_eat(player: Player) -> void:
 	var current_food := player.food
-	var max_food := Data.PlayerData.MAX_FOOD
+	var max_food := PlayerData.MAX_FOOD
 	var needed_food := max_food - current_food
 	if (needed_food <= 0):
 		return

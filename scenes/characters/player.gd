@@ -15,7 +15,7 @@ const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
 
 var input_controller: InputController
 var direction: Vector2 = Vector2.ZERO
-var data: Data.PlayerData
+var data: PlayerData
 
 var oxygen: int:
 	get(): return data.oxygen
@@ -38,13 +38,12 @@ func _ready() -> void:
 	control_menu.modulate.a = 0
 
 
-func initialize(player_data: Data.PlayerData) -> void:
+func initialize(player_data: PlayerData) -> void:
 	if player_data.is_ai == false:
 		camera.zoom = Vector2(1.2, 1.2)
 		input_controller = InputController.new()
 	else:
 		input_controller = AIController.new(player_data)
-		player_data.ai_controller = input_controller
 
 	data = player_data
 	oxygen_timer.timeout.connect(_on_timeout)
@@ -86,7 +85,7 @@ func _move_character(input_direction: Vector2, delta: float) -> void:
 
 
 func _on_timeout() -> void:
-	oxygen -= 1
+	data.oxygen -= 1
 
 func drink(water_amount: int) -> void:
 	if water_amount <= 0: return

@@ -71,7 +71,7 @@ func on_fill(player: Player) -> void:
 
 func on_drink(player: Player) -> void:
 	var current_water: int = player.water
-	var max_water := Data.PlayerData.MAX_WATER
+	var max_water := PlayerData.MAX_WATER
 	var needed_water := max_water - current_water
 	if (needed_water <= 0):
 		return

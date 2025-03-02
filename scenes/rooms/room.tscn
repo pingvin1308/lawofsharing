@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://casmgiqdgedlc" path="res://scenes/machines/oxygen_balloons_stand/oxygen_balloons_stand.tscn" id="7_n2gvy"]
 [ext_resource type="PackedScene" uid="uid://d2obb6l06trj6" path="res://scenes/machines/components_stand/components_stand.tscn" id="8_vwkdr"]
 [ext_resource type="PackedScene" uid="uid://dxusup7xpgfr4" path="res://scenes/machines/food_stand/food_stand.tscn" id="9_y6gte"]
-[ext_resource type="PackedScene" uid="uid://c7w5ebk5p5h3f" path="res://scenes/machines/conveyour_belt/receiver.tscn" id="10_1kx3p"]
+[ext_resource type="PackedScene" uid="uid://c7w5ebk5p5h3f" path="res://scenes/machines/conveyor_belt/receiver.tscn" id="10_1kx3p"]
 [ext_resource type="PackedScene" uid="uid://wvdi0syhg3r" path="res://scenes/machines/sleep_room/sleep_room.tscn" id="10_uomrb"]
-[ext_resource type="PackedScene" uid="uid://b5iwsvnjy8g43" path="res://scenes/machines/conveyour_belt/sender.tscn" id="11_bwk7i"]
+[ext_resource type="PackedScene" uid="uid://b5iwsvnjy8g43" path="res://scenes/machines/conveyor_belt/sender.tscn" id="11_bwk7i"]
 
 [node name="Room" type="Node2D"]
 y_sort_enabled = true
@@ -123,4 +123,3 @@ position = Vector2(208, 259)
 position = Vector2(112, 259)
 
 [node name="OxygenTimer" type="Timer" parent="."]
-wait_time = 0.4

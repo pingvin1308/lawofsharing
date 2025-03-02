@@ -106,9 +106,10 @@ func set_player(player: Player) -> void:
 	character_body = player
 	player.global_position = sleep_room.global_position + Vector2(24, 0)
 	player.process_mode = PROCESS_MODE_INHERIT
-	oxygen_timer.start(1.0)
+	oxygen_timer.start()
 	player.data.room_index = room_index
 	player.data.room_type = room_type
+	player.oxygen_timer.start()
 	EventBus.player_changed_room.emit()
 
 	if not player.data.is_ai:

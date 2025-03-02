@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://2pf7udqmlnqt"]
+
+[ext_resource type="Script" path="res://scenes/machines/conveyor_belt/room_transfer_data.gd" id="1_8iwfi"]
+[ext_resource type="Theme" uid="uid://6kalolqswey0" path="res://scenes/ui/tooltip/tooltip.tres" id="2_rmbie"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_66lbr"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="RoomTransferData" type="HBoxContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 1
+script = ExtResource("1_8iwfi")
+
+[node name="RoomBackgroundColor" type="PanelContainer" parent="."]
+self_modulate = Color(0.270588, 0.419608, 0.537255, 1)
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_66lbr")
+
+[node name="RoomLabel" type="Label" parent="RoomBackgroundColor"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_rmbie")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "W"

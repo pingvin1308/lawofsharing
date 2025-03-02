@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=29 format=3 uid="uid://r7wcxmse6nc1"]
 
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="2_mk5lc"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scenes/ui/map_button_back.gd" id="11_lgrwh"]
 [ext_resource type="Script" path="res://scenes/ui/tutorial.gd" id="13_cqfs2"]
 [ext_resource type="PackedScene" uid="uid://dxsgo8o0qdklb" path="res://scenes/ui/terminal/terminal_menu.tscn" id="13_s3ei3"]
+[ext_resource type="Script" path="res://scenes/damage_controller.gd" id="17_7iwjm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_68m3g"]
 
@@ -243,10 +244,10 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.988484, 0.765475, 0, 1)
 
-[node name="main_scene" type="Node2D"]
+[node name="MainScene" type="Node2D"]
 y_sort_enabled = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_68m3g")
 offset_left = -1335.0
@@ -258,6 +259,12 @@ color = Color(0.02838, 0.0189, 0.09, 1)
 [node name="Game" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("2_mk5lc")
+
+[node name="VotingController" type="Node" parent="Game"]
+script = ExtResource("6_twjp3")
+
+[node name="DamageController" type="Node" parent="Game"]
+script = ExtResource("17_7iwjm")
 
 [node name="BackgroundMusic" parent="Game" instance=ExtResource("3_7biat")]
 stream = ExtResource("11_kwhbg")
@@ -279,26 +286,23 @@ y_sort_enabled = true
 script = ExtResource("3_3iibb")
 
 [node name="EnergyRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(-685, -205)
+position = Vector2(-666, -228)
 room_type = 3
 
 [node name="WaterRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(-222, -483)
 
 [node name="FoodRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(194, -219)
+position = Vector2(197, -249)
 room_type = 1
 
 [node name="OxygenRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(81, 143)
+position = Vector2(75, 145)
 room_type = 4
 
 [node name="ComponentsRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(-506, 157)
+position = Vector2(-468, 137)
 room_type = 2
-
-[node name="VotingController" type="Node" parent="Game"]
-script = ExtResource("6_twjp3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Game"]
 process_mode = 3

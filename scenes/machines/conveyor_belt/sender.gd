@@ -133,7 +133,7 @@ func on_send_resource(player: Player, target_room_index: int) -> void:
 		if box:
 			box.queue_free()
 			data.transfer_data_queue.push_back(transfer_data)
-			resource_queue.update(data.transfer_data_queue)
+			resource_queue.update(data.transfer_data_queue, true)
 		animated_sprite_2d.stop())
 	
 	while (box != null):
@@ -152,4 +152,10 @@ func disable_hud() -> void:
 
 
 func _on_resources_transferred() -> void:
-	resource_queue.update(data.transfer_data_queue)
+	resource_queue.update(data.transfer_data_queue, true)
+
+
+func get_resource_from_queue() -> Data.TransferData:
+	var item: Data.TransferData = data.transfer_data_queue.pop_front()
+	resource_queue.update(data.transfer_data_queue, true)
+	return item

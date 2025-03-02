@@ -20,7 +20,7 @@ var machine_data: Data.MachineData
 @warning_ignore("shadowed_variable")
 func initialize(machine_data: Data.MachineData) -> void:
 	self.machine_data = machine_data
-	EventBus.machine_degraded.connect(on_machine_degradated)
+	EventBus.machines_degraded.connect(on_machine_degradated)
 
 
 func on_break_pressed() -> void:

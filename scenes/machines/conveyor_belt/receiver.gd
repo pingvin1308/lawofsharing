@@ -26,7 +26,7 @@ func _ready() -> void:
 func initialize(room_index: int) -> void:
 	data = Data.game.get_receiver(room_index)
 	EventBus.transfer_resources.connect(_on_transfer_resources)
-	EventBus.resources_transferred.connect(_on_resources_transfered)
+	EventBus.resources_transferred.connect(_on_resources_transferred)
 
 
 func _on_interactable_activated() -> void:
@@ -85,5 +85,10 @@ func disable_hud() -> void:
 	resource_queue.visible = false
 
 
-func _on_resources_transfered() -> void:
+func _on_resources_transferred() -> void:
+	resource_queue.update(data.transfer_data_queue)
+
+
+func on_resource_received(item: Data.TransferData) -> void:
+	data.transfer_data_queue.push_back(item)
 	resource_queue.update(data.transfer_data_queue)

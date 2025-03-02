@@ -9,7 +9,7 @@ var mode: int                # Current behavioral mode.
 var resources: int = 100     # Overall resources.
 var food: int = 50           # Food resource level.
 var water: int = 50          # Water resource level.
-var player_data: Data.PlayerData
+var player_data: PlayerData
 
 
 func _ready() -> void:
@@ -19,7 +19,7 @@ func _ready() -> void:
 	print("Mode selected: ", mode)
 
 @warning_ignore("shadowed_variable")
-func _init(ai_player_data: Data.PlayerData) -> void:
+func _init(ai_player_data: PlayerData) -> void:
 	self.player_data = ai_player_data
 
 
@@ -77,25 +77,38 @@ func share_resources() -> void:
 			print("Random decision: keeping resources.")
 
 func restore_resources() -> void:
-	# Decide whether to use food and water now or wait.
-	if food < 20 or water < 20:
-		print("Critical levels! Restoring resources immediately.")
-		# Call restoration logic.
+
+	var receiver := Data.game.get_receiver(player_data.room_index)
+	if receiver.transfer_data_queue.size() > 0:
+		var transfer_data: Data.TransferData = receiver.transfer_data_queue.pop_front()
+		var machine := Data.game.get_machine(player_data.room_index, transfer_data.resource_type)
+		machine.source_value += transfer_data.value
+		EventBus.rooms_updated.emit()
+		# EventBus.resources_transferred.emit(transfer_data.from_room_index, transfer_data.to_room_index, transfer_data.resource_type, transfer_data.value)
+
+		print("Restoring resources from the receiver.")
 	else:
-		match mode:
-			MODE.GREEDY:
-				print("Waiting to restore resources to stockpile more.")
-			MODE.COOPERATIVE:
-				print("Restoring resources to be ready for team support.")
-			MODE.AGGRESSIVE:
-				print("Skipping restoration in favor of offense.")
-			MODE.DEDUCTIVE:
-				print("Analyzing: might wait until tomorrow to restore.")
-			MODE.CHAOTIC:
-				if randi() % 2 == 0:
-					print("Random choice: restoring resources now.")
-				else:
-					print("Random choice: delaying restoration.")
+		print("No resources to restore.")
+	# Decide whether to use food and water now or wait.
+	pass
+	# if food < 20 or water < 20:
+	# 	print("Critical levels! Restoring resources immediately.")
+	# 	# Call restoration logic.
+	# else:
+	# 	match mode:
+	# 		MODE.GREEDY:
+	# 			print("Waiting to restore resources to stockpile more.")
+	# 		MODE.COOPERATIVE:
+	# 			print("Restoring resources to be ready for team support.")
+	# 		MODE.AGGRESSIVE:
+	# 			print("Skipping restoration in favor of offense.")
+	# 		MODE.DEDUCTIVE:
+	# 			print("Analyzing: might wait until tomorrow to restore.")
+	# 		MODE.CHAOTIC:
+	# 			if randi() % 2 == 0:
+	# 				print("Random choice: restoring resources now.")
+	# 			else:
+	# 				print("Random choice: delaying restoration.")
 
 func damage_machine() -> void:
 	# Decide whether to damage a machine (i.e. break a container).

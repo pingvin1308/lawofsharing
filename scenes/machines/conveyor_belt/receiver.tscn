@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://c7w5ebk5p5h3f"]
 
-[ext_resource type="Script" path="res://scenes/machines/conveyour_belt/receiver.gd" id="1_1y4aa"]
+[ext_resource type="Script" path="res://scenes/machines/conveyor_belt/receiver.gd" id="1_1y4aa"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_qb8b3"]
 [ext_resource type="SpriteFrames" uid="uid://bjoqvohieas66" path="res://assets/machines/receiver.res" id="3_cyci1"]
 [ext_resource type="Script" path="res://scenes/machines/interactable_component.gd" id="4_aldwk"]
 [ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="5_gt6kq"]
-[ext_resource type="Script" path="res://scenes/machines/conveyour_belt/resource_queue.gd" id="6_a2ul2"]
+[ext_resource type="Script" path="res://scenes/machines/conveyor_belt/resource_queue.gd" id="6_wc7av"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oescr"]
 shader = ExtResource("2_qb8b3")
@@ -56,20 +56,21 @@ position = Vector2(19, -4)
 
 [node name="ResourceQueue" type="Control" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(76, 16)
 layout_mode = 3
 anchors_preset = 0
-offset_left = 34.0
+offset_left = 37.0
 offset_top = -12.0
-offset_right = 127.0
-offset_bottom = 6.0
-script = ExtResource("6_a2ul2")
+offset_right = 87.0
+offset_bottom = 177.0
+script = ExtResource("6_wc7av")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ResourceQueue"]
+[node name="Queue" type="VBoxContainer" parent="ResourceQueue"]
 z_index = 1
-custom_minimum_size = Vector2(76, 16)
 layout_mode = 1
-offset_right = 152.0
-offset_bottom = 17.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
-theme_override_constants/separation = 0
+theme_override_constants/separation = 2

@@ -4,6 +4,7 @@ extends Node2D
 @onready var player: Player = $Player
 @onready var ai_player: Player = $AIPlayer
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
+@onready var damage_controller: DamageController = $DamageController
 
 @onready var rooms_controller: RoomsController = $RoomsController
 @onready var terminal_menu: TerminalMenu = $CanvasLayer/TerminalMenu
@@ -11,7 +12,11 @@ extends Node2D
 @onready var voting_controller: VotingController = $VotingController
 var days_passed: int = 0
 
+
+var ai_players: Array[Player] = []
 var rooms: Array[Room] = []
+var receivers: Array[Receiver] = []
+var senders: Array[Sender] = []
 
 #var scenary
 # tutorial vs real surv
@@ -46,11 +51,11 @@ func _on_finished() -> void:
 
 func initialize() -> void:
 	canvas_layer.follow_viewport_enabled = false
-	var player_data := Data.PlayerData.new(0)
+	var player_data := PlayerData.new(0)
 	var rooms_data: Array[Data.RoomData] = []
 	var machines: Array[Data.MachineData] = []
-	var receivers: Array[Data.ReceiverData] = []
-	var senders: Array[Data.SenderData] = []
+	var receivers_data: Array[Data.ReceiverData] = []
+	var senders_data: Array[Data.SenderData] = []
 
 	for index in Data.ResourceType.keys().size():
 		var room_data := Data.RoomData.new(index, index)
@@ -61,25 +66,23 @@ func initialize() -> void:
 			machines.append(machine)
 
 		var receiver: Data.ReceiverData = Data.ReceiverData.new(index)
-		receivers.append(receiver)
+		receivers_data.append(receiver)
 
 		var sender: Data.SenderData = Data.SenderData.new(index)
-		senders.append(sender)
+		senders_data.append(sender)
 
-	var ai_player_data := Data.PlayerData.new(0, true)
-	var ai_players: Array[Data.PlayerData] = [ai_player_data]
+	ai_players = [ai_player]
+	var ai_player_data := PlayerData.new(0, true)
+	var ai_players_data: Array[PlayerData] = [ai_player_data]
 
 	Data.game = Data.GameData.new(
 		rooms_data,
 		player_data,
 		machines,
-		ai_players)
-	Data.game.receivers = receivers
-	Data.game.senders = senders
+		ai_players_data)
+	Data.game.receivers = receivers_data
+	Data.game.senders = senders_data
 
-	for room in rooms_controller.get_children():
-		if room is Room:
-			rooms.append(room)
 
 	player.initialize(player_data)
 	ai_player.initialize(ai_player_data)
@@ -89,6 +92,12 @@ func initialize() -> void:
 		#rooms_controller.rooms)
 	terminal_menu.initialize()
 	hud.initialize()
+
+	for room in rooms_controller.get_children():
+		if room is Room:
+			rooms.append(room)
+			receivers.append((room as Room).receiver)
+			senders.append((room as Room).sender)
 
 	EventBus.terminal_day_ended.connect(_on_day_ended)
 
@@ -101,23 +110,35 @@ func _process(_delta: float) -> void:
 func _on_day_ended() -> void:
 	# check if game finished
 	# check goals
+
 	_transfer_resources()
+	damage_controller.damage_machines()
+
+	Data.game.day_number += 1
+
+	for ai_player: Player in ai_players:
+		assert(ai_player.input_controller is AIController)
+		(ai_player.input_controller as AIController).restore_resources()
+		(ai_player.input_controller as AIController).share_resources()
+
 	# damage_machines()
 	# exchange_rooms()
+
+	EventBus.rooms_updated.emit()
 	pass
 
 
 func _transfer_resources() -> void:
-	for sender: Data.SenderData in Data.game.senders:
-		while not sender.transfer_data_queue.is_empty():
-			var item: Data.TransferData = sender.transfer_data_queue.pop_front()
-			var target_receiver: Data.ReceiverData = Data.game.get_by_filter(
-				Data.game.receivers,
-				func(x: Data.ReceiverData) -> bool: return x.room_index == item.to_room_index)
+	for sender: Sender in senders:
+		while not sender.data.transfer_data_queue.is_empty():
+			var item: Data.TransferData = sender.get_resource_from_queue()
+			var target_receiver: Receiver = Data.game.get_by_filter(
+				receivers,
+				func(x: Receiver) -> bool: return x.data.room_index == item.to_room_index)
 
 			if target_receiver == null:
 				continue
 
-			target_receiver.transfer_data_queue.push_back(item)
+			target_receiver.on_resource_received(item)
 
-	EventBus.resources_transferred.emit()
+	# EventBus.resources_transferred.emit()

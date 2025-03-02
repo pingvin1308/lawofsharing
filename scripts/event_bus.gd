@@ -10,7 +10,7 @@ signal player_changed_room()
 
 
 @warning_ignore("unused_signal")
-signal machine_degraded()
+signal machines_degraded()
 
 
 @warning_ignore("unused_signal")
