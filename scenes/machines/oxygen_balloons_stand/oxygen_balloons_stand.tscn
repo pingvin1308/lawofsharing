@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://casmgiqdgedlc"]
+[gd_scene load_steps=14 format=3 uid="uid://casmgiqdgedlc"]
 
 [ext_resource type="Script" path="res://scenes/machines/oxygen_balloons_stand/oxygen_balloons_stand.gd" id="1_by0uq"]
 [ext_resource type="Texture2D" uid="uid://nlmcg1bocek1" path="res://assets/machines/oxygen_balloons.png" id="1_rxktq"]
@@ -11,6 +11,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n2lqj"]
 shader = ExtResource("2_pgxym")
 shader_parameter/is_enabled = false
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3nuta"]
+size = Vector2(38, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ynvdv"]
 size = Vector2(36, 8)
@@ -26,6 +29,7 @@ atlas = SubResource("CompressedTexture2D_8uoep")
 region = Rect2(1, 0, 14, 16)
 
 [node name="OxygenBalloonsStand" type="StaticBody2D"]
+y_sort_enabled = true
 position = Vector2(0, -5)
 collision_mask = 3
 script = ExtResource("1_by0uq")
@@ -34,6 +38,13 @@ script = ExtResource("1_by0uq")
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_n2lqj")
 texture = ExtResource("1_rxktq")
+
+[node name="shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.568627)
+y_sort_enabled = true
+position = Vector2(0, -4)
+texture = SubResource("PlaceholderTexture2D_3nuta")
+offset = Vector2(0, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)

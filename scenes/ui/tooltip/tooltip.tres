@@ -3,8 +3,16 @@
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="1_vfqg2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbikn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tg1gu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0.4081, 0.77, 0.558892, 1)
 border_width_left = 1
 border_width_top = 1
@@ -17,6 +25,10 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l55a8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0.430462, 0.608945, 0.542229, 1)
 border_width_left = 1
 border_width_top = 1
@@ -29,6 +41,10 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gtdkt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0.189543, 0.414749, 0.293716, 1)
 border_width_left = 1
 border_width_top = 1

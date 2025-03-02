@@ -1,5 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=31 format=3 uid="uid://r7wcxmse6nc1"]
 
+[ext_resource type="Script" path="res://scenes/resource_transfer_controller.gd" id="2_cnsw5"]
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="2_mk5lc"]
 [ext_resource type="Script" path="res://scenes/rooms/rooms_controller.gd" id="3_3iibb"]
@@ -17,6 +18,7 @@
 [ext_resource type="Script" path="res://scenes/ui/tutorial.gd" id="13_cqfs2"]
 [ext_resource type="PackedScene" uid="uid://dxsgo8o0qdklb" path="res://scenes/ui/terminal/terminal_menu.tscn" id="13_s3ei3"]
 [ext_resource type="Script" path="res://scenes/damage_controller.gd" id="17_7iwjm"]
+[ext_resource type="PackedScene" uid="uid://d0w3vf1nmhiko" path="res://scenes/ui/main_menu.tscn" id="19_6s0d4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_68m3g"]
 
@@ -250,15 +252,24 @@ y_sort_enabled = true
 [node name="Background" type="ColorRect" parent="."]
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_68m3g")
-offset_left = -1335.0
-offset_top = -960.0
-offset_right = 2071.0
-offset_bottom = 1101.0
+offset_left = -1351.0
+offset_top = -882.0
+offset_right = 2055.0
+offset_bottom = 1179.0
 color = Color(0.02838, 0.0189, 0.09, 1)
+
+[node name="BackgroundMusic" parent="." instance=ExtResource("3_7biat")]
+stream = ExtResource("11_kwhbg")
+volume_db = -8.466
+autoplay = true
+parameters/looping = true
 
 [node name="Game" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("2_mk5lc")
+
+[node name="ResourceTransferController" type="Node" parent="Game"]
+script = ExtResource("2_cnsw5")
 
 [node name="VotingController" type="Node" parent="Game"]
 script = ExtResource("6_twjp3")
@@ -266,22 +277,16 @@ script = ExtResource("6_twjp3")
 [node name="DamageController" type="Node" parent="Game"]
 script = ExtResource("17_7iwjm")
 
-[node name="BackgroundMusic" parent="Game" instance=ExtResource("3_7biat")]
-stream = ExtResource("11_kwhbg")
-volume_db = -8.466
-autoplay = true
-parameters/looping = true
-
 [node name="Player" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
-process_mode = 1
-position = Vector2(245, 141)
+position = Vector2(15, -13)
+max_speed = 110
+acceleration = 8
+friction = 12
 
 [node name="AIPlayer" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
-process_mode = 1
-position = Vector2(642, 516)
+position = Vector2(61, -11)
 
 [node name="RoomsController" type="Node2D" parent="Game"]
-process_mode = 1
 y_sort_enabled = true
 script = ExtResource("3_3iibb")
 
@@ -307,16 +312,6 @@ room_type = 2
 [node name="CanvasLayer" type="CanvasLayer" parent="Game"]
 process_mode = 3
 follow_viewport_enabled = true
-
-[node name="EndDayScreenTransition" type="ColorRect" parent="Game/CanvasLayer"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 6
-color = Color(0, 0, 0, 0)
 
 [node name="HUD" type="Control" parent="Game/CanvasLayer"]
 layout_mode = 3
@@ -407,6 +402,19 @@ offset_bottom = 126.0
 text = "BACK"
 script = ExtResource("11_lgrwh")
 
+[node name="TerminalMenu" parent="Game/CanvasLayer" instance=ExtResource("13_s3ei3")]
+visible = false
+
+[node name="EndDayScreenTransition" type="ColorRect" parent="Game/CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+color = Color(0, 0, 0, 1)
+
 [node name="Tutorial" type="Control" parent="Game/CanvasLayer"]
 visible = false
 modulate = Color(1, 1, 1, 0)
@@ -445,7 +453,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dt0bm")
 visible = false
 script = ExtResource("10_6jmls")
 
-[node name="TerminalMenu" parent="Game/CanvasLayer" instance=ExtResource("13_s3ei3")]
+[node name="MainMenu" parent="Game/CanvasLayer" instance=ExtResource("19_6s0d4")]
 visible = false
 
 [connection signal="animation_finished" from="Game/CanvasLayer/Tutorial/AnimationPlayer" to="Game/CanvasLayer/Tutorial" method="_on_animation_finished"]

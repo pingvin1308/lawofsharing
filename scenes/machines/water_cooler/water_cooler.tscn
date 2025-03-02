@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqu6hyreckurp"]
+[gd_scene load_steps=15 format=3 uid="uid://bqu6hyreckurp"]
 
 [ext_resource type="Texture2D" uid="uid://bu3c1fnsmx7vo" path="res://assets/machines/water_cooler.png" id="1_07wtl"]
 [ext_resource type="Script" path="res://scenes/machines/water_cooler/water_cooler.gd" id="1_epf42"]
@@ -15,6 +15,9 @@ shader_parameter/is_enabled = false
 [sub_resource type="AtlasTexture" id="AtlasTexture_jf7uw"]
 atlas = ExtResource("1_07wtl")
 region = Rect2(4, 0, 16, 35)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2uivr"]
+size = Vector2(12, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uqtcg"]
 radius = 6.08276
@@ -35,9 +38,17 @@ collision_mask = 3
 script = ExtResource("1_epf42")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_vits5")
 position = Vector2(0, -16)
 texture = SubResource("AtlasTexture_jf7uw")
+
+[node name="shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.568627)
+y_sort_enabled = true
+position = Vector2(0, -20)
+texture = SubResource("PlaceholderTexture2D_2uivr")
+offset = Vector2(0, 17)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_uqtcg")

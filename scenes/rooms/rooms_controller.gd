@@ -2,6 +2,7 @@ class_name RoomsController
 extends Node2D
 
 var player_room: Room
+var rooms: Array[Room] = []
 
 
 @warning_ignore("shadowed_variable")
@@ -14,6 +15,7 @@ func initialize(player: Player, ai_player: Player) -> void:
 
 		room.room_option.pressed.connect(
 			func() -> void: _on_send_room_selected(room.room_index))
+		rooms.push_back(room)
 
 	var room_indexes: Array[int] = []
 	for i in get_child_count():

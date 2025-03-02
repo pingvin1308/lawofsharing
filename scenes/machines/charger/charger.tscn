@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://day0p74kiaj13"]
+[gd_scene load_steps=14 format=3 uid="uid://day0p74kiaj13"]
 
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="1_bmqb7"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="1_g1lqu"]
@@ -11,6 +11,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_abo0h"]
 shader = ExtResource("1_g1lqu")
 shader_parameter/is_enabled = false
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xyu2b"]
+size = Vector2(32, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uu11u"]
 size = Vector2(32, 10)
@@ -31,9 +34,17 @@ collision_mask = 3
 script = ExtResource("1_oyxca")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 material = SubResource("ShaderMaterial_abo0h")
 position = Vector2(0, -6)
 texture = ExtResource("1_t02n8")
+
+[node name="shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.568627)
+y_sort_enabled = true
+position = Vector2(0, -9)
+texture = SubResource("PlaceholderTexture2D_xyu2b")
+offset = Vector2(0, 14)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_uu11u")

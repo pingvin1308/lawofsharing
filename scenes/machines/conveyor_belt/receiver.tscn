@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7w5ebk5p5h3f"]
+[gd_scene load_steps=12 format=3 uid="uid://c7w5ebk5p5h3f"]
 
 [ext_resource type="Script" path="res://scenes/machines/conveyor_belt/receiver.gd" id="1_1y4aa"]
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="2_qb8b3"]
@@ -10,6 +10,12 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oescr"]
 shader = ExtResource("2_qb8b3")
 shader_parameter/is_enabled = false
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uuoji"]
+size = Vector2(62, 10)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uurg8"]
+size = Vector2(24, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_egylr"]
 size = Vector2(58, 6)
@@ -28,6 +34,20 @@ material = SubResource("ShaderMaterial_oescr")
 position = Vector2(0, -1)
 sprite_frames = ExtResource("3_cyci1")
 offset = Vector2(0, -17)
+
+[node name="shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.568627)
+y_sort_enabled = true
+position = Vector2(1, -9)
+texture = SubResource("PlaceholderTexture2D_uuoji")
+offset = Vector2(0, 12)
+
+[node name="shadow2" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.568627)
+y_sort_enabled = true
+position = Vector2(20, -3)
+texture = SubResource("PlaceholderTexture2D_uurg8")
+offset = Vector2(0, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 2)

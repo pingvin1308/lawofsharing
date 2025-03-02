@@ -61,6 +61,9 @@ var room_index: int:
 
 
 func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> void:
+	oxygen_timer.autostart = false
+	oxygen_timer.stop()
+
 	data = room_data
 	room_type = room_data.renewable_resource
 

@@ -1,16 +1,21 @@
 class_name Game
 extends Node2D
 
+static var instance: Game
+
 @onready var player: Player = $Player
 @onready var ai_player: Player = $AIPlayer
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
-@onready var damage_controller: DamageController = $DamageController
 
 @onready var rooms_controller: RoomsController = $RoomsController
 @onready var terminal_menu: TerminalMenu = $CanvasLayer/TerminalMenu
 @onready var hud: HUD = $CanvasLayer/HUD
+@onready var main_menu: MainMenu = $CanvasLayer/MainMenu
+
+@onready var resource_transfer_controller: ResourceTransferController = $ResourceTransferController
+@onready var damage_controller: DamageController = $DamageController
 @onready var voting_controller: VotingController = $VotingController
-var days_passed: int = 0
+
 
 
 var ai_players: Array[Player] = []
@@ -38,6 +43,7 @@ var senders: Array[Sender] = []
 
 
 func _ready() -> void:
+	instance = self
 	if tutorial.visible:
 		tutorial.finished.connect(_on_finished)
 	else:
@@ -50,7 +56,10 @@ func _on_finished() -> void:
 
 
 func initialize() -> void:
+	# main_menu.visible = true
 	canvas_layer.follow_viewport_enabled = false
+
+	# init game data
 	var player_data := PlayerData.new(0)
 	var rooms_data: Array[Data.RoomData] = []
 	var machines: Array[Data.MachineData] = []
@@ -83,62 +92,55 @@ func initialize() -> void:
 	Data.game.receivers = receivers_data
 	Data.game.senders = senders_data
 
-
+	# init game
 	player.initialize(player_data)
 	ai_player.initialize(ai_player_data)
 	rooms_controller.initialize(player, ai_player)
-	#voting_controller.initialize(
-		#rooms_controller.player_room_data,
-		#rooms_controller.rooms)
-	terminal_menu.initialize()
-	hud.initialize()
-
-	for room in rooms_controller.get_children():
+	for room in rooms_controller.rooms:
 		if room is Room:
 			rooms.append(room)
 			receivers.append((room as Room).receiver)
 			senders.append((room as Room).sender)
 
+	terminal_menu.initialize()
+	hud.initialize()
+
+	# connect events
 	EventBus.terminal_day_ended.connect(_on_day_ended)
 
 
 func _process(_delta: float) -> void:
 	if player.is_died:
-		print("Game over!")
+		_finish()
 
 
 func _on_day_ended() -> void:
-	# check if game finished
-	# check goals
+	if player.is_died:
+		_finish()
+		return
 
-	_transfer_resources()
+	resource_transfer_controller.transfer_resources()
+
+	for item: Player in ai_players:
+		assert(item.input_controller is AIController)
+		(item.input_controller as AIController).restore_resources()
+		(item.input_controller as AIController).share_resources()
+
+	resource_transfer_controller.transfer_resources()
+	# electricity_controller.decrease_charge()
 	damage_controller.damage_machines()
 
+	# show day results
+	# wait for player to press next to start day
+	# show room effects
+	# wait for player to press next to start day
+
 	Data.game.day_number += 1
-
-	for ai_player: Player in ai_players:
-		assert(ai_player.input_controller is AIController)
-		(ai_player.input_controller as AIController).restore_resources()
-		(ai_player.input_controller as AIController).share_resources()
-
-	# damage_machines()
-	# exchange_rooms()
-
 	EventBus.rooms_updated.emit()
+
+func _finish() -> void:
+	Notification.instance.show_warning("Game Over")
+	process_mode = PROCESS_MODE_DISABLED
+	# game over
+	# show results
 	pass
-
-
-func _transfer_resources() -> void:
-	for sender: Sender in senders:
-		while not sender.data.transfer_data_queue.is_empty():
-			var item: Data.TransferData = sender.get_resource_from_queue()
-			var target_receiver: Receiver = Data.game.get_by_filter(
-				receivers,
-				func(x: Receiver) -> bool: return x.data.room_index == item.to_room_index)
-
-			if target_receiver == null:
-				continue
-
-			target_receiver.on_resource_received(item)
-
-	# EventBus.resources_transferred.emit()

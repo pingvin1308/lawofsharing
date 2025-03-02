@@ -13,8 +13,14 @@ const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
 @export var lerp_speed: float = 50
 @export var lerp_velocity_value_on_floor: float = 16
 
+
+@export var max_speed: int = 100
+@export var acceleration: int = 5
+@export var friction: int = 8
+
+
 var input_controller: InputController
-var direction: Vector2 = Vector2.ZERO
+var previous_direction: Vector2 = Vector2.ZERO
 var data: PlayerData
 
 var oxygen: int:
@@ -35,51 +41,45 @@ var is_died: bool:
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_DISABLED
-	control_menu.modulate.a = 0
 
 
-func initialize(player_data: PlayerData) -> void:
-	if player_data.is_ai == false:
+func initialize(player_data: PlayerData = null) -> void:
+	data = player_data
+
+	if data.is_ai == false:
 		camera.zoom = Vector2(1.2, 1.2)
 		input_controller = InputController.new()
 	else:
-		input_controller = AIController.new(player_data)
+		input_controller = AIController.new(data)
 
-	data = player_data
-	oxygen_timer.timeout.connect(_on_timeout)
+	control_menu.visible = false
+	control_menu.modulate.a = 0
 	control_menu.action_pressed.connect(_on_action_pressed)
+	oxygen_timer.timeout.connect(_on_timeout)
+	oxygen_timer.autostart = false
+	oxygen_timer.stop();
 
 
 func _physics_process(delta: float) -> void:
-	var input_direction := input_controller.get_input_direction()
-	if input_direction.is_zero_approx():
-		var idle_animation := animations.get_idle_animation_name(direction)
-		animations.play_animation(idle_animation)
+	if is_died: 
+		oxygen_timer.stop()
 		return
 
+	var input_direction := input_controller.get_input_direction()
 	_move_character(input_direction, delta)
-	var walk_animation := animations.get_walk_animation_name(direction)
-	animations.play_animation(walk_animation)
+
+	if input_direction.is_zero_approx():
+		var idle_animation := animations.get_idle_animation_name(previous_direction)
+		animations.play_animation(idle_animation)
+	else:
+		previous_direction = input_direction.normalized()
+		var walk_animation := animations.get_walk_animation_name(input_direction)
+		animations.play_animation(walk_animation)
 
 
 func _move_character(input_direction: Vector2, delta: float) -> void:
-	if input_direction.is_zero_approx():
-		return
-
-	direction = lerp(direction, Vector2(input_direction.x, input_direction.y).normalized(), delta * lerp_speed)
-
-	var calculated_velocity := velocity
-	var move_x := direction.x * speed
-	var move_y := direction.y * speed
-	if direction:
-		calculated_velocity = Vector2(move_x, move_y)
-	else:
-		calculated_velocity = Vector2(
-			lerp(calculated_velocity.x, move_x, delta * lerp_velocity_value_on_floor),
-			lerp(calculated_velocity.y, move_y, delta * lerp_velocity_value_on_floor)
-		)
-
-	direction = direction
+	var lerp_weight := delta * (acceleration if input_direction else friction)
+	var calculated_velocity: Vector2 = lerp(velocity, input_direction * max_speed, lerp_weight)
 	velocity = calculated_velocity
 	move_and_slide()
 

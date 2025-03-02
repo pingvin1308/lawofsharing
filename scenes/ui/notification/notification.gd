@@ -12,7 +12,7 @@ func _ready() -> void:
 	base_position = position
 
 
-func show_warning(text: String) -> void:
+func show_warning(text: String, duration: float = 0.8) -> void:
 	position = base_position
 	modulate.a = 0
 	scale = Vector2(0.9, 0.9)
@@ -28,5 +28,8 @@ func show_warning(text: String) -> void:
 		.set_ease(Tween.EASE_OUT)
 	tween.parallel()
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
-	tween.tween_property(self, "modulate:a", 1.0, 0.8)
-	tween.tween_property(self, "modulate:a", 0.0, 0.8)
+	tween.tween_property(self, "modulate:a", 1.0, duration)
+	tween.tween_property(self, "modulate:a", 0.0, duration)
+	tween.tween_callback(func() -> void:
+		self.visible = false
+	)
