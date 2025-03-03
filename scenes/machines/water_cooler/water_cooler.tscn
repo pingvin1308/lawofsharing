@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="7_nwf4i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vits5"]
+resource_local_to_scene = true
 shader = ExtResource("1_f6k86")
 shader_parameter/is_enabled = false
 
@@ -102,7 +103,6 @@ offset_bottom = -30.0
 
 [node name="InteractableComponent" parent="." instance=ExtResource("4_q2507")]
 y_sort_enabled = true
-action_name = "drink"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableComponent"]
 position = Vector2(0, 5)

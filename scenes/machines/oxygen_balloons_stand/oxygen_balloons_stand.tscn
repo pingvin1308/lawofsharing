@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cn0ja50u1boe" path="res://scenes/machines/breackable_component.tscn" id="7_nn3vg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n2lqj"]
+resource_local_to_scene = true
 shader = ExtResource("2_pgxym")
 shader_parameter/is_enabled = false
 

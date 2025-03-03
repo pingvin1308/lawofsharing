@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="4_kwi8c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xo3de"]
+resource_local_to_scene = true
 shader = ExtResource("2_qwvat")
 shader_parameter/is_enabled = false
 

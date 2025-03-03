@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/machines/conveyor_belt/resource_queue.gd" id="7_30fdx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oescr"]
+resource_local_to_scene = true
 shader = ExtResource("2_cjqqo")
 shader_parameter/is_enabled = false
 

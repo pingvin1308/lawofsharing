@@ -8,6 +8,7 @@
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="6_cvqyy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_srbhi"]
+resource_local_to_scene = true
 shader = ExtResource("1_0p54o")
 shader_parameter/is_enabled = false
 
