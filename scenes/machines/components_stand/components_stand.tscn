@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2obb6l06trj6"]
+[gd_scene load_steps=13 format=3 uid="uid://d2obb6l06trj6"]
 
 [ext_resource type="Shader" path="res://scenes/machines/machine_selection.gdshader" id="1_0p54o"]
 [ext_resource type="Script" path="res://scenes/machines/components_stand/components_stand.gd" id="1_5vgx3"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://dsgvpxp0f35do" path="res://scenes/machines/interactable_component.tscn" id="3_kgjyo"]
 [ext_resource type="PackedScene" uid="uid://b24lajp77bfi6" path="res://scenes/ui/control_menu/control_menu.tscn" id="4_s823s"]
 [ext_resource type="FontFile" uid="uid://dk4gdruibe4ps" path="res://assets/ui/zx_palm.ttf" id="6_cvqyy"]
-[ext_resource type="PackedScene" uid="uid://cn0ja50u1boe" path="res://scenes/machines/breackable_component.tscn" id="7_0f3in"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_srbhi"]
 shader = ExtResource("1_0p54o")
@@ -101,8 +100,6 @@ vertical_alignment = 1
 position = Vector2(1, 6)
 shape = SubResource("RectangleShape2D_q85bi")
 debug_color = Color(0.68641, 0.498511, 0.104982, 0.42)
-
-[node name="BreakableComponent" parent="." instance=ExtResource("7_0f3in")]
 
 [connection signal="interactable_activated" from="InteractableComponent" to="." method="_on_interactable_activated"]
 [connection signal="interactable_deactivated" from="InteractableComponent" to="." method="_on_interactable_deactivated"]

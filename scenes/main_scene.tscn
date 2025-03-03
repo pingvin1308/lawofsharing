@@ -1,10 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=32 format=3 uid="uid://r7wcxmse6nc1"]
 
 [ext_resource type="Script" path="res://scenes/resource_transfer_controller.gd" id="2_cnsw5"]
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="2_mk5lc"]
 [ext_resource type="Script" path="res://scenes/rooms/rooms_controller.gd" id="3_3iibb"]
 [ext_resource type="PackedScene" uid="uid://bbbatnpi7wo2r" path="res://scenes/background_music.tscn" id="3_7biat"]
+[ext_resource type="Script" path="res://scenes/electricity_controller.gd" id="4_x5tbo"]
 [ext_resource type="PackedScene" uid="uid://1k4abmb47uyv" path="res://scenes/rooms/room.tscn" id="5_7rg5f"]
 [ext_resource type="Script" path="res://scenes/voting/voting_controller.gd" id="6_twjp3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="7_dutys"]
@@ -267,6 +268,9 @@ parameters/looping = true
 [node name="Game" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("2_mk5lc")
+
+[node name="ElectricityController" type="Node" parent="Game"]
+script = ExtResource("4_x5tbo")
 
 [node name="ResourceTransferController" type="Node" parent="Game"]
 script = ExtResource("2_cnsw5")

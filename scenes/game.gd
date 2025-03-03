@@ -12,14 +12,15 @@ static var instance: Game
 @onready var hud: HUD = $CanvasLayer/HUD
 @onready var main_menu: MainMenu = $CanvasLayer/MainMenu
 
+@onready var electricity_controller: ElectricityController = $ElectricityController
 @onready var resource_transfer_controller: ResourceTransferController = $ResourceTransferController
 @onready var damage_controller: DamageController = $DamageController
 @onready var voting_controller: VotingController = $VotingController
 
 
-
 var ai_players: Array[Player] = []
 var rooms: Array[Room] = []
+var chargers: Array[Charger] = []
 var receivers: Array[Receiver] = []
 var senders: Array[Sender] = []
 
@@ -101,6 +102,7 @@ func initialize() -> void:
 			rooms.append(room)
 			receivers.append((room as Room).receiver)
 			senders.append((room as Room).sender)
+			chargers.append((room as Room).charger)
 
 	terminal_menu.initialize()
 	hud.initialize()
@@ -119,6 +121,14 @@ func _on_day_ended() -> void:
 		_finish()
 		return
 
+	var player_room: Room = Data.game.get_by_filter(
+		rooms,
+		func(item: Room) -> bool: return item.room_index == player.data.room_index)
+
+	if player_room.charger.source <= 0:
+		_finish()
+		return
+
 	resource_transfer_controller.transfer_resources()
 
 	for item: Player in ai_players:
@@ -127,7 +137,7 @@ func _on_day_ended() -> void:
 		(item.input_controller as AIController).share_resources()
 
 	resource_transfer_controller.transfer_resources()
-	# electricity_controller.decrease_charge()
+	electricity_controller.decrease_charge()
 	damage_controller.damage_machines()
 
 	# show day results

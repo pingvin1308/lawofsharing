@@ -6,8 +6,6 @@ signal interactable_deactivated
 
 var interactor: Player
 
-@export var action_name: String
-@export var is_breakable: bool = true
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)

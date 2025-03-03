@@ -84,6 +84,7 @@ func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> 
 				oxygen_balloons_stand.initialize(machine)
 
 	oxygen_timer.timeout.connect(_on_oxygen_decreased)
+	charger.electricity_changed.connect(_on_electricity_changed)
 	EventBus.terminal_menu_opened.connect(_menu_opened)
 	EventBus.terminal_menu_closed.connect(_menu_closed)
 	EventBus.rooms_menu_opened.connect(_on_rooms_menu_opened)
@@ -155,3 +156,21 @@ func _on_oxygen_decreased() -> void:
 	if room_oxygen > 0:
 		oxygen_balloons_stand.source -= 1
 		character_body.breath(2)
+
+
+func _on_electricity_changed() -> void:
+	# if charger.source >= 0:
+	# 	light.energy = 0.30
+	# if charger.source >= 20:
+	# 	light.energy = 0.45
+	# if charger.source >= 40:
+	# 	light.energy = 0.60
+	# if charger.source >= 60:
+	# 	light.energy = 0.75
+	# if charger.source >= 80:
+	# 	light.energy = 0.80
+	# if charger.source >= 100:
+	# 	light.energy = 0.85
+
+	# print(light.energy)
+	pass

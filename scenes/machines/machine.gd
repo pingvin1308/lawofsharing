@@ -21,6 +21,8 @@ func initialize(machine_data: Data.MachineData) -> void:
 		control_menu.is_breakable = true
 		control_menu.break_pressed.connect(breakable_component.on_break_pressed)
 		control_menu.fix_pressed.connect(breakable_component.on_fix_pressed)
+	else:
+		control_menu.is_breakable = false
 
 
 func enable_hud() -> void:

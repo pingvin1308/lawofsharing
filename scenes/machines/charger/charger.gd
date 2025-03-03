@@ -1,6 +1,8 @@
 class_name Charger
 extends MachineBase
 
+signal electricity_changed()
+
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var label: Label = $ChargerIcon/Label
 @onready var interactable_component: InteractableComponent = $InteractableComponent
@@ -13,11 +15,8 @@ var source: int:
 	set(value):
 		data.source_value = value
 		EventBus.room_recourse_changed.emit(data.room_index, Data.ResourceType.ELECTRICITY, data.source_value)
+		electricity_changed.emit()
 		label.text = str(data.source_value)
-
-
-func set_source(value: int) -> void:
-	source = value
 
 
 func _on_interactable_activated() -> void:
