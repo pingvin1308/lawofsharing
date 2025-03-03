@@ -125,9 +125,12 @@ func _on_action_pressed() -> void:
 func drop_box() -> void:
 	if resource_box == null: return
 	var box_scene := RESOURCE_BOX.instantiate() as ResourceBox
-	get_parent().add_child(box_scene)
+	var player_room : Room = Data.game.get_by_filter(
+		Game.instance.rooms,
+		func(r: Room) -> bool: return r.room_index == data.room_index)
+	player_room.add_child(box_scene)
 	box_scene.initialize(data.resource_box)
-	box_scene.position = position
+	box_scene.global_position = global_position 
 	empty_resource_box()
 
 

@@ -16,6 +16,10 @@
 [node name="Room" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_341sg")
+color1 = Color(1, 1, 1, 1)
+color2 = Color(0.622396, 0.622396, 0.622396, 1)
+color3 = Color(0.328125, 0.328125, 0.328125, 1)
+color4 = Color(0.21, 0.1365, 0.1365, 1)
 
 [node name="RoomOption" type="Button" parent="."]
 visible = false

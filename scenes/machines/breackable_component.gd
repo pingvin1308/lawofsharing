@@ -8,6 +8,7 @@ const NAME: String = "BreakableComponent"
 @onready var fixing: AudioStreamPlayer = $AudioManager/Fixing
 
 
+@export var fix_cost: int = 10
 var durability: int:
 	get(): return machine_data.durability
 	set(value):
@@ -31,10 +32,19 @@ func on_break_pressed() -> void:
 
 
 func on_fix_pressed() -> void:
+	var components_stand: ComponentsStand = Data.game.get_by_filter(
+		Game.instance.components_stands,
+		func(stand: ComponentsStand) -> bool: return stand.data.room_index == machine_data.room_index)
+
+	if components_stand.source <= 0:
+		Notification.instance.show_warning("Not enough components to fix")
+		return
+
 	var prev_durability := durability
 	if prev_durability < MAX_DURABILITY:
+		components_stand.source -= fix_cost
 		fixing.play()
-	durability += 1
+		durability += 1
 
 
 func _play_animation() -> void:
@@ -57,4 +67,4 @@ func on_machine_degradated() -> void:
 	_play_animation()
 
 
-enum { BROKEN = 0, DAMAGED_2 = 1, DAMAGED_1 = 2, MAX_DURABILITY = 3 }
+enum {BROKEN = 0, DAMAGED_2 = 1, DAMAGED_1 = 2, MAX_DURABILITY = 3}

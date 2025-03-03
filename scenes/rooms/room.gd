@@ -10,6 +10,11 @@ extends Node2D
 @onready var components_room_tilemap: Node2D = $RoomTilemap/ComponentsRoom
 @onready var oxygen_room_tilemap: Node2D = $RoomTilemap/OxygenRoom
 
+@export var color1: Color
+@export var color2: Color
+@export var color3: Color
+@export var color4: Color
+
 # GUI
 @onready var room_option: Button = $RoomOption
 
@@ -108,13 +113,15 @@ func initialize(room_data: Data.RoomData, machines: Array[Data.MachineData]) -> 
 
 func set_player(player: Player) -> void:
 	character_body = player
-	player.global_position = sleep_room.global_position + Vector2(24, 0)
+	player.position = sleep_room.position + Vector2(24, 0)
 	player.process_mode = PROCESS_MODE_INHERIT
 	oxygen_timer.start()
 	player.data.room_index = room_index
 	player.data.room_type = room_type
 	player.oxygen_timer.start()
 	EventBus.player_changed_room.emit()
+	Game.instance.remove_child(player)
+	add_child(player)
 
 	if not player.data.is_ai:
 		for machine_name: String in machines_map:
@@ -123,6 +130,8 @@ func set_player(player: Player) -> void:
 
 
 func unset_player() -> void:
+	add_child(character_body)
+	Game.instance.add_child(character_body)
 	character_body.process_mode = PROCESS_MODE_DISABLED
 	character_body = null
 	oxygen_timer.stop()
@@ -159,18 +168,14 @@ func _on_oxygen_decreased() -> void:
 
 
 func _on_electricity_changed() -> void:
-	# if charger.source >= 0:
-	# 	light.energy = 0.30
-	# if charger.source >= 20:
-	# 	light.energy = 0.45
-	# if charger.source >= 40:
-	# 	light.energy = 0.60
-	# if charger.source >= 60:
-	# 	light.energy = 0.75
-	# if charger.source >= 80:
-	# 	light.energy = 0.80
-	# if charger.source >= 100:
-	# 	light.energy = 0.85
+	var color: Color
+	if charger.source >= 80:
+		color = color1
+	if charger.source < 80:
+		color = color2
+	if charger.source <= 40:
+		color = color3
+	if charger.source <= 20:
+		color = color4
 
-	# print(light.energy)
-	pass
+	modulate = color

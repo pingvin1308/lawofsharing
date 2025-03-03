@@ -281,6 +281,10 @@ script = ExtResource("6_twjp3")
 [node name="DamageController" type="Node" parent="Game"]
 script = ExtResource("17_7iwjm")
 
+[node name="GoalsController" type="Node" parent="Game"]
+
+[node name="FoodWaterController" type="Node" parent="Game"]
+
 [node name="Player" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
 position = Vector2(15, -13)
 max_speed = 110
@@ -296,21 +300,41 @@ script = ExtResource("3_3iibb")
 
 [node name="EnergyRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(-666, -228)
+color1 = null
+color2 = null
+color3 = null
+color4 = null
 room_type = 3
 
 [node name="WaterRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(-222, -483)
+color1 = null
+color2 = null
+color3 = null
+color4 = null
 
 [node name="FoodRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(197, -249)
+color1 = null
+color2 = null
+color3 = null
+color4 = null
 room_type = 1
 
 [node name="OxygenRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(75, 145)
+color1 = null
+color2 = null
+color3 = null
+color4 = null
 room_type = 4
 
 [node name="ComponentsRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(-468, 137)
+color1 = null
+color2 = null
+color3 = null
+color4 = null
 room_type = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Game"]

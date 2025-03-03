@@ -23,6 +23,7 @@ var rooms: Array[Room] = []
 var chargers: Array[Charger] = []
 var receivers: Array[Receiver] = []
 var senders: Array[Sender] = []
+var components_stands: Array[ComponentsStand] = []
 
 #var scenary
 # tutorial vs real surv
@@ -103,6 +104,7 @@ func initialize() -> void:
 			receivers.append((room as Room).receiver)
 			senders.append((room as Room).sender)
 			chargers.append((room as Room).charger)
+			components_stands.append((room as Room).components_stand)
 
 	terminal_menu.initialize()
 	hud.initialize()
