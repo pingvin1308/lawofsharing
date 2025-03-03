@@ -4,14 +4,17 @@ extends Control
 signal action_pressed()
 signal fix_pressed()
 signal break_pressed()
+signal take_pressed()
 
 @onready var action: Button = $Action
 @onready var fix: Button = $Fix
 @onready var break_button: Button = $Break
+@onready var take: Button = $Take
 
-var is_breakable: bool
+@export var is_breakable: bool
+@export var is_collectable: bool
 
-var action_name: String:
+@export var action_name: String:
 	get(): return action.text
 	set(value):
 		if not self.is_node_ready(): await ready
@@ -36,6 +39,7 @@ func enable() -> void:
 	fix.visible = is_breakable
 	break_button.visible = is_breakable
 	action.visible = not action_name.is_empty()
+	take.visible = is_collectable
 	visible = true
 
 
@@ -43,6 +47,7 @@ func disable() -> void:
 	fix.visible = false
 	break_button.visible = false
 	action.visible = false
+	take.visible = false
 	visible = false
 
 
@@ -57,3 +62,7 @@ func _on_fix_pressed() -> void:
 
 func _on_break_pressed() -> void:
 	break_pressed.emit()
+
+
+func _on_take_pressed() -> void:
+	take_pressed.emit()

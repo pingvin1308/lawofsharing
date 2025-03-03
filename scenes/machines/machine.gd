@@ -1,6 +1,7 @@
-class_name MachineBase
+class_name ResourceContainerBase
 extends StaticBody2D
 
+@onready var interactable_component: InteractableComponent = $InteractableComponent
 @onready var breakable_component: BreakableComponent = $BreakableComponent
 @onready var control_menu: ControlMenu = $ControlMenu
 
@@ -19,10 +20,12 @@ func initialize(machine_data: Data.MachineData) -> void:
 	if breakable_component:
 		breakable_component.initialize(machine_data)
 		control_menu.is_breakable = true
+		control_menu.is_collectable = true
 		control_menu.break_pressed.connect(breakable_component.on_break_pressed)
 		control_menu.fix_pressed.connect(breakable_component.on_fix_pressed)
 	else:
 		control_menu.is_breakable = false
+		control_menu.is_collectable = false
 
 
 func enable_hud() -> void:
@@ -32,3 +35,4 @@ func enable_hud() -> void:
 
 func disable_hud() -> void:
 	pass
+

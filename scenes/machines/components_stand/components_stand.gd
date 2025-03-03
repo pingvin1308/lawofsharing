@@ -1,8 +1,7 @@
 class_name ComponentsStand
-extends MachineBase
+extends ResourceContainerBase
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var interactable_component: InteractableComponent = $InteractableComponent
 @onready var label: Label = $ComponentsIcon/Label
 @onready var components_icon: Control = $ComponentsIcon
 
@@ -18,6 +17,7 @@ var source: int:
 
 func _ready() -> void:
 	control_menu.modulate.a = 0
+	control_menu.take_pressed.connect(_on_take_pressed)
 
 
 func set_source(value: int) -> void:
@@ -51,14 +51,17 @@ func _on_interactable_deactivated() -> void:
 func _on_fill_pressed() -> void:
 	if is_in_range:
 		var player := interactable_component.interactor
-		on_fill(player)
+		_on_fill(player)
 
 
-func on_fill(player: Player) -> void:
+func _on_fill(player: Player) -> void:
 	if player.resource_box == null: return
 	var components_amount := player.resource_box.value
 	source += components_amount
 	player.empty_resource_box()
+	control_menu.action_name = ""
+	control_menu.action.visible = false
+	control_menu.disconnect_signals(_on_fill_pressed)
 
 
 func enable_hud() -> void:
@@ -67,3 +70,31 @@ func enable_hud() -> void:
 
 func disable_hud() -> void:
 	components_icon.visible = false
+
+
+func _on_take_pressed() -> void:
+	if interactable_component.interactor != null:
+		var player := interactable_component.interactor
+		_on_take(player)
+
+
+func _on_take(player: Player) -> void:
+	if source <= 0: return
+	var source_amount := 5
+	source -= source_amount
+
+	if player.resource_box != null and player.resource_box.resource_type != resource_type:
+		Notification.instance.show_warning(
+			"You can't take resource, drop your box with: " + str(player.resource_box.resource_type))
+		return
+
+	var amount := source_amount \
+		if player.data.resource_box == null \
+		else player.resource_box.value + source_amount
+
+	var box_data := Data.ResourceBoxData.new(
+		resource_type,
+		amount)
+	player.pickup_box(box_data)
+	control_menu.action_name = "fill"
+	control_menu.connect_signals(_on_fill_pressed)

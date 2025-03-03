@@ -255,9 +255,9 @@ y_sort_enabled = true
 y_sort_enabled = true
 material = SubResource("ShaderMaterial_68m3g")
 offset_left = -1351.0
-offset_top = -882.0
+offset_top = -887.0
 offset_right = 2055.0
-offset_bottom = 1179.0
+offset_bottom = 1174.0
 color = Color(0.02838, 0.0189, 0.09, 1)
 
 [node name="BackgroundMusic" parent="." instance=ExtResource("3_7biat")]

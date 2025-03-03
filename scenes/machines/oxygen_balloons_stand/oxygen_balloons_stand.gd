@@ -1,9 +1,8 @@
 class_name OxygenBalloons
-extends MachineBase
+extends ResourceContainerBase
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var label: Label = $OxygenIcon/Label
-@onready var interactable_component: InteractableComponent = $InteractableComponent
 @onready var oxygen_icon: Control = $OxygenIcon
 
 var room_name: String
@@ -14,6 +13,11 @@ var source: int:
 		data.source_value = value
 		label.text = str(data.source_value)
 		EventBus.room_recourse_changed.emit(data.room_index, Data.ResourceType.OXYGEN, data.source_value)
+
+
+func _ready() -> void:
+	control_menu.modulate.a = 0
+	control_menu.take_pressed.connect(_on_take_pressed)
 
 
 func _on_interactable_activated() -> void:
@@ -51,6 +55,9 @@ func on_fill(player: Player) -> void:
 	var oxygen_amount := player.resource_box.value
 	source += oxygen_amount
 	player.empty_resource_box()
+	control_menu.action_name = ""
+	control_menu.action.visible = false
+	control_menu.disconnect_signals(_on_fill_pressed)
 
 
 func enable_hud() -> void:
@@ -59,3 +66,31 @@ func enable_hud() -> void:
 
 func disable_hud() -> void:
 	oxygen_icon.visible = false
+
+
+func _on_take_pressed() -> void:
+	if interactable_component.interactor != null:
+		var player := interactable_component.interactor
+		_on_take(player)
+
+
+func _on_take(player: Player) -> void:
+	if source <= 0: return
+	var source_amount := 5
+	source -= source_amount
+
+	if player.resource_box != null and player.resource_box.resource_type != resource_type:
+		Notification.instance.show_warning(
+			"You can't take resource, drop your box with: " + str(player.resource_box.resource_type))
+		return
+
+	var amount := source_amount \
+		if player.data.resource_box == null \
+		else player.resource_box.value + source_amount
+
+	var box_data := Data.ResourceBoxData.new(
+		resource_type,
+		amount)
+	player.pickup_box(box_data)
+	control_menu.action_name = "fill"
+	control_menu.connect_signals(_on_fill_pressed)

@@ -1,8 +1,7 @@
 class_name WaterCooler
-extends MachineBase
+extends ResourceContainerBase
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var interactable_component: InteractableComponent = $InteractableComponent
 @onready var label: Label = $WaterIcon/Label
 @onready var water_icon: Control = $WaterIcon
 
@@ -18,6 +17,7 @@ var source: int:
 
 func _ready() -> void:
 	control_menu.action_pressed.connect(_on_drink_pressed)
+	control_menu.take_pressed.connect(_on_take_pressed)
 
 
 func set_source(value: int) -> void:
@@ -27,13 +27,9 @@ func set_source(value: int) -> void:
 func _on_interactable_activated() -> void:
 	var interactor := interactable_component.interactor;
 	if interactor.resource_box != null and interactor.resource_box.resource_type == Data.ResourceType.WATER:
-		control_menu.action_name = "fill"
-		control_menu.disconnect_signals(_on_drink_pressed)
-		control_menu.connect_signals(_on_fill_pressed)
+		_enable_fill()
 	else:
-		control_menu.action_name = "drink"
-		control_menu.disconnect_signals(_on_fill_pressed)
-		control_menu.connect_signals(_on_drink_pressed)
+		_enable_drink()
 
 	(sprite_2d.material as ShaderMaterial).set_shader_parameter("is_enabled", true)
 	is_in_range = true
@@ -67,6 +63,7 @@ func on_fill(player: Player) -> void:
 	var water_amount := player.resource_box.value
 	source += water_amount
 	player.empty_resource_box()
+	_enable_drink()
 
 
 func on_drink(player: Player) -> void:
@@ -87,3 +84,42 @@ func enable_hud() -> void:
 
 func disable_hud() -> void:
 	water_icon.visible = false
+
+
+func _enable_drink() -> void:
+	control_menu.action_name = "drink"
+	control_menu.disconnect_signals(_on_fill_pressed)
+	control_menu.connect_signals(_on_drink_pressed)
+
+
+func _enable_fill() -> void:
+	control_menu.action_name = "fill"
+	control_menu.disconnect_signals(_on_drink_pressed)
+	control_menu.connect_signals(_on_fill_pressed)
+
+
+func _on_take_pressed() -> void:
+	if interactable_component.interactor != null:
+		var player := interactable_component.interactor
+		_on_take(player)
+
+
+func _on_take(player: Player) -> void:
+	if source <= 0: return
+	var source_amount := 5
+	source -= source_amount
+
+	if player.resource_box != null and player.resource_box.resource_type != resource_type:
+		Notification.instance.show_warning(
+			"You can't take resource, drop your box with: " + str(player.resource_box.resource_type))
+		return
+
+	var amount := source_amount \
+		if player.data.resource_box == null \
+		else player.resource_box.value + source_amount
+
+	var box_data := Data.ResourceBoxData.new(
+		resource_type,
+		amount)
+	player.pickup_box(box_data)
+	_enable_fill()

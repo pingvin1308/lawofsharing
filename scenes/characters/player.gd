@@ -1,7 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
 @onready var animations: PlayerAnimations = $AnimatedSprite2D
 @onready var oxygen_timer: Timer = $OxygenTimer
 @onready var audio_manager: PlayerAudioManager = $AudioManager
@@ -61,7 +60,7 @@ func initialize(player_data: PlayerData = null) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if is_died: 
+	if is_died:
 		oxygen_timer.stop()
 		return
 
@@ -124,13 +123,13 @@ func _on_action_pressed() -> void:
 
 func drop_box() -> void:
 	if resource_box == null: return
-	var box_scene := RESOURCE_BOX.instantiate() as ResourceBox
+	var box_scene := ResourceBox.make()
 	var player_room : Room = Data.game.get_by_filter(
 		Game.instance.rooms,
 		func(r: Room) -> bool: return r.room_index == data.room_index)
 	player_room.add_child(box_scene)
 	box_scene.initialize(data.resource_box)
-	box_scene.global_position = global_position 
+	box_scene.global_position = global_position
 	empty_resource_box()
 
 

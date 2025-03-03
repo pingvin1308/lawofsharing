@@ -58,7 +58,7 @@ extends Node2D
 # ROOM DATA
 ## Key: String name, Machine
 var machines_map: Dictionary = {}
-## Key: Data.ResourceType, Value: MachineBase
+## Key: Data.ResourceType, Value: ResourceContainerBase
 var data: Data.RoomData
 
 var room_index: int:

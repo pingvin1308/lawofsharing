@@ -78,6 +78,17 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ayvop")
 theme_override_styles/normal = SubResource("StyleBoxFlat_7p7ax")
 text = "break"
 
+[node name="Take" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 15)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 37.0
+offset_right = 56.0
+offset_bottom = 52.0
+theme = ExtResource("1_i24fv")
+text = "take"
+
 [connection signal="pressed" from="Action" to="." method="_on_action_pressed"]
 [connection signal="pressed" from="Fix" to="." method="_on_fix_pressed"]
 [connection signal="pressed" from="Break" to="." method="_on_break_pressed"]
+[connection signal="pressed" from="Take" to="." method="_on_take_pressed"]

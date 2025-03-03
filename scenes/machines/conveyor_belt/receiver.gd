@@ -1,8 +1,6 @@
 class_name Receiver
 extends StaticBody2D
 
-const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
-
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var control_menu: ControlMenu = $ControlMenu
 @onready var interactable_component: InteractableComponent = $InteractableComponent
@@ -64,7 +62,7 @@ func _on_action_pressed() -> void:
 
 	animated_sprite_2d.play()
 	var box_data := Data.ResourceBoxData.new(transfer_data.resource_type, transfer_data.value)
-	var box := RESOURCE_BOX.instantiate() as ResourceBox
+	var box := ResourceBox.make()
 	box.position = position + spawn_point.position
 	box.z_index = 1
 	get_parent().add_child(box)

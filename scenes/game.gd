@@ -132,6 +132,7 @@ func _on_day_ended() -> void:
 		_finish()
 		return
 
+	resource_transfer_controller.restore_renewable_resources()
 	resource_transfer_controller.transfer_resources()
 
 	for item: Player in ai_players:

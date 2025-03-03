@@ -1,6 +1,8 @@
 class_name ResourceBox
 extends StaticBody2D
 
+const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
+
 @onready var interactable_component: InteractableComponent = $InteractableComponent
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var control_menu: ControlMenu = $ControlMenu
@@ -26,6 +28,10 @@ func _ready() -> void:
 	interactable_component.interactable_activated.connect(_on_interactable_activated)
 	interactable_component.interactable_deactivated.connect(_on_interactable_deactivated)
 	control_menu.action_pressed.connect(_on_action_pressed)
+
+
+static func make() -> ResourceBox:
+	return RESOURCE_BOX.instantiate() as ResourceBox
 
 
 func initialize(resource_box_data: Data.ResourceBoxData) -> void:

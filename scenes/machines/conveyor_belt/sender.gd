@@ -1,7 +1,6 @@
 class_name Sender
 extends StaticBody2D
 
-const RESOURCE_BOX = preload("res://scenes/machines/resource_box.tscn")
 const TOOLTIP = preload("res://scenes/ui/tooltip/tooltip.tscn")
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -121,7 +120,7 @@ func on_send_resource(player: Player, target_room_index: int) -> void:
 		resource_box.value)
 
 	animated_sprite_2d.play()
-	var box := RESOURCE_BOX.instantiate() as ResourceBox
+	var box := ResourceBox.make()
 	get_parent().add_child(box)
 	box.initialize(resource_box)
 	box.position = position + spawn_point.position
