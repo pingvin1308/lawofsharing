@@ -12,6 +12,7 @@ static var instance: Game
 @onready var hud: HUD = $CanvasLayer/HUD
 @onready var main_menu: MainMenu = $CanvasLayer/MainMenu
 
+@onready var food_water_controller: FoodWaterController = $FoodWaterController
 @onready var electricity_controller: ElectricityController = $ElectricityController
 @onready var resource_transfer_controller: ResourceTransferController = $ResourceTransferController
 @onready var damage_controller: DamageController = $DamageController
@@ -141,6 +142,7 @@ func _on_day_ended() -> void:
 	resource_transfer_controller.transfer_resources()
 	electricity_controller.decrease_charge()
 	damage_controller.damage_machines()
+	food_water_controller.decrease_food_and_water()
 
 	# show day results
 	# wait for player to press next to start day

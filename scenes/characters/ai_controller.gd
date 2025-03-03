@@ -36,25 +36,25 @@ func share_resources() -> void:
 
 		if machine.source_value > 0 :
 			@warning_ignore("integer_division")
-			var part_resource := machine.source_value / 5
+			var part_resource := 20
 
 			for to_room_index in range(5):
 				if to_room_index == player_data.room_index: continue
 				if to_room_index != Data.game.player.room_index: continue
 
-				# for key: String in Data.ResourceType:
-				var transfer := Data.TransferData.new(
-					player_data.room_index,
-					to_room_index,
-					Data.ResourceType.ELECTRICITY,
-					part_resource)
-				var receiver := Data.game.get_receiver(to_room_index)
-				receiver.transfer_data_queue.push_back(transfer)
-				EventBus.transfer_resources.emit(
-					transfer.from_room_index,
-					transfer.to_room_index,
-					transfer.resource_type,
-					transfer.value)
+				for key: String in Data.ResourceType:
+					var transfer := Data.TransferData.new(
+						player_data.room_index,
+						to_room_index,
+						Data.ResourceType[key],
+						part_resource)
+					var receiver := Data.game.get_receiver(to_room_index)
+					receiver.transfer_data_queue.push_back(transfer)
+					EventBus.transfer_resources.emit(
+						transfer.from_room_index,
+						transfer.to_room_index,
+						transfer.resource_type,
+						transfer.value)
 
 			print("Sharing resources with teammates.")
 		else:

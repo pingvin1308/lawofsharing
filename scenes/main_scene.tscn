@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://r7wcxmse6nc1"]
+[gd_scene load_steps=33 format=3 uid="uid://r7wcxmse6nc1"]
 
 [ext_resource type="Script" path="res://scenes/resource_transfer_controller.gd" id="2_cnsw5"]
 [ext_resource type="PackedScene" uid="uid://5atx5caa5aqp" path="res://scenes/characters/player.tscn" id="2_intmt"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://1k4abmb47uyv" path="res://scenes/rooms/room.tscn" id="5_7rg5f"]
 [ext_resource type="Script" path="res://scenes/voting/voting_controller.gd" id="6_twjp3"]
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="7_dutys"]
+[ext_resource type="Script" path="res://scenes/food_water_controller.gd" id="8_nmrrx"]
 [ext_resource type="PackedScene" uid="uid://cmxyi8gbl0g65" path="res://scenes/ui/terminal/start_day_screen_menu.tscn" id="9_6r2l0"]
 [ext_resource type="Script" path="res://scenes/ui/terminal/start_day_screen_menu.gd" id="10_6jmls"]
 [ext_resource type="PackedScene" uid="uid://d1e42rhpgeli4" path="res://scenes/ui/notification/notification.tscn" id="10_dc3fa"]
@@ -284,6 +285,7 @@ script = ExtResource("17_7iwjm")
 [node name="GoalsController" type="Node" parent="Game"]
 
 [node name="FoodWaterController" type="Node" parent="Game"]
+script = ExtResource("8_nmrrx")
 
 [node name="Player" parent="Game" groups=["player"] instance=ExtResource("2_intmt")]
 position = Vector2(15, -13)
@@ -300,41 +302,21 @@ script = ExtResource("3_3iibb")
 
 [node name="EnergyRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(-666, -228)
-color1 = null
-color2 = null
-color3 = null
-color4 = null
 room_type = 3
 
 [node name="WaterRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(-222, -483)
-color1 = null
-color2 = null
-color3 = null
-color4 = null
 
 [node name="FoodRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
 position = Vector2(197, -249)
-color1 = null
-color2 = null
-color3 = null
-color4 = null
 room_type = 1
 
 [node name="OxygenRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(75, 145)
-color1 = null
-color2 = null
-color3 = null
-color4 = null
+position = Vector2(73, 116)
 room_type = 4
 
 [node name="ComponentsRoom" parent="Game/RoomsController" instance=ExtResource("5_7rg5f")]
-position = Vector2(-468, 137)
-color1 = null
-color2 = null
-color3 = null
-color4 = null
+position = Vector2(-468, 120)
 room_type = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Game"]
